@@ -1,0 +1,7 @@
+# put in /etc/httpd/conf.d/reverse-proxy.conf
+
+<IfModule mod_proxy.c>
+        ProxyRequests Off
+        ProxyPass "/" "http://192.168.150.21/"
+        ProxyPassReverse "/" "https://192.168.150.21/"
+</IfModule>
