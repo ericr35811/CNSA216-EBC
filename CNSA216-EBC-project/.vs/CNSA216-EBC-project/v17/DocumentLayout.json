@@ -3,48 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|c:\\users\\eric reinhardt\\documents\\github\\cnsa216-ebc\\cnsa216-ebc-project\\cnsa216-ebc.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
-      "RelativeMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|solutionrelative:cnsa216-ebc.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|c:\\users\\eric reinhardt\\documents\\github\\cnsa216-ebc\\cnsa216-ebc-project\\frmprescription.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|solutionrelative:frmprescription.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|c:\\users\\eric reinhardt\\documents\\github\\cnsa216-ebc\\cnsa216-ebc-project\\frmwelcome.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|solutionrelative:frmwelcome.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|c:\\users\\eric reinhardt\\documents\\github\\cnsa216-ebc\\cnsa216-ebc-project\\frmsearch.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|solutionrelative:frmsearch.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|c:\\users\\eric reinhardt\\documents\\github\\cnsa216-ebc\\cnsa216-ebc-project\\frmrefill.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|solutionrelative:frmrefill.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|c:\\users\\eric reinhardt\\documents\\github\\cnsa216-ebc\\cnsa216-ebc-project\\frmphysician.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|solutionrelative:frmphysician.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|c:\\users\\eric reinhardt\\documents\\github\\cnsa216-ebc\\cnsa216-ebc-project\\frmpatient.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|solutionrelative:frmpatient.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|c:\\users\\eric reinhardt\\documents\\github\\cnsa216-ebc\\cnsa216-ebc-project\\webform1.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|solutionrelative:webform1.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|c:\\users\\eric reinhardt\\documents\\github\\cnsa216-ebc\\cnsa216-ebc-project\\js\\masterpageload.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|solutionrelative:js\\masterpageload.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|c:\\users\\eric reinhardt\\documents\\github\\cnsa216-ebc\\cnsa216-ebc-project\\mastertest.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "AbsoluteMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\mastertest.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|solutionrelative:mastertest.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\bootstrap\\startbootstrap-sb-admin-gh-pages\\css\\styles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:bootstrap\\startbootstrap-sb-admin-gh-pages\\css\\styles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\frmwelcome.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|solutionrelative:frmwelcome.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|c:\\users\\eric reinhardt\\documents\\github\\cnsa216-ebc\\cnsa216-ebc-project\\mastertest.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8092169-0D03-478B-8AB0-96A710AA3D69}|CNSA216-EBC-project.csproj|solutionrelative:mastertest.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -53,8 +21,8 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 198,
-          "SelectedChildIndex": 10,
+          "DockedWidth": 212,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -86,124 +54,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "frmPrescription.aspx",
-              "DocumentMoniker": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\frmPrescription.aspx",
-              "RelativeDocumentMoniker": "frmPrescription.aspx",
-              "ToolTip": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\frmPrescription.aspx",
-              "RelativeToolTip": "frmPrescription.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-03-05T16:39:56.631Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "frmRefill.aspx",
-              "DocumentMoniker": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\frmRefill.aspx",
-              "RelativeDocumentMoniker": "frmRefill.aspx",
-              "ToolTip": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\frmRefill.aspx",
-              "RelativeToolTip": "frmRefill.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-03-05T16:41:03.691Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "frmWelcome.aspx",
-              "DocumentMoniker": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\frmWelcome.aspx",
-              "RelativeDocumentMoniker": "frmWelcome.aspx",
-              "ToolTip": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\frmWelcome.aspx",
-              "RelativeToolTip": "frmWelcome.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-03-05T16:42:13.429Z",
+              "Title": "MasterTest.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\MasterTest.aspx.cs",
+              "RelativeDocumentMoniker": "MasterTest.aspx.cs",
+              "ToolTip": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\MasterTest.aspx.cs",
+              "RelativeToolTip": "MasterTest.aspx.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-05T20:48:22.164Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CNSA216-EBC.Master",
-              "DocumentMoniker": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\CNSA216-EBC.Master",
-              "RelativeDocumentMoniker": "CNSA216-EBC.Master",
-              "ToolTip": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\CNSA216-EBC.Master",
-              "RelativeToolTip": "CNSA216-EBC.Master",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-03-04T15:47:46.399Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "frmPhysician.aspx",
-              "DocumentMoniker": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\frmPhysician.aspx",
-              "RelativeDocumentMoniker": "frmPhysician.aspx",
-              "ToolTip": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\frmPhysician.aspx",
-              "RelativeToolTip": "frmPhysician.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-03-05T16:39:26.792Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "frmSearch.aspx",
-              "DocumentMoniker": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\frmSearch.aspx",
-              "RelativeDocumentMoniker": "frmSearch.aspx",
-              "ToolTip": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\frmSearch.aspx",
-              "RelativeToolTip": "frmSearch.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-03-05T17:01:21.828Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "frmPatient.aspx",
-              "DocumentMoniker": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\frmPatient.aspx",
-              "RelativeDocumentMoniker": "frmPatient.aspx",
-              "ToolTip": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\frmPatient.aspx",
-              "RelativeToolTip": "frmPatient.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-03-05T16:38:35.336Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "WebForm1.aspx",
-              "DocumentMoniker": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\WebForm1.aspx",
-              "RelativeDocumentMoniker": "WebForm1.aspx",
-              "ToolTip": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\WebForm1.aspx",
-              "RelativeToolTip": "WebForm1.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-03-05T17:04:31.113Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "MasterPageLoad.js",
-              "DocumentMoniker": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\js\\MasterPageLoad.js",
-              "RelativeDocumentMoniker": "js\\MasterPageLoad.js",
-              "ToolTip": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\js\\MasterPageLoad.js",
-              "RelativeToolTip": "js\\MasterPageLoad.js",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-03-05T16:59:38.152Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
               "Title": "MasterTest.aspx",
               "DocumentMoniker": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\MasterTest.aspx",
               "RelativeDocumentMoniker": "MasterTest.aspx",
@@ -216,15 +80,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "styles.css",
-              "DocumentMoniker": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\bootstrap\\startbootstrap-sb-admin-gh-pages\\css\\styles.css",
-              "RelativeDocumentMoniker": "bootstrap\\startbootstrap-sb-admin-gh-pages\\css\\styles.css",
-              "ToolTip": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\bootstrap\\startbootstrap-sb-admin-gh-pages\\css\\styles.css",
-              "RelativeToolTip": "bootstrap\\startbootstrap-sb-admin-gh-pages\\css\\styles.css",
-              "ViewState": "AQIAAPYGAAAAAAAAAAAAwC4HAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-03-04T21:11:11.137Z",
+              "DocumentIndex": 1,
+              "Title": "frmWelcome.aspx",
+              "DocumentMoniker": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\frmWelcome.aspx",
+              "RelativeDocumentMoniker": "frmWelcome.aspx",
+              "ToolTip": "C:\\Users\\Eric Reinhardt\\Documents\\GitHub\\CNSA216-EBC\\CNSA216-EBC-project\\frmWelcome.aspx",
+              "RelativeToolTip": "frmWelcome.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-03-05T16:42:13.429Z",
               "EditorCaption": ""
             }
           ]

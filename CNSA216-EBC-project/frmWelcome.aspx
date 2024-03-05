@@ -1,9 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CNSA216-EBC.Master" AutoEventWireup="true" CodeBehind="frmWelcome.aspx.cs" Inherits="CNSA216_EBC_project.WebForm7" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ASPContent" runat="server">
-    <div class="container-fluid">
+    <div class="container-fluid px-4 mt-4">
         <h1>Welcome to Louis' Pharmacy!</h1>
+        <hr />
         <p>Use the sidebar to navigate the site.</p>
+        <p>test</p>
     </div>
 </asp:Content>
 
