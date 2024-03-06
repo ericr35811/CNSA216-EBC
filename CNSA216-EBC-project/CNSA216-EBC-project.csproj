@@ -71,7 +71,6 @@
     <Content Include="css\styles.css" />
     <Content Include="images\banner2.png" />
     <Content Include="js\datatables-simple-demo.js" />
-    <Content Include="js\MasterPageLoad.js" />
     <Content Include="js\scripts.js" />
     <Content Include="Web.config" />
     <Content Include="WebForm1.aspx" />

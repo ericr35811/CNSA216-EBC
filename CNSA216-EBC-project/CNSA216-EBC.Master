@@ -4,7 +4,6 @@
 
 <html>
 <head runat="server">
-    <title>test</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 
@@ -56,6 +55,8 @@
         </div>
         <div id="layoutSidenav_content">
             <main>
+
+                <%-- Placeholder for form content --%>
                 <asp:ContentPlaceHolder ID="ASPContent" runat="server"></asp:ContentPlaceHolder>
 
             </main>
@@ -81,6 +82,7 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
     
+    <%-- Placeholder for scripts to run when the page loads --%>
     <asp:ContentPlaceHolder ID="Bottom" runat="server"></asp:ContentPlaceHolder>
     
     

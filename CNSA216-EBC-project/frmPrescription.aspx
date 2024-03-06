@@ -1,5 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CNSA216-EBC.Master" AutoEventWireup="true" CodeBehind="frmPrescription.aspx.cs" Inherits="CNSA216_EBC_project.WebForm5" %>
 
+<asp:Content ID="Content3" ContentPlaceHolderID="head" runat="server">
+    <title>Prescriptions - Louis' Pharmacy</title>
+</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ASPContent" runat="server">
 </asp:Content>
 
