@@ -14,8 +14,7 @@
                  </div>
      
                  <div class="card-body">
-                     <asp:GridView ID="GridView1" CssClass="table " runat="server"  AutoGenerateColumns="True" BorderStyle="Solid" BorderWidth="1px">
-                     
+                     <asp:GridView ID="GridView1" CssClass="table datatable-table " runat="server" AutoGenerateColumns="True">
                      </asp:GridView>
                  </div>
              </div>
@@ -26,8 +25,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="Bottom" runat="server">
     <script>
-        
-
         function RefreshDataTable() {
             //// Change the <table> created by ASP so that it gets styled correctly
             // Get the table element
@@ -56,7 +53,7 @@
         //// Change the color of the selected link
         document.getElementById("lnkWelcome").style.color = "rgba(255,255,255,1.0)";
 
-        RefreshDataTable();
+        //RefreshDataTable();
     </script>
 
 
