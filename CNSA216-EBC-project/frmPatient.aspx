@@ -1,13 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CNSA216-EBC.Master" AutoEventWireup="true" CodeBehind="frmPatient.aspx.cs" Inherits="CNSA216_EBC_project.WebForm3" %>
-<html>
 <asp:Content ID="Content3" ContentPlaceHolderID="head" runat="server">
     <title>Patients - Louis' Pharmacy</title>
     <body>
-</asp:Content>
-
-<asp:Content ID="Content2" ContentPlaceHolderID="ASPContent" runat="server">
-
-</asp:Content>
 <asp:Label ID="lblfname" Text="First name:" runat="server"></asp:Label>
 <asp:Textbox ID="txtfname" runat="server"></asp:Textbox>
 <br />
@@ -32,6 +26,13 @@
 <asp:Textbox ID="txtprescription" runat="server"></asp:Textbox>
 <br/>
 <br/>
+</body>
+</asp:Content>
+
+</asp:Content>
+
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ASPContent" runat="server">
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Bottom" runat="server">
     <script>
@@ -39,5 +40,3 @@
         document.getElementById("lnkPatient").style.color = "rgba(255,255,255,1.0)";
     </script>
 </asp:Content>
-</body>
-</html>
