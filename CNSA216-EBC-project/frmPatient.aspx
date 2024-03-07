@@ -2,14 +2,11 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="head" runat="server">
     <title>Patients - Louis' Pharmacy</title>
     <body>
+<form>
 <asp:Label ID="lblfname" Text="First name:" runat="server"></asp:Label>
 <asp:Textbox ID="txtfname" runat="server"></asp:Textbox>
-<br />
-<br />
 <asp:Label ID="lblLname" Text="Last name:" runat="server"></asp:Label>
 <asp:Textbox ID="txtLname" runat="server"></asp:Textbox>
-<br />
-<br />
 <asp:Label ID="lblMidinit" Text="Middle Initial" runat="server"></asp:Label>
 <asp:Textbox ID="txtMidinit" runat="server"></asp:Textbox>
 <br/>
@@ -26,6 +23,7 @@
 <asp:Textbox ID="txtprescription" runat="server"></asp:Textbox>
 <br/>
 <br/>
+</form>
 </body>
 </asp:Content>
 
