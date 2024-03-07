@@ -1,3 +1,12 @@
-﻿select, input[type='text'] {
+﻿/* make height of controls the same */
+select, input[type='text'] {
     height: 2em;
+}
+
+/* div to help organize forms */
+.formdiv > div {
+    /*border: 1px solid black;*/
+    display: inline-block;
+    padding-right: 1em;
+    padding-bottom: 1em;
 }
