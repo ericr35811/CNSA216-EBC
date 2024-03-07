@@ -44,12 +44,12 @@
 
             <div>
                 <small>Medication Instructions</small> <br />
-                <asp:TextBox ID="txtInstructions" runat="server" TextMode="MultiLine" ReadOnly="True" Height="6em" Width="15em"></asp:TextBox>
+                <asp:TextBox ID="txtInstructions" runat="server" TextMode="MultiLine" ReadOnly="True" ></asp:TextBox>
              </div>
 
             <div>
                 <small>Extra Instructions</small> <br />
-                <asp:TextBox ID="txtExtraInstructions" runat="server" TextMode="MultiLine" Height="6em" Width="15em"></asp:TextBox>
+                <asp:TextBox ID="txtExtraInstructions" runat="server" TextMode="MultiLine"></asp:TextBox>
             </div>
         
             <br />
@@ -84,5 +84,11 @@
     <script>
         // Change the color of the selected link
         document.getElementById("lnkPrescription").style.color = "rgba(255,255,255,1.0)";
+
+        document.getElementById("ASPContent_txtInstructions").style.height = "6em";
+        document.getElementById("ASPContent_txtInstructions").style.width = "15em";
+
+        document.getElementById("ASPContent_txtExtraInstructions").style.height = "6em";
+        document.getElementById("ASPContent_txtExtraInstructions").style.width = "15em";
     </script>
 </asp:Content>
