@@ -68,6 +68,14 @@
                 <small>Date & Time of Entry</small> <br />
                  <asp:TextBox ID="txtEnteredDateTime" runat="server" ReadOnly="True"></asp:TextBox>
             </div>
+            
+        </div>
+        <div style="padding-top: 1em">
+            <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="btn btn-primary" />&nbsp;&nbsp;
+
+            <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="btn btn-primary" />&nbsp;&nbsp;
+            
+            <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="btn btn-primary" />
         </div>
     </form>
 </asp:Content>
