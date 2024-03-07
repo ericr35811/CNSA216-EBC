@@ -5,12 +5,10 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ASPContent" runat="server">
-    <div class="container-fluid px-4 mt-4">
-        <h1>Welcome to Louis' Pharmacy!</h1>
-        <hr />
-        <p>Use the sidebar to navigate the site.</p>
-        <p>test</p>
-    </div>
+    <h1>Welcome to Louis' Pharmacy!</h1>
+    <hr />
+    <p>Use the sidebar to navigate the site.</p>
+    <p>test</p>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Bottom" runat="server">
