@@ -10,7 +10,7 @@
         <div class="formdiv">
             <div>
                 <small>Prescription ID</small> <br />
-                <asp:TextBox ID="txtPrescriptionID" runat="server" ReadOnly="True" Width="6em"></asp:TextBox>
+                <asp:TextBox ID="txtPrescriptionID" runat="server" ReadOnly="True" Width="6em" disabled="true"></asp:TextBox>
              </div>
 
             <div>
@@ -37,14 +37,14 @@
 
              <div>
                 <small>Intake Method</small> <br />
-                <asp:TextBox ID="txtIntakeMethod" runat="server" ReadOnly="True"></asp:TextBox>
+                <asp:TextBox ID="txtIntakeMethod" runat="server" ReadOnly="True" disabled="true"></asp:TextBox>
             </div>
 
             <br />
 
             <div>
                 <small>Medication Instructions</small> <br />
-                <asp:TextBox ID="txtInstructions" runat="server" TextMode="MultiLine" ReadOnly="True" ></asp:TextBox>
+                <asp:TextBox ID="txtInstructions" runat="server" TextMode="MultiLine" ReadOnly="True" disabled="true" ></asp:TextBox>
              </div>
 
             <div>
@@ -66,7 +66,7 @@
 
              <div>
                 <small>Date & Time of Entry</small> <br />
-                 <asp:TextBox ID="txtEnteredDateTime" runat="server" ReadOnly="True"></asp:TextBox>
+                 <asp:TextBox ID="txtEnteredDateTime" runat="server" ReadOnly="True" disabled="true"></asp:TextBox>
             </div>
             
         </div>

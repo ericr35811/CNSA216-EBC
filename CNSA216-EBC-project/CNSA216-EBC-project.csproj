@@ -73,7 +73,6 @@
     <Content Include="js\datatables-simple-demo.js" />
     <Content Include="js\scripts.js" />
     <Content Include="Web.config" />
-    <Content Include="WebForm1.aspx" />
     <Content Include="MasterTest.aspx" />
     <Content Include="frmPatient.aspx" />
     <Content Include="frmPhysician.aspx" />
@@ -91,13 +90,6 @@
       <DependentUpon>CNSA216-EBC.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
     <Compile Include="MasterTest.aspx.cs">
       <DependentUpon>MasterTest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
