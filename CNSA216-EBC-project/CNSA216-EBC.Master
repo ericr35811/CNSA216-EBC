@@ -28,11 +28,12 @@
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background-image: url(images/banner2.png); background-size: 100%">
     <%--<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">--%>
-        <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="frmWelcome.aspx">Louis' Pharmacy</a>
         <!-- Sidebar Toggle-->
-        <button class="btn btn-link order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!" style="color: rgba(255, 255, 255, 1.0)"><i class="fas fa-bars"></i></button>
-        
+        <button class="btn btn-link order-0 mx-1" id="sidebarToggle" href="#!" style="color: rgba(255, 255, 255, 1.0)"><i class="fas fa-bars"></i></button>
+       
+        <!-- Navbar Brand-->
+        <a class="navbar-brand" href="frmWelcome.aspx">Louis' Pharmacy</a>
+         
     </nav>
 
     <div id="layoutSidenav">
@@ -46,6 +47,7 @@
                         <a class="nav-link" id="lnkPhysician" href="frmPhysician.aspx">Physicians</a>
                         <a class="nav-link" id="lnkPrescription" href="frmPrescription.aspx">Prescriptions</a>
                         <a class="nav-link" id="lnkRefill" href="frmRefill.aspx">Refills</a>
+                        <a class="nav-link" id="lnkAbout" href="frmAbout.aspx">About</a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">

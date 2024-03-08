@@ -33,7 +33,7 @@
 
         <p>
             <asp:DropDownList ID="ddlParameter1" runat="server"></asp:DropDownList>&nbsp;
-                    <asp:TextBox ID="txtParameter1" runat="server" ReadOnly="True"></asp:TextBox>
+                    <asp:TextBox ID="txtParameter1" runat="server"></asp:TextBox>
         </p>
         <p>
             <asp:DropDownList ID="ddlParameter2" runat="server"></asp:DropDownList>&nbsp;
