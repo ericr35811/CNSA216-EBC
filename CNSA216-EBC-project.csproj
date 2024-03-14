@@ -89,6 +89,11 @@
     <Compile Include="CNSA216-EBC.Master.designer.cs">
       <DependentUpon>CNSA216-EBC.Master</DependentUpon>
     </Compile>
+    <Compile Include="GeneralDataTier.cs" />
+    <Compile Include="MedicineDataTier.cs" />
+    <Compile Include="PatientDataTier.cs" />
+    <Compile Include="PhysicianDataTier.cs" />
+    <Compile Include="PrescriptionDataTier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MasterTest.aspx.cs">
       <DependentUpon>MasterTest.aspx</DependentUpon>
@@ -139,6 +144,8 @@
     <Compile Include="frmSearch.aspx.designer.cs">
       <DependentUpon>frmSearch.aspx</DependentUpon>
     </Compile>
+    <Compile Include="RefillDataTier.cs" />
+    <Compile Include="RefillHistoryDataTier.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CNSA216-EBC.Master" />
