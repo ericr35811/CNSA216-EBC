@@ -13,13 +13,13 @@ using System.Xml.Linq;
 
 namespace _2024_CNSA212_Final_Group2
 {
-    internal class PhysicianDataTier
+    internal static class PhysicianDataTier
     {
             static string connString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
             static SqlConnection myConn = new SqlConnection(connString);
             static SqlCommand cmdString = new SqlCommand();
 
-            public DataSet GetPhysicianByID(int physicianID)
+            public static DataSet GetPhysicianByID(int physicianID)
             {
                 try
                 {
@@ -53,7 +53,7 @@ namespace _2024_CNSA212_Final_Group2
             }
 
 
-            public void UpdatePhysicianInfo(string physicianID, string FirstName, string Middle, string LastName, string Street, string City, string State, string Zip, string Phone1, string Gender, string Email)
+            public static void UpdatePhysicianInfo(string physicianID, string FirstName, string Middle, string LastName, string Street, string City, string State, string Zip, string Phone1, string Gender, string Email)
             {
             try
             {
@@ -99,7 +99,7 @@ namespace _2024_CNSA212_Final_Group2
             }
 
 
-        public void AddPhysician(
+        public static void AddPhysician(
             
             string firstName,
             string middle,
@@ -142,7 +142,7 @@ namespace _2024_CNSA212_Final_Group2
 
 
 
-        public void DeletePhysician(string physicianID)
+        public static void DeletePhysician(string physicianID)
         {
 
             try
@@ -171,7 +171,7 @@ namespace _2024_CNSA212_Final_Group2
             }
         }
 
-        public void ActivatePhysician(string physicianID)
+        public static void ActivatePhysician(string physicianID)
         {
 
             try

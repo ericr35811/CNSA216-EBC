@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace _2024_CNSA212_Final_Group2
 {
-    internal class RefillDataTier
+    internal static class RefillDataTier
     {
         static string connString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
         static SqlConnection myConn = new SqlConnection(connString);
         static SqlCommand cmdString = new SqlCommand();
 
-        public DataSet GetRefillByID(int RefillID)
+        public static DataSet GetRefillByID(int RefillID)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace _2024_CNSA212_Final_Group2
         }
 
         //not working
-        public void UpdateRefillInfo(string refillID, string prescriptionID, string quantity, string numberOfRefills, DateTime startDate, DateTime endDate)
+        public static void UpdateRefillInfo(string refillID, string prescriptionID, string quantity, string numberOfRefills, DateTime startDate, DateTime endDate)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace _2024_CNSA212_Final_Group2
 
         }
 
-        public int AddRefill(int prescriptionID, string quantity, string numberOfRefills, DateTime startDate, DateTime endDate)
+        public static int AddRefill(int prescriptionID, string quantity, string numberOfRefills, DateTime startDate, DateTime endDate)
         {
             try
             {
@@ -120,7 +120,7 @@ namespace _2024_CNSA212_Final_Group2
             }
         }
 
-        public void DeleteRefill(int refillID) {
+        public static void DeleteRefill(int refillID) {
             try {
                 myConn.Open();
 
@@ -142,7 +142,7 @@ namespace _2024_CNSA212_Final_Group2
             }
         }
 
-        public void ActivateRefill(int refillID) {
+        public static void ActivateRefill(int refillID) {
             try {
                 myConn.Open();
 
@@ -164,7 +164,7 @@ namespace _2024_CNSA212_Final_Group2
             }
         }
 
-        public int Fill(int refillID, int clerkID) {
+        public static int Fill(int refillID, int clerkID) {
             try {
                 myConn.Open();
 

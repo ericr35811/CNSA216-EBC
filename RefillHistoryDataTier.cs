@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace _2024_CNSA212_Final_Group2
 {
-    internal class RefillHistoryDataTier
+    internal static class RefillHistoryDataTier
     {
         static string connString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
         static SqlConnection myConn = new SqlConnection(connString);
         static SqlCommand cmdString = new SqlCommand();
 
-        public DataSet GetRefillInfo(int patientID)
+        public static DataSet GetRefillInfo(int patientID)
         {
             try
             {

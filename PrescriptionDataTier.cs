@@ -11,14 +11,14 @@ using System.Runtime.InteropServices.ComTypes;
 
 namespace _2024_CNSA212_Final_Group2
 {
-    internal class PrescriptionDataTier
+    internal static class PrescriptionDataTier
     {
 
         static string connString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
         static SqlConnection myConn = new SqlConnection(connString);
         static SqlCommand cmdString = new SqlCommand();
 
-        public DataSet GetPrescriptionByID(int prescriptionID)
+        public static DataSet GetPrescriptionByID(int prescriptionID)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace _2024_CNSA212_Final_Group2
             }
         }
 
-        public void UpdatePrescriptionInfo(string prescriptionID, string dosageID, string patientID, string physicianID, DateTime StartDate, DateTime EndDate,/* DateTime EnteredDateTime,*/ string ExtraInstructions)
+        public static void UpdatePrescriptionInfo(string prescriptionID, string dosageID, string patientID, string physicianID, DateTime StartDate, DateTime EndDate,/* DateTime EnteredDateTime,*/ string ExtraInstructions)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace _2024_CNSA212_Final_Group2
         }
 
 
-        public void AddPrescription(int patientID, int dosageID, int physicianID, DateTime startDate, DateTime endDate, string extraInstructions) {
+        public static void AddPrescription(int patientID, int dosageID, int physicianID, DateTime startDate, DateTime endDate, string extraInstructions) {
             try {
 
                 myConn.Open();
@@ -128,7 +128,7 @@ namespace _2024_CNSA212_Final_Group2
         }
 
 
-        public void DeletePrescription(string prescriptionID)
+        public static void DeletePrescription(string prescriptionID)
         {
 
             try
@@ -157,7 +157,7 @@ namespace _2024_CNSA212_Final_Group2
             }
         }
 
-        public void ActivatePrescription(string prescriptionID)
+        public static void ActivatePrescription(string prescriptionID)
         {
 
             try
@@ -189,7 +189,7 @@ namespace _2024_CNSA212_Final_Group2
 
 
 
-        public DataSet GetLatestPrescription()
+        public static DataSet GetLatestPrescription()
         {
             try
             {

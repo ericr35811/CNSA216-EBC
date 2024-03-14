@@ -10,12 +10,12 @@ using System.Configuration;
 using System.Xml.Linq;
 
 namespace _2024_CNSA212_Final_Group2 {
-    internal class PatientDataTier {
+    internal static class PatientDataTier {
         static string connString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
         static SqlConnection myConn = new SqlConnection(connString);
         static SqlCommand cmdString = new SqlCommand();
 
-        public DataSet GetPatientByID(int patientID) {
+        public static DataSet GetPatientByID(int patientID) {
             try {
                 myConn.Open();
 
@@ -42,7 +42,7 @@ namespace _2024_CNSA212_Final_Group2 {
             }
         }
         /*************ADD TRY CATCHES*********/
-        public void UpdatePatientByID(
+        public static void UpdatePatientByID(
             int patientID,
             int insuranceID,
             string firstName,
@@ -85,7 +85,7 @@ namespace _2024_CNSA212_Final_Group2 {
         }
 
         /*************ADD TRY CATCHES*********/
-        public void AddPatient(
+        public static void AddPatient(
             int insuranceID,
             string firstName,
             string middle,
@@ -127,7 +127,7 @@ namespace _2024_CNSA212_Final_Group2 {
 
         }
 
-        public void DeletePatient(int patientID) {
+        public static void DeletePatient(int patientID) {
             try {
                 myConn.Open();
 
@@ -150,7 +150,7 @@ namespace _2024_CNSA212_Final_Group2 {
         
         
         }
-        public void DeletePatientUndo(int patientID) {
+        public static void DeletePatientUndo(int patientID) {
             try {
                 myConn.Open();
 
