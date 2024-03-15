@@ -67,6 +67,24 @@ namespace CNSA216_EBC_project {
         protected global::System.Web.UI.WebControls.TextBox txtParameter1;
 
         /// <summary>
+        /// cmpParameter01 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmpParameter01;
+
+        /// <summary>
+        /// rngParameter01 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rngParameter01;
+
+        /// <summary>
         /// ddlParameter2 control.
         /// </summary>
         /// <remarks>

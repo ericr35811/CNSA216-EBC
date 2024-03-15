@@ -13,10 +13,8 @@ namespace _2024_CNSA212_Final_Group2 {
         static SqlConnection myConn = new SqlConnection(connString);
         static SqlCommand cmdString = new SqlCommand();
 
-        public static string[] GetSearchableColumns(string tableName) {
+        public static DataSet GetSearchableColumns(string tableName) {
             try {
-                string columns;
-                string[] columnList;
 
                 myConn.Open();
 
@@ -33,11 +31,7 @@ namespace _2024_CNSA212_Final_Group2 {
 
                 adapter.Fill(dataset);
 
-                columns = dataset.Tables[0].Rows[0]["ColumnList"].ToString();
-
-                columnList = columns.Split(',');
-
-                return columnList;
+                return dataset;
 
             }
             catch (Exception ex) {

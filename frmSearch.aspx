@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CNSA216-EBC.Master" AutoEventWireup="true" CodeBehind="frmSearch.aspx.cs" Inherits="CNSA216_EBC_project.WebForm8" %>
+<%@ Import Namespace="CNSA216_EBC_project" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Search - Louis' Pharmacy</title>
@@ -32,8 +33,10 @@
         <asp:GridView ID="dgvResult" runat="server" CssClass="table datatable-table "></asp:GridView>
 
         <p>
-            <asp:DropDownList ID="ddlParameter1" runat="server"></asp:DropDownList>&nbsp;
-                    <asp:TextBox ID="txtParameter1" runat="server"></asp:TextBox>
+            <asp:DropDownList ID="ddlParameter1" runat="server" OnSelectedIndexChanged="ddlParameter1_SelectedIndexChanged" CausesValidation="True"></asp:DropDownList>&nbsp;
+            <asp:TextBox ID="txtParameter1" runat="server" CausesValidation="True"></asp:TextBox>&nbsp;
+            <asp:CompareValidator ID="cmpParameter01" runat="server" ErrorMessage="CompareValidator" ControlToValidate="txtParameter1" SetFocusOnError="True" Operator="DataTypeCheck" Enabled="False"></asp:CompareValidator>
+            <asp:RangeValidator ID="rngParameter01" runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtParameter1" Enabled="False" SetFocusOnError="True"></asp:RangeValidator>
         </p>
         <p>
             <asp:DropDownList ID="ddlParameter2" runat="server"></asp:DropDownList>&nbsp;
