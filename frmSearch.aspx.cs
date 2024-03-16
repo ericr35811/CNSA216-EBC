@@ -144,5 +144,15 @@ namespace CNSA216_EBC_project {
             SetValidator(cmpParameter02, rngParameter02, rgxParameter02, ddlParameter2.SelectedValue);
             Page.Validate();
         }
+
+        protected void btnSearch_Click(object sender, EventArgs e) {
+            DataSet dsResult;
+
+            dsResult = GeneralDataTier.SearchTableGetInfo(ddlSearchFor.SelectedValue, ddlParameter1.SelectedValue, txtParameter1.Text, 'O', ddlParameter2.SelectedValue, txtParameter2.Text);
+
+            if (dsResult != null) {
+                dgvResult.DataSource = dsResult;
+            }
+        }
     }
 }

@@ -47,7 +47,8 @@
             <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxParameter02" ControlToValidate="txtParameter2" Display="Dynamic"></asp:RegularExpressionValidator>
         </p>
         <p>
-            <input id="btnSearch" type="submit" value="Search" class="btn btn-primary" />
+            <%--<input id="btnSearch1" type="submit" value="Search" class="btn btn-primary" />--%>
+            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="btnSearch_Click" />
         </p>
     </form>
 
