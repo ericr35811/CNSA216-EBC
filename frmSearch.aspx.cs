@@ -33,24 +33,6 @@ namespace CNSA216_EBC_project {
             dsColumnList = GeneralDataTier.GetSearchableColumns(searchTable);
             dtColumns = dsColumnList.Tables[0];
 
-            //// Create a list of the column names and a list of their types so they can be validated
-            //i = 0;
-            //foreach (DataColumn col in dsColumnList.Tables[0].Columns) {
-            //    columnNamesTemp[i] = col.ColumnName.ToString();
-            //    columnTypesTemp[i] = col.DataType;
-            //    ++i;
-            //}
-            //
-            //// resize the array to remove nulls at the end
-            //columnNames = new string[i];
-            //Array.Copy(columnNamesTemp, columnNames, i);
-
-            //columnTypes = new Type[i];
-            //Array.Copy(columnTypesTemp, columnTypes, i);
-
-            //columnNames = (string[]) Custom.RemoveNulls(columnNames);
-            //columnTypes = (Type[]) Custom.RemoveNulls(columnTypes);
-
             // Populate
             ddlParameter1.DataSource = dtColumns;
             ddlParameter1.DataTextField = "ColName";
@@ -68,48 +50,67 @@ namespace CNSA216_EBC_project {
         }
 
         // Set up the validators based on the type of the selected parameter
-        private void SetValidator(CompareValidator cmp, RangeValidator rng, string colName) {
-            // columnTypes[i] = the datatype of the column at index i
+        private void SetValidator(CompareValidator cmp, RangeValidator rng, RegularExpressionValidator rgx, string colName) {
+            // get the datatype and max length of the selected column
+            string dataType = dtColumns.Select($"ColName = '{colName}'")[0]["SqlDbType"].ToString();
+            string maxLength = dtColumns.Select($"ColName = '{colName}'")[0]["MaxLength"].ToString();
+
             lblTest.Text += " " + colName;
 
-            return;
+            cmp.Enabled = true;
+            switch (dataType) {
+                case "varchar":
+                case "char":
+                    // check datatype
+                    cmp.Type = ValidationDataType.String;
+                    cmp.ErrorMessage = "Must be a string";
+                    
+                    rng.Enabled = false;
+                    
+                    // check length
+                    rgx.ValidationExpression = $"^[\\s\\S]{{0,{maxLength}}}$";
+                    rgx.ErrorMessage = $"Must be {maxLength} characters or less";
+                    rgx.Enabled = true;
+                    break;
+                case "smallint":
+                    cmp.Type = ValidationDataType.Integer;
+                    cmp.ErrorMessage = "Must be a number";
 
-            //cmp.Enabled = true;
-            //switch (columnTypes[i].ToString()) {
-            //    case "System.String":
-            //        cmp.Type = ValidationDataType.String;
-            //        cmp.ErrorMessage = "Must be a string";
-            //        rng.Enabled = false;
-            //        break;
-            //    case "System.Int16":
-            //        cmp.Type = ValidationDataType.Integer;
-            //        cmp.ErrorMessage = "Must be a number";
-            //        rng.Type = ValidationDataType.Integer;
-            //        rng.ErrorMessage = $" between {Int16.MinValue} and {Int16.MaxValue}";
-            //        rng.MinimumValue = Int16.MinValue.ToString();
-            //        rng.MaximumValue = Int16.MaxValue.ToString();
-            //        rng.Enabled = true;
-            //        break;
-            //    case "System.Int32":
-            //        cmp.Type = ValidationDataType.Integer;
-            //        cmp.ErrorMessage = "Must be a number";
-            //        rng.Type = ValidationDataType.Integer;
-            //        rng.ErrorMessage = $" between {Int32.MinValue} and {Int32.MaxValue}";
-            //        rng.MinimumValue = Int32.MinValue.ToString();
-            //        rng.MaximumValue = Int32.MaxValue.ToString();
-            //        rng.Enabled = true;
-            //        break;
-            //    case "System.DateTime":
-            //        cmp.Type = ValidationDataType.Date;
-            //        cmp.ErrorMessage = "Must be a date";
-            //        rng.Type = ValidationDataType.Date;
-            //        rng.ErrorMessage = $" between {DateTime.MinValue} and {DateTime.MaxValue}";
-            //        rng.MinimumValue = DateTime.MinValue.ToShortDateString();
-            //        rng.MaximumValue = DateTime.MaxValue.ToShortDateString();
-            //        rng.Enabled = true;
-            //        break;
+                    // check range
+                    rng.Type = ValidationDataType.Integer;
+                    rng.ErrorMessage = $" between {Int16.MinValue} and {Int16.MaxValue}";
+                    rng.MinimumValue = Int16.MinValue.ToString();
+                    rng.MaximumValue = Int16.MaxValue.ToString();
+                    rng.Enabled = true;
 
-            //}
+                    rgx.Enabled = false;
+                    break;
+                case "int":
+                    cmp.Type = ValidationDataType.Integer;
+                    cmp.ErrorMessage = "Must be a number";
+
+                    rng.Type = ValidationDataType.Integer;
+                    rng.ErrorMessage = $" between {Int32.MinValue} and {Int32.MaxValue}";
+                    rng.MinimumValue = Int32.MinValue.ToString();
+                    rng.MaximumValue = Int32.MaxValue.ToString();
+                    rng.Enabled = true;
+
+                    rgx.Enabled = false;
+                    break;
+                case "date":
+                    cmp.Type = ValidationDataType.Date;
+                    cmp.ErrorMessage = "Must be a date";
+
+                    rng.Type = ValidationDataType.Date;
+                    rng.ErrorMessage = $" between {DateTime.MinValue} and {DateTime.MaxValue}";
+                    rng.MinimumValue = DateTime.MinValue.ToShortDateString();
+                    rng.MaximumValue = DateTime.MaxValue.ToShortDateString();
+                    rng.Enabled = true;
+
+                    rgx.Enabled = false;
+                    break;
+
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e) {
@@ -122,8 +123,8 @@ namespace CNSA216_EBC_project {
                 // Populate if the page is loading for the first time (not postback)
                 PopulateParameters();
 
-                SetValidator(cmpParameter01, rngParameter01, ddlParameter1.SelectedValue);
-                //SetValidator(cmpParameter02, rngParameter02, ddlParameter2.SelectedIndex);
+                SetValidator(cmpParameter01, rngParameter01, rgxParameter01, ddlParameter1.SelectedValue);
+                SetValidator(cmpParameter02, rngParameter02, rgxParameter02, ddlParameter2.SelectedValue);
             }
 
 
@@ -135,7 +136,13 @@ namespace CNSA216_EBC_project {
         }
 
         protected void ddlParameter1_SelectedIndexChanged(object sender, EventArgs e) {
-            SetValidator(cmpParameter01, rngParameter01, ddlParameter1.SelectedValue);
+            SetValidator(cmpParameter01, rngParameter01, rgxParameter01, ddlParameter1.SelectedValue);
+            Page.Validate();
+        }
+
+        protected void ddlParameter2_SelectedIndexChanged(object sender, EventArgs e) {
+            SetValidator(cmpParameter02, rngParameter02, rgxParameter02, ddlParameter2.SelectedValue);
+            Page.Validate();
         }
     }
 }

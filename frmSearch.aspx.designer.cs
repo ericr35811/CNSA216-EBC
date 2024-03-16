@@ -85,6 +85,15 @@ namespace CNSA216_EBC_project {
         protected global::System.Web.UI.WebControls.RangeValidator rngParameter01;
 
         /// <summary>
+        /// rgxParameter01 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rgxParameter01;
+
+        /// <summary>
         /// ddlParameter2 control.
         /// </summary>
         /// <remarks>
@@ -101,5 +110,32 @@ namespace CNSA216_EBC_project {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtParameter2;
+
+        /// <summary>
+        /// cmpParameter02 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmpParameter02;
+
+        /// <summary>
+        /// rngParameter02 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rngParameter02;
+
+        /// <summary>
+        /// rgxParameter02 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rgxParameter02;
     }
 }

@@ -33,14 +33,18 @@
         <asp:GridView ID="dgvResult" runat="server" CssClass="table datatable-table "></asp:GridView>
 
         <p>
-            <asp:DropDownList ID="ddlParameter1" runat="server" OnSelectedIndexChanged="ddlParameter1_SelectedIndexChanged" CausesValidation="True"></asp:DropDownList>&nbsp;
+            <asp:DropDownList ID="ddlParameter1" runat="server" onchange="javascript:clearTextBox('txtParameter1')" OnSelectedIndexChanged="ddlParameter1_SelectedIndexChanged" CausesValidation="True" AutoPostBack="True"></asp:DropDownList>&nbsp;
             <asp:TextBox ID="txtParameter1" runat="server" CausesValidation="True"></asp:TextBox>&nbsp;
-            <asp:CompareValidator ID="cmpParameter01" runat="server" ErrorMessage="CompareValidator" ControlToValidate="txtParameter1" SetFocusOnError="True" Operator="DataTypeCheck" Enabled="False"></asp:CompareValidator>
-            <asp:RangeValidator ID="rngParameter01" runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtParameter1" Enabled="False" SetFocusOnError="True"></asp:RangeValidator>
+            <asp:CompareValidator ID="cmpParameter01" runat="server" ErrorMessage="CompareValidator" ControlToValidate="txtParameter1" Operator="DataTypeCheck" Enabled="False" Display="Dynamic"></asp:CompareValidator>
+            <asp:RangeValidator ID="rngParameter01" runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtParameter1" Enabled="False" Display="Dynamic"></asp:RangeValidator>
+            <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxParameter01" ControlToValidate="txtParameter1" Display="Dynamic"></asp:RegularExpressionValidator>
         </p>
         <p>
-            <asp:DropDownList ID="ddlParameter2" runat="server"></asp:DropDownList>&nbsp;
-                    <asp:TextBox ID="txtParameter2" runat="server"></asp:TextBox>
+            <asp:DropDownList ID="ddlParameter2" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlParameter2_SelectedIndexChanged"></asp:DropDownList>&nbsp;
+            <asp:TextBox ID="txtParameter2" runat="server"></asp:TextBox>
+            <asp:CompareValidator ID="cmpParameter02" runat="server" ErrorMessage="CompareValidator" ControlToValidate="txtParameter2" Operator="DataTypeCheck" Enabled="False" Display="Dynamic"></asp:CompareValidator>
+            <asp:RangeValidator ID="rngParameter02" runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtParameter2" Enabled="False" Display="Dynamic"></asp:RangeValidator>
+            <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxParameter02" ControlToValidate="txtParameter2" Display="Dynamic"></asp:RegularExpressionValidator>
         </p>
         <p>
             <input id="btnSearch" type="submit" value="Search" class="btn btn-primary" />
@@ -53,5 +57,13 @@
     <script>
         // Change the color of the selected link
         document.getElementById("lnkSearch").style.color = "rgba(255,255,255,1.0)";
+    </script>
+
+    <script>
+        //clear the text box when parameter changed
+        function clearTextBox(textBoxName) {
+            textBox = document.getElementById("ASPContent_" + textBoxName);
+            textBox.value = "";
+        }
     </script>
 </asp:Content>
