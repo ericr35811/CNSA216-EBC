@@ -13,16 +13,11 @@ namespace CNSA216_EBC_project {
         private string searchTable = "NONE";
         private bool parametersPopulating = false;
 
-        private static string[] columnNames = new string[20];
-        private static Type[] columnTypes = new Type[20];
         private static DataTable dtColumns;
 
         // Populate the values which the user can search for
         private void PopulateParameters() {
             DataSet dsColumnList;
-            int i;
-            string[] columnNamesTemp = new string[25];
-            Type[] columnTypesTemp = new Type[25];
 
             parametersPopulating = true;
 
@@ -55,7 +50,7 @@ namespace CNSA216_EBC_project {
             string dataType = dtColumns.Select($"ColName = '{colName}'")[0]["SqlDbType"].ToString();
             string maxLength = dtColumns.Select($"ColName = '{colName}'")[0]["MaxLength"].ToString();
 
-            lblTest.Text += " " + colName;
+            //lblTest.Text += " " + colName;
 
             cmp.Enabled = true;
             switch (dataType) {
@@ -115,10 +110,10 @@ namespace CNSA216_EBC_project {
 
         protected void Page_Load(object sender, EventArgs e) {
             if (IsPostBack) {
-                lblTest.Text = "postback";
+                //lblTest.Text = "postback";
             }
             else {
-                lblTest.Text = "not postback";
+                //lblTest.Text = "not postback";
 
                 // Populate if the page is loading for the first time (not postback)
                 PopulateParameters();
@@ -148,7 +143,7 @@ namespace CNSA216_EBC_project {
         protected void btnSearch_Click(object sender, EventArgs e) {
             DataSet dsResult;
 
-            dsResult = GeneralDataTier.SearchTableGetInfo(ddlSearchFor.SelectedValue, ddlParameter1.SelectedValue, txtParameter1.Text, 'O', ddlParameter2.SelectedValue, txtParameter2.Text);
+            dsResult = GeneralDataTier.SearchTableGetInfo(ddlSearchFor.SelectedValue, ddlParameter1.SelectedValue, txtParameter1.Text, rdoAndOr.SelectedValue, ddlParameter2.SelectedValue, txtParameter2.Text);
 
             if (dsResult != null) {
                 dgvResult.DataSource = dsResult;

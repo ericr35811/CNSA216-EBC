@@ -40,8 +40,14 @@
             <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxParameter01" ControlToValidate="txtParameter1" Display="Dynamic"></asp:RegularExpressionValidator>
         </p>
         <p>
-            <asp:DropDownList ID="ddlParameter2" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlParameter2_SelectedIndexChanged"></asp:DropDownList>&nbsp;
-            <asp:TextBox ID="txtParameter2" runat="server"></asp:TextBox>
+            <asp:RadioButtonList ID="rdoAndOr" runat="server" RepeatDirection="Horizontal">
+                <asp:ListItem Value="A" Selected="True">&nbsp;AND&nbsp;&nbsp;&nbsp;</asp:ListItem>
+                <asp:ListItem Value="O">&nbsp;OR&nbsp;</asp:ListItem>
+            </asp:RadioButtonList>
+        </p>
+        <p>
+            <asp:DropDownList ID="ddlParameter2" runat="server" onchange="javascript:clearTextBox('txtParameter1')" AutoPostBack="True" OnSelectedIndexChanged="ddlParameter2_SelectedIndexChanged" CausesValidation="True"></asp:DropDownList>&nbsp;
+            <asp:TextBox ID="txtParameter2" runat="server"></asp:TextBox>&nbsp;
             <asp:CompareValidator ID="cmpParameter02" runat="server" ErrorMessage="CompareValidator" ControlToValidate="txtParameter2" Operator="DataTypeCheck" Enabled="False" Display="Dynamic"></asp:CompareValidator>
             <asp:RangeValidator ID="rngParameter02" runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtParameter2" Enabled="False" Display="Dynamic"></asp:RangeValidator>
             <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxParameter02" ControlToValidate="txtParameter2" Display="Dynamic"></asp:RegularExpressionValidator>

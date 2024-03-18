@@ -42,7 +42,7 @@ namespace _2024_CNSA212_Final_Group2 {
             }
         }
 
-        public static DataSet SearchTableGetInfo(string tableName, string param1Col, string param1, char andOr, string param2Col, string param2) {
+        public static DataSet SearchTableGetInfo(string tableName, string param1Col, string param1, string andOr, string param2Col, string param2) {
             try {
 
                 myConn.Open();
