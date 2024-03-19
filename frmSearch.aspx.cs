@@ -28,6 +28,12 @@ namespace CNSA216_EBC_project {
             dsColumnList = GeneralDataTier.GetSearchableColumns(searchTable);
             dtColumns = dsColumnList.Tables[0];
 
+            // insert a default value
+            DataRow InitialValue = dtColumns.NewRow();
+            InitialValue["ColName"] = "(Select all)";
+            InitialValue["SqlDbType"] = "-SELALL-";
+            dtColumns.Rows.InsertAt(InitialValue, 0);
+
             // Populate
             ddlParameter1.DataSource = dtColumns;
             ddlParameter1.DataTextField = "ColName";
@@ -39,7 +45,7 @@ namespace CNSA216_EBC_project {
             ddlParameter2.DataTextField = "ColName";
             ddlParameter2.DataValueField = "ColName";
             ddlParameter2.DataBind();
-            ddlParameter2.SelectedIndex = 1;
+            ddlParameter2.SelectedIndex = 0;
 
             parametersPopulating = false;
         }
@@ -121,7 +127,14 @@ namespace CNSA216_EBC_project {
                 SetValidator(cmpParameter01, rngParameter01, rgxParameter01, ddlParameter1.SelectedValue);
                 SetValidator(cmpParameter02, rngParameter02, rgxParameter02, ddlParameter2.SelectedValue);
             }
-
+            
+            // disable the and/or if we are selecting all
+            if (ddlParameter1.SelectedIndex == 0 || ddlParameter2.SelectedIndex == 0) {
+                rdoAndOr.Enabled = false;
+            }
+            else {
+                rdoAndOr.Enabled = true;
+            }
 
         }
 
@@ -133,6 +146,8 @@ namespace CNSA216_EBC_project {
         protected void ddlParameter1_SelectedIndexChanged(object sender, EventArgs e) {
             SetValidator(cmpParameter01, rngParameter01, rgxParameter01, ddlParameter1.SelectedValue);
             Page.Validate();
+            
+            
         }
 
         protected void ddlParameter2_SelectedIndexChanged(object sender, EventArgs e) {
@@ -147,6 +162,7 @@ namespace CNSA216_EBC_project {
 
             if (dsResult != null) {
                 dgvResult.DataSource = dsResult;
+                dgvResult.DataBind();
             }
         }
     }
