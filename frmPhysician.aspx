@@ -2,56 +2,53 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="head" runat="server">
     <title>Physicians - Louis' Pharmacy</title>
- <style>
-    body {
-        background-color: green;
-        text-align: center;
-    }
-
-    form {
-        font: bold;
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    }
-</style>
+ 
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ASPContent" runat="server">
-    <form>
-        <ASP:Label ID="Label1" Text="Physiscian ID" runat="server"></ASP:Label>
-<asp:Textbox ID="Textbox1" runat="server"></asp:Textbox>
-         <div>
-        </div>
-        <asp:Label ID="lblfname" Text="First name:" runat="server"></asp:Label>
-        <asp:TextBox ID="txtfname" runat="server"></asp:TextBox>
-        <asp:Label ID="lblLname" Text="Last name:" runat="server"></asp:Label>
-        <asp:TextBox ID="txtLname" runat="server"></asp:TextBox>
-        <asp:Label ID="lblMidinit" Text="Middle Initial" runat="server"></asp:Label>
-        <asp:TextBox ID="txtMidinit" runat="server"></asp:TextBox>
-        <br />
-        <asp:Label ID="lblGender" Text="Gender:" runat="server"></asp:Label>
-        <asp:DropDownList ID="DDLGender" runat="server">
-            <asp:ListItem Text="Male" Value="0" />
-            <asp:ListItem Text="Female" Value="0" />
-            <asp:ListItem Text="Other" Value="0" />
-        </asp:DropDownList>
-        <br />
-        <asp:Label ID="lblDOB" Text="DOB" runat="server"></asp:Label>
-        <asp:TextBox ID="txtDOB" runat="server"></asp:TextBox>
-        <br />
-        <br />
-        <asp:Label ID="lblStreet" Text="Street:" runat="server"></asp:Label>
-        <asp:TextBox ID="txtStreet" runat="server"></asp:TextBox>
-        <asp:Label ID="lblCity" Text="City" runat="server"></asp:Label>
-        <asp:TextBox ID="txtCity" runat="server"></asp:TextBox>
-        <asp:Label ID="lblState" Text="State" runat="server"></asp:Label>
-        <asp:DropDownList ID="DDLState" runat="server"></asp:DropDownList>
-        <br />
-        <asp:Label ID="lblPhone" Text="Phone" runat="server"></asp:Label>
-        <asp:TextBox ID="txtPhone" runat="server"></asp:TextBox>
-        <br />
-        <br />
-        <asp:Label ID="lblnumberpatient" Text="Number of Patients:" runat="server"></asp:Label>
-        <asp:textbox ID="txtnumberPatient" runat="server"></asp:textbox>
+    <form id="FormPhysician" runat="server">
+       <div class="formdiv">
+           <div>
+               <small>Physician ID</small> <br />
+               <asp:TextBox ID="txtPhysicianID" runat="server" Width="7em"></asp:TextBox>
+           </div>
+           <div>
+               <small>First Name</small> <br />
+               <asp:TextBox ID="txtFName" runat="server"></asp:TextBox>
+           </div>
+           <div>
+               <small>Last Name</small> <br />
+               <asp:TextBox ID="txtLName" runat="server"></asp:TextBox>
+           </div> <br />
+
+           <div>
+               <small>Phone</small> <br />
+               <asp:TextBox ID="txtPhone" runat="server" TextMode="Phone"></asp:TextBox> <br />
+               <small>Email</small> <br />
+               <asp:TextBox ID="txtemail" runat="server"></asp:TextBox>
+           </div><br />
+
+           <div>
+               <small>Address</small> <br />
+               <asp:TextBox ID="txtAddress" runat="server"></asp:TextBox> <br />
+               <small>State</small> <br />
+               <asp:DropDownList ID="ddlState" runat="server" readonly="true" Enabled="true"></asp:DropDownList> <br />
+               <small>Zip Code</small> <br />
+               <asp:TextBox ID="txtZip" runat="server"></asp:TextBox>
+           </div> <br />
+
+           <div>
+               <small>Speciality</small>
+               <asp:DropDownList ID="ddlSpecial" ReadOnly="true" Enabled="true" runat="server"></asp:DropDownList>
+           </div> <br />
+
+           <div style="padding-top: 1em">
+                <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="btn btn-primary" />&nbsp;&nbsp;
+
+                <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="btn btn-primary" />&nbsp;&nbsp;
+               </div>
+
+       </div>
     </form>
 
 </asp:Content>
@@ -60,5 +57,11 @@
     <script>
         // Change the color of the selected link
         document.getElementById("lnkPhysician").style.color = "rgba(255,255,255,1.0)";
+
+        document.getElementById("ASPContent_txtInstructions").style.height = "6em";
+        document.getElementById("ASPContent_txtInstructions").style.width = "15em";
+
+        document.getElementById("ASPContent_txtExtraInstructions").style.height = "6em";
+        document.getElementById("ASPContent_txtExtraInstructions").style.width = "15em";
     </script>
 </asp:Content>
