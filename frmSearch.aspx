@@ -3,7 +3,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Search - Louis' Pharmacy</title>
-
+    <style>
+        
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ASPContent" runat="server">
@@ -28,9 +30,6 @@
                 <asp:ListItem>Refills</asp:ListItem>
             </asp:DropDownList>
         </p>
-
-
-        <asp:GridView ID="dgvResult" runat="server" CssClass="table datatable-table "></asp:GridView>
 
         <p>
             <asp:DropDownList
@@ -119,6 +118,9 @@
         <p>
             <%--<input id="btnSearch1" type="submit" value="Search" class="btn btn-primary" />--%>
             <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="btnSearch_Click" />
+        </p>
+        <p>
+           <asp:GridView ID="dgvResult" runat="server" CssClass="table datatable-table "></asp:GridView>
         </p>
     </form>
 

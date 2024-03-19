@@ -40,15 +40,6 @@ namespace CNSA216_EBC_project {
         protected global::System.Web.UI.WebControls.DropDownList ddlSearchFor;
 
         /// <summary>
-        /// dgvResult control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvResult;
-
-        /// <summary>
         /// ddlParameter1 control.
         /// </summary>
         /// <remarks>
@@ -155,5 +146,14 @@ namespace CNSA216_EBC_project {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSearch;
+
+        /// <summary>
+        /// dgvResult control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView dgvResult;
     }
 }

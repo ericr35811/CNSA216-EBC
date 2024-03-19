@@ -10,3 +10,8 @@ select, input[type='text'] {
     padding-right: 1em;
     padding-bottom: 1em;
 }
+
+/* prevent gridview contents from wrapping */
+#ASPContent_dgvResult > tbody > tr > td {
+    white-space: nowrap
+}

@@ -30,8 +30,7 @@ namespace CNSA216_EBC_project {
 
             // insert a default value
             DataRow InitialValue = dtColumns.NewRow();
-            InitialValue["ColName"] = "(Select all)";
-            InitialValue["SqlDbType"] = "-SELALL-";
+            InitialValue["ColName"] = "Select one...";
             dtColumns.Rows.InsertAt(InitialValue, 0);
 
             // Populate
@@ -158,7 +157,34 @@ namespace CNSA216_EBC_project {
         protected void btnSearch_Click(object sender, EventArgs e) {
             DataSet dsResult;
 
-            dsResult = GeneralDataTier.SearchTableGetInfo(ddlSearchFor.SelectedValue, ddlParameter1.SelectedValue, txtParameter1.Text, rdoAndOr.SelectedValue, ddlParameter2.SelectedValue, txtParameter2.Text);
+            string tableName;
+            string param1Col;
+            string param1;
+            string andOr;
+            string param2Col;
+            string param2;
+
+            tableName = ddlSearchFor.SelectedValue;
+            andOr = rdoAndOr.SelectedValue;
+
+            // if no column selected, send a blank string
+            if (ddlParameter1.SelectedIndex == 0) {
+                param1Col = "";
+                param1 = "";
+            } else {
+                param1Col = ddlParameter1.SelectedValue;
+                param1 = txtParameter1.Text;
+            }
+
+            if (ddlParameter2.SelectedIndex == 0) {
+                param2Col = "";
+                param2 = "";
+            } else {
+                param2Col = ddlParameter2.SelectedValue;
+                param2 = txtParameter2.Text;
+            }
+
+            dsResult = GeneralDataTier.SearchTableGetInfo(tableName, param1Col, param1, andOr, param2Col, param2);
 
             if (dsResult != null) {
                 dgvResult.DataSource = dsResult;
