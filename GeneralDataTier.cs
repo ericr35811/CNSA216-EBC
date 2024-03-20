@@ -42,7 +42,7 @@ namespace _2024_CNSA212_Final_Group2 {
             }
         }
 
-        public static DataSet SearchTableGetInfo(string tableName, string param1Col, string param1, string andOr, string param2Col, string param2) {
+        public static DataSet SearchTableGetInfo(string tableName, string param1Col, string param1, string andOr, string param2Col, string param2, bool showActive, bool showInactive) {
             try {
 
                 myConn.Open();
@@ -58,6 +58,8 @@ namespace _2024_CNSA212_Final_Group2 {
                 cmdString.Parameters.Add("@AndOr", SqlDbType.Char, 1).Value = andOr;
                 cmdString.Parameters.Add("@Param2Col", SqlDbType.VarChar, 20).Value = param2Col;
                 cmdString.Parameters.Add("@Param2", SqlDbType.VarChar, 100).Value = param2;
+                cmdString.Parameters.Add("@ShowActive", SqlDbType.Bit).Value = showActive;
+                cmdString.Parameters.Add("@ShowInactive", SqlDbType.Bit).Value = showInactive;
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = cmdString;

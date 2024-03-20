@@ -30,8 +30,8 @@ namespace CNSA216_EBC_project {
 
             // insert a default value
             DataRow InitialValue = dtColumns.NewRow();
-            InitialValue["ColName"] = "(Select all)";
-            InitialValue["SqlDbType"] = "-SELALL-";
+            InitialValue["ColName"] = "Select one...";
+            InitialValue["SqlDbType"] = "DEFAULT";
             dtColumns.Rows.InsertAt(InitialValue, 0);
 
             // Populate
@@ -58,11 +58,12 @@ namespace CNSA216_EBC_project {
 
             //lblTest.Text += " " + colName;
 
-            cmp.Enabled = true;
+            
             switch (dataType) {
                 case "varchar":
                 case "char":
                     // check datatype
+                    cmp.Enabled = true;
                     cmp.Type = ValidationDataType.String;
                     cmp.ErrorMessage = "Must be a string";
                     
@@ -74,12 +75,14 @@ namespace CNSA216_EBC_project {
                     rgx.Enabled = true;
                     break;
                 case "smallint":
-                    cmp.Type = ValidationDataType.Integer;
-                    cmp.ErrorMessage = "Must be a number";
+                    //cmp.Enabled = true;
+                    //cmp.Type = ValidationDataType.Integer;
+                    //cmp.ErrorMessage = "Must be a number";
+                    cmp.Enabled = false;
 
                     // check range
                     rng.Type = ValidationDataType.Integer;
-                    rng.ErrorMessage = $" between {Int16.MinValue} and {Int16.MaxValue}";
+                    rng.ErrorMessage = $"Must be a whole number between {Int16.MinValue} and {Int16.MaxValue}";
                     rng.MinimumValue = Int16.MinValue.ToString();
                     rng.MaximumValue = Int16.MaxValue.ToString();
                     rng.Enabled = true;
@@ -87,11 +90,13 @@ namespace CNSA216_EBC_project {
                     rgx.Enabled = false;
                     break;
                 case "int":
-                    cmp.Type = ValidationDataType.Integer;
-                    cmp.ErrorMessage = "Must be a number";
+                    //cmp.Enabled = true;
+                    //cmp.Type = ValidationDataType.Integer;
+                    //cmp.ErrorMessage = "Must be a number";
+                    cmp.Enabled = false;
 
                     rng.Type = ValidationDataType.Integer;
-                    rng.ErrorMessage = $" between {Int32.MinValue} and {Int32.MaxValue}";
+                    rng.ErrorMessage = $"Must be a whole number between {Int32.MinValue} and {Int32.MaxValue}";
                     rng.MinimumValue = Int32.MinValue.ToString();
                     rng.MaximumValue = Int32.MaxValue.ToString();
                     rng.Enabled = true;
@@ -99,24 +104,35 @@ namespace CNSA216_EBC_project {
                     rgx.Enabled = false;
                     break;
                 case "date":
-                    cmp.Type = ValidationDataType.Date;
-                    cmp.ErrorMessage = "Must be a date";
+                    //cmp.Enabled = true;
+                    //cmp.Type = ValidationDataType.Date;
+                    //cmp.ErrorMessage = "Must be a date";
+                    cmp.Enabled = false;
 
                     rng.Type = ValidationDataType.Date;
-                    rng.ErrorMessage = $" between {DateTime.MinValue} and {DateTime.MaxValue}";
+                    rng.ErrorMessage = $"Must be a date between {DateTime.MinValue} and {DateTime.MaxValue}";
                     rng.MinimumValue = DateTime.MinValue.ToShortDateString();
                     rng.MaximumValue = DateTime.MaxValue.ToShortDateString();
                     rng.Enabled = true;
 
                     rgx.Enabled = false;
                     break;
+                case "DEFAULT":
+                    cmp.Enabled = false;
+                    rng.Enabled = false;
+                    rgx.Enabled = false;
+                    break;
+
 
             }
         }
 
+
         protected void Page_Load(object sender, EventArgs e) {
             if (IsPostBack) {
                 //lblTest.Text = "postback";
+
+                
             }
             else {
                 //lblTest.Text = "not postback";
@@ -158,11 +174,77 @@ namespace CNSA216_EBC_project {
         protected void btnSearch_Click(object sender, EventArgs e) {
             DataSet dsResult;
 
-            dsResult = GeneralDataTier.SearchTableGetInfo(ddlSearchFor.SelectedValue, ddlParameter1.SelectedValue, txtParameter1.Text, rdoAndOr.SelectedValue, ddlParameter2.SelectedValue, txtParameter2.Text);
+            string tableName;
+            string param1Col;
+            string param1;
+            string andOr;
+            string param2Col;
+            string param2;
+            bool showActive;
+            bool showInactive;
+
+            tableName = ddlSearchFor.SelectedValue;
+            andOr = rdoAndOr.SelectedValue;
+            showActive = chkActive.Checked;
+            showInactive = chkInactive.Checked;
+
+            // if no column selected, send a blank string
+            if (ddlParameter1.SelectedIndex == 0) {
+                param1Col = "";
+                param1 = "";
+            } else {
+                param1Col = ddlParameter1.SelectedValue;
+                param1 = txtParameter1.Text;
+            }
+
+            if (ddlParameter2.SelectedIndex == 0) {
+                param2Col = "";
+                param2 = "";
+            } else {
+                param2Col = ddlParameter2.SelectedValue;
+                param2 = txtParameter2.Text;
+            }
+
+            dsResult = GeneralDataTier.SearchTableGetInfo(tableName, param1Col, param1, andOr, param2Col, param2, showActive, showInactive);
 
             if (dsResult != null) {
-                dgvResult.DataSource = dsResult;
-                dgvResult.DataBind();
+                // before binding the data, only enable columns which exist in the dataset
+                //foreach (BoundField col in dgvResult.Columns) {
+
+                //    if (!dsResult.Tables[0].Columns.Contains(col.DataField) ) {
+                //        col.Visible = false;
+                //    } else {
+                //        col.Visible = true;
+                //    }
+                //}
+
+                dgvPatient.Visible = false;
+                dgvPhysician.Visible = false;
+                dgvPrescription.Visible = false;
+                dgvRefill.Visible = false;
+
+                switch (ddlSearchFor.SelectedValue.ToString()) {
+                    case "Patients":
+                        dgvPatient.DataSource = dsResult;
+                        dgvPatient.DataBind();
+                        dgvPatient.Visible = true;
+                        break;
+                    case "Physicians":
+                        dgvPhysician.DataSource = dsResult;
+                        dgvPhysician.DataBind();
+                        dgvPhysician.Visible = true;
+                        break;
+                    case "Prescriptions":
+                        dgvPrescription.DataSource = dsResult;
+                        dgvPrescription.DataBind();
+                        dgvPrescription.Visible = true;
+                        break;
+                    case "Refills":
+                        dgvRefill.DataSource = dsResult;
+                        dgvRefill.DataBind();
+                        dgvRefill.Visible = true;
+                        break;
+                }
             }
         }
     }
