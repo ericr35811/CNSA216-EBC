@@ -30,6 +30,10 @@
                 <asp:ListItem>Refills</asp:ListItem>
             </asp:DropDownList>
         </p>
+        <p>
+            <asp:CheckBox runat="server" ID="chkActive" Text="&nbsp;Show active" Checked="true"></asp:CheckBox><br />
+            <asp:CheckBox runat="server" ID="chkInactive" Text="&nbsp;Show inactive"></asp:CheckBox>
+        </p>
 
         <p>
             <asp:DropDownList
@@ -120,7 +124,97 @@
             <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="btnSearch_Click" />
         </p>
         <p>
-           <asp:GridView ID="dgvResult" runat="server" CssClass="table datatable-table "></asp:GridView>
+            <asp:GridView ID="dgvPatient" runat="server" CssClass="table datatable-table nowrap" AutoGenerateColumns="False">
+                <EmptyDataTemplate>
+                    <h2>No data</h2>
+                </EmptyDataTemplate>
+                <Columns>
+                    <asp:CheckBoxField DataField="Active" HeaderText="Active"></asp:CheckBoxField>
+                    <asp:BoundField DataField="PatientID" HeaderText="Patient ID"></asp:BoundField>
+                    <asp:BoundField DataField="FirstName" HeaderText="First Name"></asp:BoundField>
+                    <asp:BoundField DataField="Middle" HeaderText="Middle"></asp:BoundField>
+                    <asp:BoundField DataField="LastName" HeaderText="Last Name"></asp:BoundField>
+                    <asp:BoundField DataField="Gender" HeaderText="Gender"></asp:BoundField>
+                    <asp:BoundField DataField="InsuranceName" HeaderText="Insurance"></asp:BoundField>
+                    <asp:BoundField DataField="Street" HeaderText="Street"></asp:BoundField>
+                    <asp:BoundField DataField="City" HeaderText="City"></asp:BoundField>
+                    <asp:BoundField DataField="State" HeaderText="State"></asp:BoundField>
+                    <asp:BoundField DataField="Zip" HeaderText="ZIP"></asp:BoundField>
+                    <asp:BoundField DataField="Phone1" HeaderText="Phone 1"></asp:BoundField>
+                    <asp:BoundField DataField="Phone2" HeaderText="Phone 2"></asp:BoundField>
+                    <asp:BoundField DataField="Email" HeaderText="Email"></asp:BoundField>
+                    <asp:BoundField DataField="Height" HeaderText="Height (in)"></asp:BoundField>
+                    <asp:BoundField DataField="Weight" HeaderText="Weight (lb)"></asp:BoundField>
+                    <asp:BoundField DataField="StartDate" DataFormatString="{0:d}" HeaderText="Start Date"></asp:BoundField>
+                    <asp:BoundField DataField="EndDate" DataFormatString="{0:d}" HeaderText="End Date"></asp:BoundField>
+                </Columns>
+            </asp:GridView>
+
+            <asp:GridView ID="dgvPhysician" runat="server" CssClass="table datatable-table nowrap " AutoGenerateColumns="False" Visible="false">
+                <EmptyDataTemplate>
+                    <h2>No data</h2>
+                </EmptyDataTemplate>
+                <Columns>
+                    <asp:CheckBoxField DataField="Active" HeaderText="Active"></asp:CheckBoxField>
+                    <asp:BoundField DataField="PhysicianID" HeaderText="Physician ID"></asp:BoundField>
+                    <asp:BoundField DataField="FirstName" HeaderText="First Name"></asp:BoundField>
+                    <asp:BoundField DataField="Middle" HeaderText="Middle"></asp:BoundField>
+                    <asp:BoundField DataField="LastName" HeaderText="Last Name"></asp:BoundField>
+                    <asp:BoundField DataField="Gender" HeaderText="Gender"></asp:BoundField>
+                    <asp:BoundField DataField="Street" HeaderText="Street"></asp:BoundField>
+                    <asp:BoundField DataField="City" HeaderText="City"></asp:BoundField>
+                    <asp:BoundField DataField="State" HeaderText="State"></asp:BoundField>
+                    <asp:BoundField DataField="Zip" HeaderText="ZIP"></asp:BoundField>
+                    <asp:BoundField DataField="Phone1" HeaderText="Phone 1"></asp:BoundField>
+                    <asp:BoundField DataField="Email" HeaderText="Email"></asp:BoundField>
+                    <asp:BoundField DataField="StartDate" DataFormatString="{0:d}" HeaderText="Start Date"></asp:BoundField>
+                    <asp:BoundField DataField="EndDate" DataFormatString="{0:d}" HeaderText="End Date"></asp:BoundField>
+                </Columns>
+            </asp:GridView>
+            
+            <asp:GridView ID="dgvPrescription" runat="server" CssClass="table datatable-table nowrap" AutoGenerateColumns="False" Visible="false">
+                <EmptyDataTemplate>
+                    <h2>No data</h2>
+                </EmptyDataTemplate>
+                <Columns>
+                    <asp:CheckBoxField DataField="Active" HeaderText="Active"></asp:CheckBoxField>
+                    <asp:BoundField DataField="PrescriptionID" HeaderText="Prescription ID"></asp:BoundField>
+                    <asp:BoundField DataField="PatientFirstName" HeaderText="Patient First Name"></asp:BoundField>
+                    <asp:BoundField DataField="PatientLastName" HeaderText="Patient Last Name"></asp:BoundField>
+                    <asp:BoundField DataField="PhysFirstName" HeaderText="Phys. First Name"></asp:BoundField>
+                    <asp:BoundField DataField="PhysLastName" HeaderText="Phys. Last Name"></asp:BoundField>
+                    <asp:BoundField DataField="MedicineName" HeaderText="Medicine"></asp:BoundField>
+                    <asp:BoundField DataField="Dosage" HeaderText="Dosage"></asp:BoundField>
+                    <asp:BoundField DataField="IntakeMethod" HeaderText="Intake Method"></asp:BoundField>
+                    <asp:BoundField DataField="Instructions" HeaderText="Instructions" ItemStyle-CssClass="wrap"></asp:BoundField>
+                    <asp:BoundField DataField="ExtraInstructions" HeaderText="Extra Instructions" ItemStyle-CssClass="wrap"></asp:BoundField>
+                    <asp:BoundField DataField="RefillsAllowed" HeaderText="Refills Allowed"></asp:BoundField>
+                    <asp:BoundField DataField="RefillsLeft" HeaderText="Refills Left"></asp:BoundField>
+                    <asp:BoundField DataField="RefillQuantity" HeaderText="Refill Quantity"></asp:BoundField>
+                    <asp:BoundField DataField="StartDate" DataFormatString="{0:d}" HeaderText="Start Date"></asp:BoundField>
+                    <asp:BoundField DataField="EndDate" DataFormatString="{0:d}" HeaderText="End Date"></asp:BoundField>
+                </Columns>
+            </asp:GridView>
+            
+            <asp:GridView ID="dgvRefill" runat="server" CssClass="table datatable-table nowrap" AutoGenerateColumns="False" Visible="false">
+                <EmptyDataTemplate>
+                    <h2>No data</h2>
+                </EmptyDataTemplate>
+                 <Columns>
+                     <asp:CheckBoxField DataField="Active" HeaderText="Active"></asp:CheckBoxField>
+                     <asp:BoundField DataField="FillDateTime" DataFormatString="{0:G}" HeaderText="Time of Refill"></asp:BoundField>
+                     <asp:BoundField DataField="PrescriptionID" HeaderText="Prescription ID"></asp:BoundField>
+                     <asp:BoundField DataField="PatientFirstName" HeaderText="Patient First Name"></asp:BoundField>
+                     <asp:BoundField DataField="PatientLastName" HeaderText="Patient Last Name"></asp:BoundField>
+                     <asp:BoundField DataField="ClerkFirstName" HeaderText="Clerk First Name"></asp:BoundField>
+                     <asp:BoundField DataField="ClerkLastName" HeaderText="Clerk Last Name"></asp:BoundField>
+                     <asp:BoundField DataField="MedicineName" HeaderText="Medicine"></asp:BoundField>
+                     <asp:BoundField DataField="Dosage" HeaderText="Dosage"></asp:BoundField>
+                     <asp:BoundField DataField="RefillsAllowed" HeaderText="Refills Allowed"></asp:BoundField>
+                     <asp:BoundField DataField="RefillsLeft" HeaderText="Refills Left"></asp:BoundField>
+                     <asp:BoundField DataField="RefillQuantity" HeaderText="Refill Quantity"></asp:BoundField>
+                 </Columns>
+            </asp:GridView>
         </p>
     </form>
 
