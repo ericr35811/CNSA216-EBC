@@ -4,7 +4,7 @@ select, input[type='text'] {
 }
 
 /* div to help organize forms */
-.formdiv div {
+.formdiv > div {
     /*border: 1px solid black;*/
     display: inline-block;
     padding-right: 1em;
@@ -18,4 +18,8 @@ select, input[type='text'] {
 
 .wrap {
     white-space: pre-wrap
+}
+
+.no-underline {
+    text-decoration: none;
 }
