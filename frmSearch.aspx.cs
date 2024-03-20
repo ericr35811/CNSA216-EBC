@@ -82,7 +82,7 @@ namespace CNSA216_EBC_project {
 
                     // check range
                     rng.Type = ValidationDataType.Integer;
-                    rng.ErrorMessage = $"Must be a whole number between {Int16.MinValue} and {Int16.MaxValue}";
+                    rng.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
                     rng.MinimumValue = Int16.MinValue.ToString();
                     rng.MaximumValue = Int16.MaxValue.ToString();
                     rng.Enabled = true;
@@ -96,7 +96,7 @@ namespace CNSA216_EBC_project {
                     cmp.Enabled = false;
 
                     rng.Type = ValidationDataType.Integer;
-                    rng.ErrorMessage = $"Must be a whole number between {Int32.MinValue} and {Int32.MaxValue}";
+                    rng.ErrorMessage = $"Must be a whole number between {Int32.MinValue.ToString()} and {Int32.MaxValue.ToString()}";
                     rng.MinimumValue = Int32.MinValue.ToString();
                     rng.MaximumValue = Int32.MaxValue.ToString();
                     rng.Enabled = true;
@@ -110,7 +110,7 @@ namespace CNSA216_EBC_project {
                     cmp.Enabled = false;
 
                     rng.Type = ValidationDataType.Date;
-                    rng.ErrorMessage = $"Must be a date between {DateTime.MinValue} and {DateTime.MaxValue}";
+                    rng.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
                     rng.MinimumValue = DateTime.MinValue.ToShortDateString();
                     rng.MaximumValue = DateTime.MaxValue.ToShortDateString();
                     rng.Enabled = true;
@@ -151,6 +151,9 @@ namespace CNSA216_EBC_project {
             else {
                 rdoAndOr.Enabled = true;
             }
+
+            chkActive.InputAttributes.Add("onchange", "ActiveInactiveChanged(this)");
+            chkInactive.InputAttributes.Add("onchange", "ActiveInactiveChanged(this)");
 
         }
 

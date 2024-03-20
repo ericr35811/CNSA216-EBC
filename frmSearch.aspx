@@ -3,9 +3,25 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Search - Louis' Pharmacy</title>
-    <style>
-        
-    </style>
+    <script>
+        //clear the text box when parameter changed
+        function clearTextBox(textBoxName) {
+            textBox = document.getElementById("ASPContent_" + textBoxName);
+            textBox.value = "";
+        }
+
+        // require one of the active/inactive textboxes to be selected
+        function ActiveInactiveChanged(caller) {
+            var chkActive = document.getElementById("ASPContent_chkActive");
+            var chkInactive = document.getElementById("ASPContent_chkInactive");
+
+            //alert(caller)
+
+            if (!chkActive.checked && !chkInactive.checked) {
+                caller.checked = !caller.checked
+            }
+        }
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ASPContent" runat="server">
@@ -23,7 +39,13 @@
 
         <p>
             Search for:&nbsp;
-            <asp:DropDownList CssClass="dropdown" ID="ddlSearchFor" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlSearchFor_SelectedIndexChanged">
+            <asp:DropDownList
+                ID="ddlSearchFor"
+                runat="server"
+                AutoPostBack="true"
+                OnSelectedIndexChanged="ddlSearchFor_SelectedIndexChanged"
+                onchange="clearTextBox('txtParameter1'); clearTextBox('txtParameter2')"
+            >
                 <asp:ListItem>Patients</asp:ListItem>
                 <asp:ListItem>Physicians</asp:ListItem>
                 <asp:ListItem>Prescriptions</asp:ListItem>
@@ -31,7 +53,7 @@
             </asp:DropDownList>
         </p>
         <p>
-            <asp:CheckBox runat="server" ID="chkActive" Text="&nbsp;Show active" Checked="true"></asp:CheckBox><br />
+            <asp:CheckBox runat="server" ID="chkActive" Text="&nbsp;Show active" Checked="true" ></asp:CheckBox><br />
             <asp:CheckBox runat="server" ID="chkInactive" Text="&nbsp;Show inactive"></asp:CheckBox>
         </p>
 
@@ -39,7 +61,7 @@
             <asp:DropDownList
                 ID="ddlParameter1"
                 runat="server" 
-                onchange="javascript:clearTextBox('txtParameter1')" 
+                onchange="clearTextBox('txtParameter1')" 
                 OnSelectedIndexChanged="ddlParameter1_SelectedIndexChanged" 
                 CausesValidation="True" 
                 AutoPostBack="True">
@@ -224,13 +246,5 @@
     <script>
         // Change the color of the selected link
         document.getElementById("lnkSearch").style.color = "rgba(255,255,255,1.0)";
-    </script>
-
-    <script>
-        //clear the text box when parameter changed
-        function clearTextBox(textBoxName) {
-            textBox = document.getElementById("ASPContent_" + textBoxName);
-            textBox.value = "";
-        }
     </script>
 </asp:Content>
