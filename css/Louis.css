@@ -4,7 +4,7 @@ select, input[type='text'] {
 }
 
 /* div to help organize forms */
-.formdiv div {
+.formdiv > div {
     /*border: 1px solid black;*/
     display: inline-block;
     padding-right: 1em;
@@ -12,10 +12,14 @@ select, input[type='text'] {
 }
 
 /* prevent gridview contents from wrapping */
-.nowrap td:not(.wrap)/*, .nowrap th:not(.wrap)*/ {
+.nowrap td:not(.wrap), .nowrap th:not(.wrap) {
     white-space: nowrap
 }
 
 .wrap {
     white-space: pre-wrap
+}
+
+.no-underline {
+    text-decoration: none;
 }

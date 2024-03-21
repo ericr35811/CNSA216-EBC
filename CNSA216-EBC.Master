@@ -43,10 +43,12 @@
                     <div class="nav">
                         <a class="nav-link" id="lnkWelcome" href="frmWelcome.aspx">Welcome</a>
                         <a class="nav-link" id="lnkSearch" href="frmSearch.aspx">Search</a>
-                        <a class="nav-link" id="lnkPatient" href="frmPatient.aspx">Patients</a>
-                        <a class="nav-link" id="lnkPhysician" href="frmPhysician.aspx">Physicians</a>
-                        <a class="nav-link" id="lnkPrescription" href="frmPrescription.aspx">Prescriptions</a>
-                        <a class="nav-link" id="lnkRefill" href="frmRefill.aspx">Refills</a>
+                        <a class="nav-link" id="lnkPatient" href="frmPatient.aspx?type=ADD&id=">Patients</a>
+                        <a class="nav-link" id="lnkPhysician" href="frmPhysician.aspx?type=ADD&id=">Physicians</a>
+                        <a class="nav-link" id="lnkPrescription" href="frmPrescription.aspx?type=ADD&id=">Prescriptions</a>
+                        <%--<a class="nav-link" id="lnkRefill" href="frmRefill.aspx?type=ADD&id=">Refills</a>--%>
+                        <%-- user must search for a prescription to add a refill --%>
+                        <a class="nav-link" id="lnkRefill" href="frmSearch.aspx?search=Prescriptions">Refills</a>
                         <a class="nav-link" id="lnkAbout" href="frmAbout.aspx">About</a>
                     </div>
                 </div>
@@ -63,7 +65,7 @@
                     <asp:ContentPlaceHolder ID="ASPContent" runat="server"></asp:ContentPlaceHolder>
                 </div>
             </main>
-            <footer class="py-4 bg-light mt-auto">
+            <footer class="py-4 bg-light mt-4">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
                         <div class="text-muted">Copyright &copy; Your Website 2023</div>
