@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text;
 
 namespace CNSA216_EBC_project {
     public partial class WebForm8 : System.Web.UI.Page {
@@ -22,6 +23,8 @@ namespace CNSA216_EBC_project {
         private bool showActive;
         private bool showInactive;
 
+        private readonly string[] validForms = { "Patient", "Physician", "Prescription", "Refill" };
+        private readonly string[] validCommands = { "ADD", "EDIT", "DELETE" };
         private DataSet dsResult;
         private static DataTable dtColumns;
 
@@ -178,6 +181,11 @@ namespace CNSA216_EBC_project {
             else {
                 //lblTest.Text = "not postback";
 
+                // optionally set the table to search
+                if (Request.QueryString.AllKeys.Contains("search")) {
+                    ddlSearchFor.SelectedValue = Request.QueryString["search"];
+                }
+                
                 // Populate if the page is loading for the first time (not postback)
                 PopulateParameters();
 
@@ -200,11 +208,15 @@ namespace CNSA216_EBC_project {
             // add script to require one checkbox to be selected
             chkActive.InputAttributes.Add("onchange", "ActiveInactiveChanged(this)");
             chkInactive.InputAttributes.Add("onchange", "ActiveInactiveChanged(this)");
+
         }
 
         protected void ddlSearchFor_SelectedIndexChanged(object sender, EventArgs e) {
             // Populate if the user has selected a new table (postback)
             if (!parametersPopulating) PopulateParameters();
+
+            txtParameter1.Text = "";
+            txtParameter2.Text = "";
 
             //// disable
             //if (ddlSearchFor.SelectedValue == "Refills") {
@@ -216,11 +228,13 @@ namespace CNSA216_EBC_project {
         }
 
         protected void ddlParameter1_SelectedIndexChanged(object sender, EventArgs e) {
+            txtParameter1.Text = "";
             SetValidator(cmpParameter01, rngParameter01, rgxParameter01, ddlParameter1.SelectedValue);
             Page.Validate();
         }
 
         protected void ddlParameter2_SelectedIndexChanged(object sender, EventArgs e) {
+            txtParameter2.Text = "";
             SetValidator(cmpParameter02, rngParameter02, rgxParameter02, ddlParameter2.SelectedValue);
             Page.Validate();
         }
@@ -230,19 +244,28 @@ namespace CNSA216_EBC_project {
         }
 
         // functions for table buttons
-        protected void DeleteClick(object sender, CommandEventArgs e) {
+        protected void TableActions(object sender, CommandEventArgs e) {
             CacheSearch();
-            Response.Write("<script>alert('Delete " + e.CommandName + " " + e.CommandArgument.ToString() + "');</script>");
-        }
+            //Response.Write("<script>alert('" + e.CommandName + " " + e.CommandArgument.ToString() + "');</script>");
 
-        protected void EditClick(object sender, CommandEventArgs e) {
-            CacheSearch();
-            Response.Write("<script>alert('Edit " + e.CommandName + " " + e.CommandArgument.ToString() + "');</script>");
-        }
+            string[] command = e.CommandName.Split(':');
+            string form = command[0];
+            string action = command[1];
+            string id = e.CommandArgument.ToString();
 
-        protected void RefillClick(object sender, CommandEventArgs e) {
-            CacheSearch();
-            Response.Write("<script>alert('Refill " + e.CommandName + " " + e.CommandArgument.ToString() + "');</script>");
+            // validate and form the URL
+            StringBuilder url = new StringBuilder();
+            
+            if (validForms.Contains(form)) {
+                url.Append("frm" + form + ".aspx");
+
+                if (validCommands.Contains(action)) {
+                    url.Append("?type=" + action);
+                    url.Append("&id=" + id);
+
+                    Response.Redirect(url.ToString());
+                }
+            }
         }
 
 
@@ -276,10 +299,5 @@ namespace CNSA216_EBC_project {
             }
         }
 
-        protected void btnAdd_Click(object sender, EventArgs e) {
-            if (ddlSearchFor.SelectedValue != "Refills") {
-                // add record
-            }
-        }
     }
 }

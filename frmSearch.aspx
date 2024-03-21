@@ -4,12 +4,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Search - Louis' Pharmacy</title>
     <script>
-        //clear the text box when parameter changed
-        function clearTextBox(textBoxName) {
-            textBox = document.getElementById("ASPContent_" + textBoxName);
-            textBox.value = "";
-        }
-
         // require one of the active/inactive textboxes to be selected
         function ActiveInactiveChanged(caller) {
             var chkActive = document.getElementById("ASPContent_chkActive");
@@ -20,11 +14,6 @@
             if (!chkActive.checked && !chkInactive.checked) {
                 caller.checked = !caller.checked
             }
-        }
-
-        function ddlSearchFor_onchange(ddl) {
-            clearTextBox('txtParameter1');
-            clearTextBox('txtParameter2');
         }
     </script>
 </asp:Content>
@@ -57,7 +46,6 @@
                                     runat="server"
                                     AutoPostBack="true"
                                     OnSelectedIndexChanged="ddlSearchFor_SelectedIndexChanged"
-                                    onchange="ddlSearchFor_onchange(this);"
                                 >
                                     <asp:ListItem>Patients</asp:ListItem>
                                     <asp:ListItem>Physicians</asp:ListItem>
@@ -74,7 +62,6 @@
                                 <asp:DropDownList
                                     ID="ddlParameter1"
                                     runat="server" 
-                                    onchange="clearTextBox('txtParameter1')" 
                                     OnSelectedIndexChanged="ddlParameter1_SelectedIndexChanged" 
                                     CausesValidation="True" 
                                     AutoPostBack="True">
@@ -118,8 +105,7 @@
                             <p>
                                 <asp:DropDownList 
                                     ID="ddlParameter2" 
-                                    runat="server"
-                                    onchange="javascript:clearTextBox('txtParameter2')" 
+                                    runat="server" 
                                     AutoPostBack="True" 
                                     OnSelectedIndexChanged="ddlParameter2_SelectedIndexChanged" 
                                     CausesValidation="True">
@@ -165,11 +151,8 @@
                 <div class="col-xl mb-4">
                     <div class="card h-100">
                         <div class="card-body d-flex align-items-center justify-content-center">
-                            <asp:LinkButton ID="btnAdd" runat="server" CssClass="no-underline" OnClick="btnAdd_Click">
-                                <h4><i class="fa-solid fa-plus"></i> Add a record</h4>
-                            </asp:LinkButton>
-
-                            <span class="d-none" id="refill-prescription-message">Go the the Prescriptions table to add a refill to a prescription.</span>
+                            Use the navigation bar on the left to add new records. <br />
+                            Search for a prescription to add a refill for it.
                         </div>
                     </div>
                 </div>
@@ -194,8 +177,8 @@
                                         <asp:LinkButton
                                             runat="server"
                                             CssClass="no-underline"
-                                            OnCommand="EditClick"
-                                            CommandName="Patient"
+                                            OnCommand="TableActions"
+                                            CommandName="Patient:EDIT"
                                             CommandArgument='<%# Eval("PatientID") %>'
                                         >
                                             <i class="fa-solid fa-pencil"></i>
@@ -204,15 +187,15 @@
                                         <asp:LinkButton
                                             runat="server"
                                             CssClass="no-underline"
-                                            OnCommand="DeleteClick"
-                                            CommandName="Patient"
+                                            OnCommand="TableActions"
+                                            CommandName="Patient:DELETE"
                                             CommandArgument='<%# Eval("PatientID") %>'
                                         >
                                             <i class="fa-solid fa-trash"></i>
                                         </asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:CheckBoxField DataField="Active" HeaderText="Active"></asp:CheckBoxField>
+                                <asp:CheckBoxField DataField="Active" HeaderText="Active" ItemStyle-CssClass="text-center"></asp:CheckBoxField>
                                 <asp:BoundField DataField="PatientID" HeaderText="Patient ID"></asp:BoundField>
                                 <asp:BoundField DataField="FirstName" HeaderText="First Name"></asp:BoundField>
                                 <asp:BoundField DataField="Middle" HeaderText="Middle"></asp:BoundField>
@@ -247,8 +230,8 @@
                                         <asp:LinkButton
                                             runat="server"
                                             CssClass="no-underline"
-                                            OnCommand="EditClick"
-                                            CommandName="Physician"
+                                            OnCommand="TableActions"
+                                            CommandName="Physician:EDIT"
                                             CommandArgument='<%# Eval("PhysicianID") %>'
                                         >
                                             <i class="fa-solid fa-pencil"></i>
@@ -257,15 +240,15 @@
                                         <asp:LinkButton
                                             runat="server"
                                             CssClass="no-underline"
-                                            OnCommand="DeleteClick"
-                                            CommandName="Physician"
+                                            OnCommand="TableActions"
+                                            CommandName="Physician:DELETE"
                                             CommandArgument='<%# Eval("PhysicianID") %>'
                                         >
                                             <i class="fa-solid fa-trash"></i>
                                         </asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:CheckBoxField DataField="Active" HeaderText="Active"></asp:CheckBoxField>
+                                <asp:CheckBoxField DataField="Active" HeaderText="Active" ItemStyle-CssClass="text-center"></asp:CheckBoxField>
                                 <asp:BoundField DataField="PhysicianID" HeaderText="Physician ID"></asp:BoundField>
                                 <asp:BoundField DataField="FirstName" HeaderText="First Name"></asp:BoundField>
                                 <asp:BoundField DataField="Middle" HeaderText="Middle"></asp:BoundField>
@@ -295,8 +278,8 @@
                                         <asp:LinkButton
                                             runat="server" 
                                             CssClass="no-underline"
-                                            OnCommand="RefillClick"
-                                            CommandName="Prescription"
+                                            OnCommand="TableActions"
+                                            CommandName="Refill:ADD"
                                             CommandArgument='<%# Eval("PrescriptionID") %>'
                                         >
                                             <i class="fa-solid fa-prescription-bottle"></i>
@@ -305,8 +288,8 @@
                                         <asp:LinkButton
                                             runat="server"
                                             CssClass="no-underline"
-                                            OnCommand="EditClick"
-                                            CommandName="Prescription"
+                                            OnCommand="TableActions"
+                                            CommandName="Prescription:EDIT"
                                             CommandArgument='<%# Eval("PrescriptionID") %>'
                                         >
                                             <i class="fa-solid fa-pencil"></i>
@@ -315,15 +298,15 @@
                                         <asp:LinkButton
                                             runat="server"
                                             CssClass="no-underline"
-                                            OnCommand="DeleteClick"
-                                            CommandName="Prescription"
+                                            OnCommand="TableActions"
+                                            CommandName="Prescription:DELETE"
                                             CommandArgument='<%# Eval("PrescriptionID") %>'
                                         >
                                             <i class="fa-solid fa-trash"></i>
                                         </asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:CheckBoxField DataField="Active" HeaderText="Active"></asp:CheckBoxField>
+                                <asp:CheckBoxField DataField="Active" HeaderText="Active" ItemStyle-CssClass="text-center"></asp:CheckBoxField>
                                 <asp:BoundField DataField="PrescriptionID" HeaderText="Prescription ID"></asp:BoundField>
                                 <asp:BoundField DataField="PatientFirstName" HeaderText="Patient First Name"></asp:BoundField>
                                 <asp:BoundField DataField="PatientLastName" HeaderText="Patient Last Name"></asp:BoundField>
@@ -332,8 +315,8 @@
                                 <asp:BoundField DataField="MedicineName" HeaderText="Medicine"></asp:BoundField>
                                 <asp:BoundField DataField="Dosage" HeaderText="Dosage"></asp:BoundField>
                                 <asp:BoundField DataField="IntakeMethod" HeaderText="Intake Method"></asp:BoundField>
-                                <asp:BoundField DataField="Instructions" HeaderText="Instructions" ItemStyle-CssClass="wrap"></asp:BoundField>
-                                <asp:BoundField DataField="ExtraInstructions" HeaderText="Extra Instructions" ItemStyle-CssClass="wrap"></asp:BoundField>
+                                <asp:BoundField DataField="Instructions" HeaderText="Instructions"></asp:BoundField>
+                                <asp:BoundField DataField="ExtraInstructions" HeaderText="Extra Instructions" ></asp:BoundField>
                                 <asp:BoundField DataField="RefillsAllowed" HeaderText="Refills Allowed"></asp:BoundField>
                                 <asp:BoundField DataField="RefillsLeft" HeaderText="Refills Left"></asp:BoundField>
                                 <asp:BoundField DataField="RefillQuantity" HeaderText="Refill Quantity"></asp:BoundField>
@@ -355,8 +338,8 @@
                                              <asp:LinkButton
                                                  runat="server"
                                                  CssClass="no-underline"
-                                                 OnCommand="EditClick"
-                                                 CommandName="Refill"
+                                                 OnCommand="TableActions"
+                                                 CommandName="Refill:EDIT"
                                                  CommandArgument='<%# Eval("RefillID") %>'
                                              >
                                                  <i class="fa-solid fa-pencil"></i>
@@ -365,15 +348,15 @@
                                              <asp:LinkButton
                                                  runat="server"
                                                  CssClass="no-underline"
-                                                 OnCommand="DeleteClick"
-                                                 CommandName="Refill"
+                                                 OnCommand="TableActions"
+                                                 CommandName="Refill:DELETE"
                                                  CommandArgument='<%# Eval("RefillID") %>'
                                              >
                                                  <i class="fa-solid fa-trash"></i>
                                              </asp:LinkButton>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:CheckBoxField DataField="Active" HeaderText="Active"></asp:CheckBoxField>
+                                    <asp:CheckBoxField DataField="Active" HeaderText="Active" ItemStyle-CssClass="text-center"></asp:CheckBoxField>
                                     <asp:BoundField DataField="FillDateTime" DataFormatString="{0:G}" HeaderText="Time of Refill"></asp:BoundField>
                                     <asp:BoundField DataField="PrescriptionID" HeaderText="Prescription ID"></asp:BoundField>
                                     <asp:BoundField DataField="PatientFirstName" HeaderText="Patient First Name"></asp:BoundField>
@@ -399,25 +382,5 @@
     <script>
         // Change the color of the selected link
         document.getElementById("lnkSearch").style.color = "rgba(255,255,255,1.0)";
-
-        // hide the add record button if searching the Refills table
-        var ddlSearchFor = document.getElementById("ASPContent_ddlSearchFor");
-        var btnAdd = document.getElementById("ASPContent_btnAdd");
-        var msg = document.getElementById("refill-prescription-message");
-
-        if (ddlSearchFor.selectedOptions[0].innerText == "Refills") {
-            btnAdd.disabled = true;
-            btnAdd.classList.remove("d-flex");
-            btnAdd.classList.add("d-none");
-            msg.classList.remove("d-none");
-            msg.classList.add("d-flex");
-        }
-        else {
-            btnAdd.disabled = false;
-            btnAdd.classList.remove("d-none");
-            btnAdd.classList.add("d-flex");
-            msg.classList.remove("d-flex");
-            msg.classList.add("d-none");
-        }
     </script>
 </asp:Content>
