@@ -12,7 +12,7 @@ select, input[type='text'] {
 }
 
 /* prevent gridview contents from wrapping */
-.nowrap td:not(.wrap)/*, .nowrap th:not(.wrap)*/ {
+.nowrap td:not(.wrap), .nowrap th:not(.wrap) {
     white-space: nowrap
 }
 

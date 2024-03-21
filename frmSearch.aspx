@@ -161,7 +161,7 @@
                     <div class="card h-100">
                         <div class="card-body d-flex align-items-center justify-content-center">
                             <asp:LinkButton ID="btnAdd" runat="server" CssClass="no-underline">
-                                <i class="fa-solid fa-plus"></i> Add a record
+                                <h4><i class="fa-solid fa-plus"></i> Add a record</h4>
                             </asp:LinkButton>
                         </div>
                     </div>
@@ -179,16 +179,28 @@
                                 <h2>No data</h2>
                             </EmptyDataTemplate>
                             <Columns>
-                                <asp:TemplateField HeaderText="Control">
+                                <asp:TemplateField>
                                     <HeaderTemplate>
-                                    
+                                        <i class="fa-solid fa-gear"></i>
                                     </HeaderTemplate>
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="btnEdit" runat="server" CssClass="no-underline">
+                                        <asp:LinkButton
+                                            runat="server"
+                                            CssClass="no-underline"
+                                            OnCommand="EditClick"
+                                            CommandName="Patient"
+                                            CommandArgument='<%# Eval("PatientID") %>'
+                                        >
                                             <i class="fa-solid fa-pencil"></i>
                                         </asp:LinkButton>
                                         &nbsp;
-                                        <asp:LinkButton ID="btnDelete" runat="server" CssClass="no-underline">
+                                        <asp:LinkButton
+                                            runat="server"
+                                            CssClass="no-underline"
+                                            OnCommand="DeleteClick"
+                                            CommandName="Patient"
+                                            CommandArgument='<%# Eval("PatientID") %>'
+                                        >
                                             <i class="fa-solid fa-trash"></i>
                                         </asp:LinkButton>
                                     </ItemTemplate>
@@ -220,6 +232,32 @@
                                 <h2>No data</h2>
                             </EmptyDataTemplate>
                             <Columns>
+                                <asp:TemplateField>
+                                    <HeaderTemplate>
+                                        <i class="fa-solid fa-gear"></i>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:LinkButton
+                                            runat="server"
+                                            CssClass="no-underline"
+                                            OnCommand="EditClick"
+                                            CommandName="Physician"
+                                            CommandArgument='<%# Eval("PhysicianID") %>'
+                                        >
+                                            <i class="fa-solid fa-pencil"></i>
+                                        </asp:LinkButton>
+                                        &nbsp;
+                                        <asp:LinkButton
+                                            runat="server"
+                                            CssClass="no-underline"
+                                            OnCommand="DeleteClick"
+                                            CommandName="Physician"
+                                            CommandArgument='<%# Eval("PhysicianID") %>'
+                                        >
+                                            <i class="fa-solid fa-trash"></i>
+                                        </asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:CheckBoxField DataField="Active" HeaderText="Active"></asp:CheckBoxField>
                                 <asp:BoundField DataField="PhysicianID" HeaderText="Physician ID"></asp:BoundField>
                                 <asp:BoundField DataField="FirstName" HeaderText="First Name"></asp:BoundField>
@@ -242,6 +280,42 @@
                                 <h2>No data</h2>
                             </EmptyDataTemplate>
                             <Columns>
+                                <asp:TemplateField>
+                                    <HeaderTemplate>
+                                        <i class="fa-solid fa-gear"></i>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:LinkButton
+                                            runat="server" 
+                                            CssClass="no-underline"
+                                            OnCommand="RefillClick"
+                                            CommandName="Prescription"
+                                            CommandArgument='<%# Eval("PrescriptionID") %>'
+                                        >
+                                            <i class="fa-solid fa-prescription-bottle"></i>
+                                        </asp:LinkButton>
+                                        &nbsp;
+                                        <asp:LinkButton
+                                            runat="server"
+                                            CssClass="no-underline"
+                                            OnCommand="EditClick"
+                                            CommandName="Prescription"
+                                            CommandArgument='<%# Eval("PrescriptionID") %>'
+                                        >
+                                            <i class="fa-solid fa-pencil"></i>
+                                        </asp:LinkButton>
+                                        &nbsp;
+                                        <asp:LinkButton
+                                            runat="server"
+                                            CssClass="no-underline"
+                                            OnCommand="DeleteClick"
+                                            CommandName="Prescription"
+                                            CommandArgument='<%# Eval("PrescriptionID") %>'
+                                        >
+                                            <i class="fa-solid fa-trash"></i>
+                                        </asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:CheckBoxField DataField="Active" HeaderText="Active"></asp:CheckBoxField>
                                 <asp:BoundField DataField="PrescriptionID" HeaderText="Prescription ID"></asp:BoundField>
                                 <asp:BoundField DataField="PatientFirstName" HeaderText="Patient First Name"></asp:BoundField>
@@ -266,6 +340,32 @@
                                 <h2>No data</h2>
                             </EmptyDataTemplate>
                                 <Columns>
+                                    <asp:TemplateField>
+                                        <HeaderTemplate>
+                                            <i class="fa-solid fa-gear"></i>
+                                        </HeaderTemplate>
+                                        <ItemTemplate>
+                                             <asp:LinkButton
+                                                 runat="server"
+                                                 CssClass="no-underline"
+                                                 OnCommand="EditClick"
+                                                 CommandName="Refill"
+                                                 CommandArgument='<%# Eval("RefillID") %>'
+                                             >
+                                                 <i class="fa-solid fa-pencil"></i>
+                                             </asp:LinkButton>
+                                             &nbsp;
+                                             <asp:LinkButton
+                                                 runat="server"
+                                                 CssClass="no-underline"
+                                                 OnCommand="DeleteClick"
+                                                 CommandName="Refill"
+                                                 CommandArgument='<%# Eval("RefillID") %>'
+                                             >
+                                                 <i class="fa-solid fa-trash"></i>
+                                             </asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:CheckBoxField DataField="Active" HeaderText="Active"></asp:CheckBoxField>
                                     <asp:BoundField DataField="FillDateTime" DataFormatString="{0:G}" HeaderText="Time of Refill"></asp:BoundField>
                                     <asp:BoundField DataField="PrescriptionID" HeaderText="Prescription ID"></asp:BoundField>

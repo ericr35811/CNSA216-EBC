@@ -143,6 +143,7 @@ namespace CNSA216_EBC_project {
             dgvPrescription.Visible = false;
             dgvRefill.Visible = false;
 
+
             switch (ddlSearchFor.SelectedValue.ToString()) {
                 case "Patients":
                     dgvPatient.DataSource = dsResult;
@@ -203,13 +204,17 @@ namespace CNSA216_EBC_project {
         protected void ddlSearchFor_SelectedIndexChanged(object sender, EventArgs e) {
             // Populate if the user has selected a new table (postback)
             if (!parametersPopulating) PopulateParameters();
+
+            if (ddlSearchFor.SelectedValue == "Refills") {
+                btnAdd.Enabled = false;
+            } else {
+                btnAdd.Enabled = true;
+            }
         }
 
         protected void ddlParameter1_SelectedIndexChanged(object sender, EventArgs e) {
             SetValidator(cmpParameter01, rngParameter01, rgxParameter01, ddlParameter1.SelectedValue);
             Page.Validate();
-            
-            
         }
 
         protected void ddlParameter2_SelectedIndexChanged(object sender, EventArgs e) {
@@ -217,7 +222,26 @@ namespace CNSA216_EBC_project {
             Page.Validate();
         }
 
-       
+        protected void CacheSearch() {
+
+        }
+
+        // functions for table buttons
+        protected void DeleteClick(object sender, CommandEventArgs e) {
+            CacheSearch();
+            Response.Write("<script>alert('Delete " + e.CommandName + " " + e.CommandArgument.ToString() + "');</script>");
+        }
+
+        protected void EditClick(object sender, CommandEventArgs e) {
+            CacheSearch();
+            Response.Write("<script>alert('Edit " + e.CommandName + " " + e.CommandArgument.ToString() + "');</script>");
+        }
+
+        protected void RefillClick(object sender, CommandEventArgs e) {
+            CacheSearch();
+            Response.Write("<script>alert('Refill " + e.CommandName + " " + e.CommandArgument.ToString() + "');</script>");
+        }
+
 
         protected void btnSearch_Click(object sender, EventArgs e) {
             tableName = ddlSearchFor.SelectedValue;
