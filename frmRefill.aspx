@@ -34,7 +34,7 @@
      <asp:Label ID="lblDate" runat="server" Text="Today's Date:"></asp:Label>
      <asp:TextBox ID="txtDate" ReadOnly="true" runat="server"></asp:TextBox>
      <asp:Label ID="lblClerkName"  runat="server" Text="Clerck's Name:"></asp:Label>
-     <asp:TextBox ID="txtClerkName" ReadOnly="false" runat="server"></asp:TextBox>
+         <asp:DropDownList ID="ddlClerkName" runat="server"></asp:DropDownList>
 
          <br />
          <br />
