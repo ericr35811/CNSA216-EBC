@@ -137,6 +137,7 @@ namespace CNSA216_EBC_project {
             }
         }
 
+        // bind the data to the appropriate gridview
         private void BindData(string tableName) {
             dgvPatient.Visible = false;
             dgvPhysician.Visible = false;
@@ -205,11 +206,13 @@ namespace CNSA216_EBC_project {
             // Populate if the user has selected a new table (postback)
             if (!parametersPopulating) PopulateParameters();
 
-            if (ddlSearchFor.SelectedValue == "Refills") {
-                btnAdd.Enabled = false;
-            } else {
-                btnAdd.Enabled = true;
-            }
+            //// disable
+            //if (ddlSearchFor.SelectedValue == "Refills") {
+            //    btnAdd.Enabled = false;
+            //}
+            //else {
+            //    btnAdd.Enabled = true;
+            //}
         }
 
         protected void ddlParameter1_SelectedIndexChanged(object sender, EventArgs e) {
@@ -270,6 +273,12 @@ namespace CNSA216_EBC_project {
 
             if (dsResult != null) {
                 BindData(tableName);
+            }
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e) {
+            if (ddlSearchFor.SelectedValue != "Refills") {
+                // add record
             }
         }
     }

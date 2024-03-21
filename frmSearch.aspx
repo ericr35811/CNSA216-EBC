@@ -21,6 +21,11 @@
                 caller.checked = !caller.checked
             }
         }
+
+        function ddlSearchFor_onchange(ddl) {
+            clearTextBox('txtParameter1');
+            clearTextBox('txtParameter2');
+        }
     </script>
 </asp:Content>
 
@@ -52,7 +57,7 @@
                                     runat="server"
                                     AutoPostBack="true"
                                     OnSelectedIndexChanged="ddlSearchFor_SelectedIndexChanged"
-                                    onchange="clearTextBox('txtParameter1'); clearTextBox('txtParameter2')"
+                                    onchange="ddlSearchFor_onchange(this);"
                                 >
                                     <asp:ListItem>Patients</asp:ListItem>
                                     <asp:ListItem>Physicians</asp:ListItem>
@@ -160,9 +165,11 @@
                 <div class="col-xl mb-4">
                     <div class="card h-100">
                         <div class="card-body d-flex align-items-center justify-content-center">
-                            <asp:LinkButton ID="btnAdd" runat="server" CssClass="no-underline">
+                            <asp:LinkButton ID="btnAdd" runat="server" CssClass="no-underline" OnClick="btnAdd_Click">
                                 <h4><i class="fa-solid fa-plus"></i> Add a record</h4>
                             </asp:LinkButton>
+
+                            <span class="d-none" id="refill-prescription-message">Go the the Prescriptions table to add a refill to a prescription.</span>
                         </div>
                     </div>
                 </div>
@@ -392,5 +399,25 @@
     <script>
         // Change the color of the selected link
         document.getElementById("lnkSearch").style.color = "rgba(255,255,255,1.0)";
+
+        // hide the add record button if searching the Refills table
+        var ddlSearchFor = document.getElementById("ASPContent_ddlSearchFor");
+        var btnAdd = document.getElementById("ASPContent_btnAdd");
+        var msg = document.getElementById("refill-prescription-message");
+
+        if (ddlSearchFor.selectedOptions[0].innerText == "Refills") {
+            btnAdd.disabled = true;
+            btnAdd.classList.remove("d-flex");
+            btnAdd.classList.add("d-none");
+            msg.classList.remove("d-none");
+            msg.classList.add("d-flex");
+        }
+        else {
+            btnAdd.disabled = false;
+            btnAdd.classList.remove("d-none");
+            btnAdd.classList.add("d-flex");
+            msg.classList.remove("d-flex");
+            msg.classList.add("d-none");
+        }
     </script>
 </asp:Content>
