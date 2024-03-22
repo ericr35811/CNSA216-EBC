@@ -76,6 +76,55 @@
             <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="btn btn-primary" />&nbsp;&nbsp;
             
             <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="btn btn-primary" />
+            
+            <br /><br /><br />
+
+            Patient First Name
+            <asp:TextBox
+                runat="server"
+                ID="txtString"
+                CausesValidation="True">
+            </asp:TextBox>
+
+            <asp:RegularExpressionValidator
+                runat="server"
+                ErrorMessage="RegularExpressionValidator"
+                ID="rgxString"
+                ControlToValidate="txtString"
+                Display="Dynamic">
+            </asp:RegularExpressionValidator> <br />
+
+            Patient Start Date
+            <asp:TextBox
+                runat="server"
+                ID="txtDate"
+                CausesValidation="True"
+                TextMode="Date">
+            </asp:TextBox>
+
+            <asp:RangeValidator
+                ID="rngDate"
+                runat="server"
+                ErrorMessage="RangeValidator"
+                ControlToValidate="txtDate"
+                Display="Dynamic">
+            </asp:RangeValidator>
+
+            Patient Weight
+            <asp:TextBox
+                runat="server"
+                ID="txtSmallInt"
+                CausesValidation="True"
+            >
+            </asp:TextBox>
+
+            <asp:RangeValidator
+                ID="rngSmallInt"
+                runat="server"
+                ErrorMessage="RangeValidator"
+                ControlToValidate="txtSmallInt"
+                Display="Dynamic">
+            </asp:RangeValidator>
         </div>
     </form>
 </asp:Content>
