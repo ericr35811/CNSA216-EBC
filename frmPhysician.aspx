@@ -15,11 +15,19 @@
            <div>
                <small>First Name</small> <br />
                <asp:TextBox ID="txtFName" runat="server"></asp:TextBox>
-           </div>
+           </div><br />
            <div>
                <small>Last Name</small> <br />
                <asp:TextBox ID="txtLName" runat="server"></asp:TextBox>
            </div> <br />
+           <div>
+                 <small>Middle Initial</small><br />
+                 <asp:TextBox ID="txtMiddle" runat="server" Width="5em"></asp:TextBox>
+            </div><br />
+           <div>
+               <small>Gender</small> <br />
+               <asp:DropDownList ID="ddlGender" runat="server"></asp:DropDownList>
+           </div><br />
 
            <div>
                <small>Phone</small> <br />
@@ -29,8 +37,10 @@
            </div><br />
 
            <div>
-               <small>Address</small> <br />
-               <asp:TextBox ID="txtAddress" runat="server"></asp:TextBox> <br />
+               <small>Street</small> <br />
+               <asp:TextBox ID="txtStreet" runat="server"></asp:TextBox> <br />
+               <small>City</small><br />
+               <asp:TextBox ID="txtCity" runat="server"></asp:TextBox><br />
                <small>State</small> <br />
                <asp:DropDownList ID="ddlState" runat="server" readonly="true" Enabled="true"></asp:DropDownList> <br />
                <small>Zip Code</small> <br />
@@ -41,12 +51,19 @@
                <small>Speciality</small>
                <asp:DropDownList ID="ddlSpecial" ReadOnly="true" Enabled="true" runat="server"></asp:DropDownList>
            </div> <br />
+           <div>
+               <small>Start Date</small><br />
+               <asp:TextBox ID="txtStartDate" runat="server" TextMode="Date"></asp:TextBox><br />
+               <small>End Date</small> <br />
+               <asp:TextBox ID="txtEndDate" runat="server" TextMode="Date"></asp:TextBox>
+           </div><br />
 
            <div style="padding-top: 1em">
                 <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="btn btn-primary" />&nbsp;&nbsp;
 
                 <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="btn btn-primary" />&nbsp;&nbsp;
                </div>
+
 
        </div>
     </form>
