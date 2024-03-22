@@ -10,10 +10,104 @@ using System.Web.UI.WebControls;
 
 namespace CNSA216_EBC_project {
     public partial class WebForm5 : System.Web.UI.Page {
-        protected void Page_Load(object sender, EventArgs e) {
+        private static int prescriptionID;
+        private static int medicationID;
+        private static string type;
+
+        protected void GoBack() {
+            Response.Redirect("frmSearch.aspx");
+        }
+
+        protected void BindData() {
+            
+            DataTable prescriptionData;
+
+            int patientID;
+            int physicianID;
+            //int medicationID;
+            int dosageID;
+            string intakeMethod;
+            string instructions;
+            string extraInstructions;
+            DateTime startDate;
+            DateTime endDate;
+            DateTime entryDateTime;
+
+            // get all data for this prescription
+            prescriptionData = PrescriptionDataTier.GetPrescriptionInfo(prescriptionID).Tables[0];
+
+            patientID = (int)prescriptionData.Rows[0]["PatientID"];
+            physicianID = (int)prescriptionData.Rows[0]["PhysicianID"];
+            medicationID = (int)prescriptionData.Rows[0]["MedicineID"];
+            dosageID = (int)prescriptionData.Rows[0]["DosageID"];
+            intakeMethod = (string)prescriptionData.Rows[0]["IntakeMethod"];
+            instructions = (string)prescriptionData.Rows[0]["Instructions"];
+            extraInstructions = (string)prescriptionData.Rows[0]["ExtraInstructions"];
+            startDate = (DateTime)prescriptionData.Rows[0]["StartDate"];
+            endDate = (DateTime)prescriptionData.Rows[0]["EndDate"];
+            entryDateTime = (DateTime)prescriptionData.Rows[0]["EnteredDateTime"];
+
+            // -- populate DDLs
+            // get dataset of all patients with only names and IDs
+            ddlPatient.DataSource = PatientDataTier.GetPatientInfo(0, true, true);
+            // bind to Patient ddl
+            ddlPatient.DataTextField = "FullName";
+            ddlPatient.DataValueField = "PatientID";
+            ddlPatient.DataBind();
+            
+            ddlPhysician.DataSource = PhysicianDataTier.GetPhysicianInfo(0, true, true);
+            ddlPhysician.DataTextField = "FullName";
+            ddlPhysician.DataValueField = "PhysicianID";
+            ddlPhysician.DataBind();
+            
+            ddlMedication.DataSource = MedicineDataTier.GetMedicineList();
+            ddlMedication.DataTextField = "MedicineName";
+            ddlMedication.DataValueField = "MedicineID";
+            ddlMedication.DataBind();
+
+            UpdateDosages();
+
+            // -- populate values
+            txtPrescriptionID.Text = prescriptionID.ToString();
+            ddlPatient.SelectedValue = patientID.ToString();
+            ddlPatient.SelectedValue = physicianID.ToString();
+            ddlMedication.SelectedValue = medicationID.ToString();
+            ddlDosage.SelectedValue = dosageID.ToString();
+            txtIntakeMethod.Text = intakeMethod;
+            txtInstructions.Text = instructions;
+            txtExtraInstructions.Text = extraInstructions;
+            txtStartDate.Text = startDate.ToString("yyyy-MM-dd"); // date needs to be in this format to set the value
+            txtEndDate.Text = endDate.ToString("yyyy-MM-dd");
+            txtEnteredDateTime.Text = entryDateTime.ToString();
+        }
+
+        protected void SetValidators() {
             int maxLength;
             DataSet dsColumns;
 
+            dsColumns = GeneralDataTier.GetTableColumns("Prescriptions");
+            
+
+            // set validators according to max lengths in database
+            maxLength = GeneralDataTier.GetColumnMaxLength("ExtraInstructions", dsColumns);
+            txtExtraInstructions.MaxLength = maxLength;
+            rgxExtraInstructions.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
+            rgxExtraInstructions.ErrorMessage = $"Must be {maxLength} characters or less";
+
+            rngStartDate.Type = ValidationDataType.Date;
+            rngStartDate.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
+            rngStartDate.MinimumValue = DateTime.MinValue.ToShortDateString();
+            rngStartDate.MaximumValue = DateTime.MaxValue.ToShortDateString();
+
+            rngEndDate.Type = ValidationDataType.Date;
+            rngEndDate.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
+            rngEndDate.MinimumValue = DateTime.MinValue.ToShortDateString();
+            rngEndDate.MaximumValue = DateTime.MaxValue.ToShortDateString();
+
+            
+
+
+            // get list of table columns and lengths
             dsColumns = GeneralDataTier.GetTableColumns("Patients");
 
             // -- string length validator
@@ -38,6 +132,69 @@ namespace CNSA216_EBC_project {
             rngSmallInt.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
             rngSmallInt.MinimumValue = Int16.MinValue.ToString();
             rngSmallInt.MaximumValue = Int16.MaxValue.ToString();
+        }
+
+        protected void PreparePage() {
+            switch (type) {
+                case "ADD":
+                    break;
+                case "VIEW":
+                    SetValidators();
+                    BindData();
+                    break;
+                case "EDIT":
+                    SetValidators();
+                    BindData();
+                    break;
+            }
+        }
+
+        protected void Page_Load(object sender, EventArgs e) {
+            
+            //string type;
+            bool success;
+            
+            if (!IsPostBack) {
+                // check if query string contains the type key
+                if (Request.QueryString.AllKeys.Contains("type") && !String.IsNullOrEmpty(Request.QueryString["type"])) {
+                    type = Request.QueryString["type"];
+
+                    // ignore the id if type is ADD
+                    if (type != "ADD") {
+                        // check if query string contains the id key
+                        if (Request.QueryString.AllKeys.Contains("id") && !String.IsNullOrEmpty(Request.QueryString["id"])) {
+                            success = Int32.TryParse(Request.QueryString["id"], out prescriptionID);
+                            if (!success) {
+                                GoBack();
+                            } else {
+                                PreparePage();
+                            };
+                        }
+                        else {
+                            GoBack();
+                        }
+                    }
+                }
+                else {
+                    GoBack();
+                }
+                
+            } else {
+
+            }
+        }
+
+        protected void UpdateDosages() {
+            // update the dosage DDL when medication is changed
+            ddlDosage.DataSource = MedicineDataTier.GetMedicine(medicationID);
+            ddlDosage.DataTextField = "Dosage";
+            ddlDosage.DataValueField = "DosageID";
+            ddlDosage.DataBind();
+        }
+
+        protected void ddlMedication_SelectedIndexChanged(object sender, EventArgs e) {
+            Int32.TryParse(ddlMedication.SelectedValue, out medicationID);
+            UpdateDosages();
         }
     }
 }
