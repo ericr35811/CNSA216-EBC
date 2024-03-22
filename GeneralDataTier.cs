@@ -42,6 +42,49 @@ namespace _2024_CNSA212_Final_Group2 {
             }
         }
 
+        public static DataSet GetTableColumns(string tableName) {
+            try {
+
+                myConn.Open();
+
+                cmdString.Parameters.Clear();
+                cmdString.Connection = myConn;
+                cmdString.CommandType = CommandType.StoredProcedure;
+                cmdString.CommandTimeout = 1500;
+                cmdString.CommandText = "procGetTableColumns";
+                cmdString.Parameters.Add("@TableName", SqlDbType.VarChar, 15).Value = tableName;
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = cmdString;
+                DataSet dataset = new DataSet();
+
+                adapter.Fill(dataset);
+
+                return dataset;
+
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
+            finally {
+                myConn.Close();
+            }
+        }
+
+        public static int GetColumnMaxLength(string colName, DataSet dsColumns) {
+            try {
+                int maxLength = Convert.ToInt32(dsColumns.Tables[0].Select($"ColName = '{colName}'")[0]["MaxLength"]);
+                return maxLength;
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public static string LengthExpression(int maxLength) {
+            return $"^[\\s\\S]{{0,{maxLength}}}$";
+        }
+
         public static DataSet SearchTableGetInfo(string tableName, string param1Col, string param1, string andOr, string param2Col, string param2, bool showActive, bool showInactive) {
             try {
 
