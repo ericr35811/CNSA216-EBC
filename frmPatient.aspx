@@ -29,14 +29,24 @@
             <div>
                 <small>Gender</small> <br />
                 <asp:DropDownList ID="ddlGender" runat="server" ReadOnly="True" Width="6em" disabled="false"></asp:DropDownList>
-            </div>
+            </div><br />
             <div>
                 <small>Date of Birth</small>
                 <asp:TextBox ID="txtDob" runat="server" TextMode="Date"></asp:TextBox>
+            </div><br />
+            <div>
+                <small>Height</small><br />
+                <asp:TextBox ID="txtHeight" runat="server"></asp:TextBox><br />
+                <small>Weight</small><br />
+                <asp:TextBox ID="txtWeight" runat="server"></asp:TextBox>
             </div>
             <div>
-                <small>Address</small> <br />
-                <asp:TextBox ID="txtAddress" runat="server"></asp:TextBox>
+                <small>Street</small> <br />
+                <asp:TextBox ID="txtStreet" runat="server"></asp:TextBox>
+            </div>
+            <div>
+            <small>City</small> <br />
+            <asp:TextBox ID="txtCity" runat="server"></asp:TextBox>
             </div>
             <div>
                 <small>Zip Code</small> <br />
@@ -47,20 +57,30 @@
                 <asp:DropDownList ID="ddlState" runat="server" ReadOnly="True" Width="6em" disabled="false"></asp:DropDownList>
             </div>
              <div>
-                <small>Phone Number</small> <br />
-                <asp:TextBox ID="txtPhone" runat="server"></asp:TextBox>
+                <small>Phone 1</small> <br />
+                <asp:TextBox ID="txtPhone1" runat="server"></asp:TextBox><br />
+                 <small>Phone 2</small> <br />
+                 <asp:TextBox ID="txtPhone2" runat="server"></asp:TextBox>
             </div>
              <div>
                 <small>Email</small> <br />
                 <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
              </div>
             <div>
-                <small>Insurance</small> <br />
-                <asp:TextBox ID="txtInsurance" runat="server"></asp:TextBox>
+                <small>Insurance Name</small> <br />
+                <asp:DropDownList ID="txtInsurance" runat="server" Enabled="true"></asp:DropDownList>
             </div>
             <div>
                 <small>Reason for Visit</small> <br />
                 <asp:TextBox ID="txtVisit" runat="server" TextMode="MultiLine"></asp:TextBox>
+            </div>
+            <div>
+                <small>Start Date</small><br />
+                <asp:TextBox ID="txtStart" runat="server" TextMode="Date"></asp:TextBox>
+            </div>
+            <div>
+                <small>End Date</small><br />
+                <asp:TextBox ID="txtEnd" runat="server" TextMode="Date"></asp:TextBox>
             </div>
 </div>
         <div style="padding-top: 1em">
