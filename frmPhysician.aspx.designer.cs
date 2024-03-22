@@ -33,6 +33,15 @@ namespace CNSA216_EBC_project
         protected global::System.Web.UI.WebControls.TextBox txtPhysicianID;
 
         /// <summary>
+        /// rgxString control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rgxString;
+
+        /// <summary>
         /// txtFName control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace CNSA216_EBC_project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFName;
+
+        /// <summary>
+        /// rgxString1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rgxString1;
 
         /// <summary>
         /// txtLName control.
@@ -51,6 +69,15 @@ namespace CNSA216_EBC_project
         protected global::System.Web.UI.WebControls.TextBox txtLName;
 
         /// <summary>
+        /// rgxString2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rgxString2;
+
+        /// <summary>
         /// txtMiddle control.
         /// </summary>
         /// <remarks>
@@ -58,6 +85,15 @@ namespace CNSA216_EBC_project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMiddle;
+
+        /// <summary>
+        /// rgxString3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rgxString3;
 
         /// <summary>
         /// ddlGender control.
@@ -69,6 +105,15 @@ namespace CNSA216_EBC_project
         protected global::System.Web.UI.WebControls.DropDownList ddlGender;
 
         /// <summary>
+        /// rgxString4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rgxString4;
+
+        /// <summary>
         /// txtPhone control.
         /// </summary>
         /// <remarks>
@@ -76,6 +121,15 @@ namespace CNSA216_EBC_project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPhone;
+
+        /// <summary>
+        /// rgxString5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rgxString5;
 
         /// <summary>
         /// txtemail control.
@@ -87,6 +141,15 @@ namespace CNSA216_EBC_project
         protected global::System.Web.UI.WebControls.TextBox txtemail;
 
         /// <summary>
+        /// rgxString6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rgxString6;
+
+        /// <summary>
         /// txtStreet control.
         /// </summary>
         /// <remarks>
@@ -94,6 +157,15 @@ namespace CNSA216_EBC_project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtStreet;
+
+        /// <summary>
+        /// rgxString7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rgxString7;
 
         /// <summary>
         /// txtCity control.
@@ -105,6 +177,15 @@ namespace CNSA216_EBC_project
         protected global::System.Web.UI.WebControls.TextBox txtCity;
 
         /// <summary>
+        /// rgxString8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rgxString8;
+
+        /// <summary>
         /// ddlState control.
         /// </summary>
         /// <remarks>
@@ -114,6 +195,15 @@ namespace CNSA216_EBC_project
         protected global::System.Web.UI.WebControls.DropDownList ddlState;
 
         /// <summary>
+        /// rgxString9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rgxString9;
+
+        /// <summary>
         /// txtZip control.
         /// </summary>
         /// <remarks>
@@ -121,6 +211,15 @@ namespace CNSA216_EBC_project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtZip;
+
+        /// <summary>
+        /// rgxString10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator rgxString10;
 
         /// <summary>
         /// ddlSpecial control.
@@ -141,6 +240,15 @@ namespace CNSA216_EBC_project
         protected global::System.Web.UI.WebControls.TextBox txtStartDate;
 
         /// <summary>
+        /// rngDate2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rngDate2;
+
+        /// <summary>
         /// txtEndDate control.
         /// </summary>
         /// <remarks>
@@ -148,6 +256,15 @@ namespace CNSA216_EBC_project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEndDate;
+
+        /// <summary>
+        /// rngDate1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rngDate1;
 
         /// <summary>
         /// btnAdd control.
@@ -166,5 +283,14 @@ namespace CNSA216_EBC_project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpdate;
+
+        /// <summary>
+        /// btnBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBack;
     }
 }
