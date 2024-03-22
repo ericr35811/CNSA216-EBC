@@ -8,12 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace _2024_CNSA212_Final_Group2 {
-    internal class MedicineDataTier {
+    internal static class MedicineDataTier {
         static string connString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
         static SqlConnection myConn = new SqlConnection(connString);
         static SqlCommand cmdString = new SqlCommand();
 
-        public DataSet GetMedicine(int medicineID) {
+        public static DataSet GetMedicine(int medicineID) {
             try {
                 myConn.Open();
 
@@ -41,7 +41,7 @@ namespace _2024_CNSA212_Final_Group2 {
             }
         }
 
-        public DataSet GetMedicineList() {
+        public static DataSet GetMedicineList() {
             try {
                 myConn.Open();
 
