@@ -27,7 +27,7 @@
 
             <div>
                 <small>Medication</small> <br />
-                <asp:DropDownList ID="ddlMedication" runat="server"></asp:DropDownList>
+                <asp:DropDownList ID="ddlMedication" runat="server" OnSelectedIndexChanged="ddlMedication_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
              </div>
 
             <div>
@@ -49,24 +49,27 @@
 
             <div>
                 <small>Extra Instructions</small> <br />
-                <asp:TextBox ID="txtExtraInstructions" runat="server" TextMode="MultiLine"></asp:TextBox>
+                <asp:TextBox ID="txtExtraInstructions" runat="server" TextMode="MultiLine" CausesValidation="True"></asp:TextBox>
+                <asp:RegularExpressionValidator ID="rgxExtraInstructions" runat="server" ErrorMessage="RegularExpressionValidator" Display="Dynamic" ControlToValidate="txtExtraInstructions"></asp:RegularExpressionValidator>
             </div>
         
             <br />
 
             <div>
                 <small>Start Date</small> <br />
-                <asp:TextBox ID="txtStartDate" runat="server" Width="8em"></asp:TextBox>
+                <asp:TextBox ID="txtStartDate" runat="server" Width="8em" CausesValidation="True" TextMode="Date"></asp:TextBox>
+                <asp:RangeValidator ID="rngStartDate" runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtStartDate" Display="Dynamic"></asp:RangeValidator>
              </div>
 
             <div>
                 <small>End Date</small> <br />
-                <asp:TextBox ID="txtEndDate" runat="server" Width="8em"></asp:TextBox>
+                <asp:TextBox ID="txtEndDate" runat="server" Width="8em" CausesValidation="True" TextMode="Date">
+                </asp:TextBox><asp:RangeValidator runat="server" ErrorMessage="RangeValidator" ID="rngEndDate" Display="Dynamic" ControlToValidate="txtEndDate"></asp:RangeValidator>
             </div>
 
              <div>
                 <small>Date & Time of Entry</small> <br />
-                 <asp:TextBox ID="txtEnteredDateTime" runat="server" ReadOnly="True" disabled="true"></asp:TextBox>
+                 <asp:TextBox ID="txtEnteredDateTime" runat="server" ReadOnly="True" disabled="true" TextMode="DateTime"></asp:TextBox>
             </div>
             
         </div>
