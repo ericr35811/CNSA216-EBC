@@ -135,14 +135,29 @@ namespace CNSA216_EBC_project {
         }
 
         protected void PreparePage() {
+            
+            
             switch (type) {
                 case "ADD":
+                    btnSave.Text = "Add";
                     break;
                 case "VIEW":
+                    ddlPatient.Enabled = false;
+                    ddlPhysician.Enabled = false;
+                    ddlMedication.Enabled = false;
+                    ddlDosage.Enabled = false;
+                    txtExtraInstructions.Enabled = false;
+                    txtStartDate.Enabled = false;
+                    txtEndDate.Enabled = false;
+
+                    btnSave.Enabled = false;
+                    btnSave.Visible = false;
+
                     SetValidators();
                     BindData();
                     break;
                 case "EDIT":
+                    btnSave.Text = "Save";
                     SetValidators();
                     BindData();
                     break;
@@ -153,7 +168,7 @@ namespace CNSA216_EBC_project {
             
             //string type;
             bool success;
-            
+
             if (!IsPostBack) {
                 // check if query string contains the type key
                 if (Request.QueryString.AllKeys.Contains("type") && !String.IsNullOrEmpty(Request.QueryString["type"])) {
@@ -163,7 +178,7 @@ namespace CNSA216_EBC_project {
                     if (type != "ADD") {
                         // check if query string contains the id key
                         if (Request.QueryString.AllKeys.Contains("id") && !String.IsNullOrEmpty(Request.QueryString["id"])) {
-                            success = Int32.TryParse(Request.QueryString["id"], out prescriptionID);
+                            success = Int32.TryParse(SecureID.Decrypt(Request.QueryString["id"].Trim()), out prescriptionID);
                             if (!success) {
                                 GoBack();
                             } else {

@@ -7,6 +7,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ASPContent" runat="server">
     <form id="formPrescription" runat="server">
+        <h1>Prescription</h1>
+        <hr />
         <div class="formdiv">
             <div>
                 <small>Prescription ID</small> <br />
@@ -74,11 +76,10 @@
             
         </div>
         <div style="padding-top: 1em">
-            <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="btn btn-primary" />&nbsp;&nbsp;
+            <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary me-1 " />
 
-            <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="btn btn-primary" />&nbsp;&nbsp;
-            
-            <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="btn btn-primary" />
+            <%--<asp:Button ID="btnGoBack" runat="server" CssClass="btn btn-primary" Text="Back" />--%>
+            <a href="frmSearch.aspx" class="btn btn-primary">Go Back</a>
             
             <br /><br /><br />
 
