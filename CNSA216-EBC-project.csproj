@@ -81,6 +81,7 @@
     <Content Include="frmSearch.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClerkDataTier.cs" />
     <Compile Include="CNSA216-EBC.Master.cs">
       <DependentUpon>CNSA216-EBC.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
