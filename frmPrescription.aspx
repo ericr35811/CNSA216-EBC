@@ -72,11 +72,12 @@
              <div>
                 <small>Date & Time of Entry</small> <br />
                  <asp:TextBox ID="txtEnteredDateTime" runat="server" ReadOnly="True" disabled="true" TextMode="DateTime"></asp:TextBox>
+                 
             </div>
             
         </div>
-        <div style="padding-top: 1em">
-            <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary me-1 " />
+        <div class="pt-1">
+            <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary me-1 " OnClick="btnSave_Click" />
 
             <%--<asp:Button ID="btnGoBack" runat="server" CssClass="btn btn-primary" Text="Back" />--%>
             <a href="frmSearch.aspx" class="btn btn-primary">Go Back</a>
@@ -135,6 +136,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Bottom" runat="server">
     <script>
+        txt = document.getElementById("ASPContent_txtEnteredDateTime");
+
         // Change the color of the selected link
         document.getElementById("lnkPrescription").style.color = "rgba(255,255,255,1.0)";
 
@@ -143,5 +146,11 @@
 
         document.getElementById("ASPContent_txtExtraInstructions").style.height = "6em";
         document.getElementById("ASPContent_txtExtraInstructions").style.width = "15em";
+
+        function Updatetime() {
+            
+
+
+        }
     </script>
 </asp:Content>

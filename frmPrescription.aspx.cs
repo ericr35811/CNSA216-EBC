@@ -211,5 +211,36 @@ namespace CNSA216_EBC_project {
             Int32.TryParse(ddlMedication.SelectedValue, out medicationID);
             UpdateDosages();
         }
+
+        protected void btnSave_Click(object sender, EventArgs e) {
+            int patientID;
+            int physicianID;
+            //int medicationID;
+            int dosageID;
+            string intakeMethod;
+            string instructions;
+            string extraInstructions;
+            DateTime startDate;
+            DateTime endDate;
+            DateTime entryDateTime;
+            bool fail = false;
+
+            fail |= Int32.TryParse(ddlPatient.SelectedValue, out patientID);
+            fail |= Int32.TryParse(ddlPhysician.SelectedValue, out physicianID);
+            fail |= Int32.TryParse(ddlMedication.SelectedValue,out medicationID);
+            fail |= Int32.TryParse(ddlDosage.SelectedValue,out dosageID);
+            extraInstructions = txtExtraInstructions.Text;
+            fail |= DateTime.TryParse(txtStartDate.Text, out startDate);
+            fail |= DateTime.TryParse(txtEndDate.Text, out endDate);
+            fail |= DateTime.TryParse(txtEnteredDateTime.Text, out entryDateTime);
+
+            switch (type) {
+                case "ADD":
+                    PrescriptionDataTier.AddPrescription
+                    break;
+                case "EDIT":
+                    break;
+            }
+        }
     }
 }
