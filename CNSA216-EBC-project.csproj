@@ -70,6 +70,7 @@
     <Content Include="images\banner2.png" />
     <Content Include="js\datatables-simple-demo.js" />
     <Content Include="js\scripts.js" />
+    <Content Include="test.txt" />
     <Content Include="Web.config" />
     <Content Include="MasterTest.aspx" />
     <Content Include="frmPatient.aspx" />
@@ -88,6 +89,7 @@
       <DependentUpon>CNSA216-EBC.Master</DependentUpon>
     </Compile>
     <Compile Include="Custom.cs" />
+    <Compile Include="EncryptID.cs" />
     <Compile Include="GeneralDataTier.cs" />
     <Compile Include="MedicineDataTier.cs" />
     <Compile Include="PatientDataTier.cs" />

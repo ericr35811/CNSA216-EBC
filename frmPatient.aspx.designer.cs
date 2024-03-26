@@ -78,13 +78,40 @@ namespace CNSA216_EBC_project
         protected global::System.Web.UI.WebControls.TextBox txtDob;
 
         /// <summary>
-        /// txtAddress control.
+        /// txtHeight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAddress;
+        protected global::System.Web.UI.WebControls.TextBox txtHeight;
+
+        /// <summary>
+        /// txtWeight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWeight;
+
+        /// <summary>
+        /// txtStreet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtStreet;
+
+        /// <summary>
+        /// txtCity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCity;
 
         /// <summary>
         /// txtZip control.
@@ -105,13 +132,22 @@ namespace CNSA216_EBC_project
         protected global::System.Web.UI.WebControls.DropDownList ddlState;
 
         /// <summary>
-        /// txtPhone control.
+        /// txtPhone1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPhone;
+        protected global::System.Web.UI.WebControls.TextBox txtPhone1;
+
+        /// <summary>
+        /// txtPhone2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPhone2;
 
         /// <summary>
         /// txtEmail control.
@@ -129,7 +165,7 @@ namespace CNSA216_EBC_project
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtInsurance;
+        protected global::System.Web.UI.WebControls.DropDownList txtInsurance;
 
         /// <summary>
         /// txtVisit control.
@@ -139,6 +175,24 @@ namespace CNSA216_EBC_project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtVisit;
+
+        /// <summary>
+        /// txtStart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtStart;
+
+        /// <summary>
+        /// txtEnd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEnd;
 
         /// <summary>
         /// btnAdd control.

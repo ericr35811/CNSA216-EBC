@@ -7,12 +7,25 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text;
 
 namespace CNSA216_EBC_project {
     public partial class WebForm8 : System.Web.UI.Page {
         private string searchTable = "NONE";
         private bool parametersPopulating = false;
 
+        private string tableName;
+        private string param1Col;
+        private string param1;
+        private string andOr;
+        private string param2Col;
+        private string param2;
+        private bool showActive;
+        private bool showInactive;
+
+        private readonly string[] validForms = { "Patient", "Physician", "Prescription", "Refill" };
+        private readonly string[] validCommands = { "ADD", "EDIT", "DELETE" };
+        private DataSet dsResult;
         private static DataTable dtColumns;
 
         // Populate the values which the user can search for
@@ -82,7 +95,7 @@ namespace CNSA216_EBC_project {
 
                     // check range
                     rng.Type = ValidationDataType.Integer;
-                    rng.ErrorMessage = $"Must be a whole number between {Int16.MinValue} and {Int16.MaxValue}";
+                    rng.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
                     rng.MinimumValue = Int16.MinValue.ToString();
                     rng.MaximumValue = Int16.MaxValue.ToString();
                     rng.Enabled = true;
@@ -96,7 +109,7 @@ namespace CNSA216_EBC_project {
                     cmp.Enabled = false;
 
                     rng.Type = ValidationDataType.Integer;
-                    rng.ErrorMessage = $"Must be a whole number between {Int32.MinValue} and {Int32.MaxValue}";
+                    rng.ErrorMessage = $"Must be a whole number between {Int32.MinValue.ToString()} and {Int32.MaxValue.ToString()}";
                     rng.MinimumValue = Int32.MinValue.ToString();
                     rng.MaximumValue = Int32.MaxValue.ToString();
                     rng.Enabled = true;
@@ -110,7 +123,7 @@ namespace CNSA216_EBC_project {
                     cmp.Enabled = false;
 
                     rng.Type = ValidationDataType.Date;
-                    rng.ErrorMessage = $"Must be a date between {DateTime.MinValue} and {DateTime.MaxValue}";
+                    rng.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
                     rng.MinimumValue = DateTime.MinValue.ToShortDateString();
                     rng.MaximumValue = DateTime.MaxValue.ToShortDateString();
                     rng.Enabled = true;
@@ -127,23 +140,63 @@ namespace CNSA216_EBC_project {
             }
         }
 
+        // bind the data to the appropriate gridview
+        private void BindData(string tableName) {
+            dgvPatient.Visible = false;
+            dgvPhysician.Visible = false;
+            dgvPrescription.Visible = false;
+            dgvRefill.Visible = false;
+
+
+            switch (ddlSearchFor.SelectedValue.ToString()) {
+                case "Patients":
+                    dgvPatient.DataSource = dsResult;
+                    dgvPatient.DataBind();
+                    dgvPatient.Visible = true;
+                    break;
+                case "Physicians":
+                    dgvPhysician.DataSource = dsResult;
+                    dgvPhysician.DataBind();
+                    dgvPhysician.Visible = true;
+                    break;
+                case "Prescriptions":
+                    dgvPrescription.DataSource = dsResult;
+                    dgvPrescription.DataBind();
+                    dgvPrescription.Visible = true;
+                    break;
+                case "Refills":
+                    dgvRefill.DataSource = dsResult;
+                    dgvRefill.DataBind();
+                    dgvRefill.Visible = true;
+                    break;
+            }
+        }
 
         protected void Page_Load(object sender, EventArgs e) {
             if (IsPostBack) {
                 //lblTest.Text = "postback";
 
-                
+
             }
             else {
                 //lblTest.Text = "not postback";
 
+                // optionally set the table to search
+                if (Request.QueryString.AllKeys.Contains("search")) {
+                    ddlSearchFor.SelectedValue = Request.QueryString["search"];
+                }
+                
                 // Populate if the page is loading for the first time (not postback)
                 PopulateParameters();
 
+                // Set up validators on first load
                 SetValidator(cmpParameter01, rngParameter01, rgxParameter01, ddlParameter1.SelectedValue);
                 SetValidator(cmpParameter02, rngParameter02, rgxParameter02, ddlParameter2.SelectedValue);
+
+                // Bind data so the table shows "no data" on first load
+                BindData(ddlSearchFor.SelectedValue);
             }
-            
+
             // disable the and/or if we are selecting all
             if (ddlParameter1.SelectedIndex == 0 || ddlParameter2.SelectedIndex == 0) {
                 rdoAndOr.Enabled = false;
@@ -152,37 +205,71 @@ namespace CNSA216_EBC_project {
                 rdoAndOr.Enabled = true;
             }
 
+            // add script to require one checkbox to be selected
+            chkActive.InputAttributes.Add("onchange", "ActiveInactiveChanged(this)");
+            chkInactive.InputAttributes.Add("onchange", "ActiveInactiveChanged(this)");
+
         }
 
         protected void ddlSearchFor_SelectedIndexChanged(object sender, EventArgs e) {
             // Populate if the user has selected a new table (postback)
             if (!parametersPopulating) PopulateParameters();
+
+            txtParameter1.Text = "";
+            txtParameter2.Text = "";
+
+            //// disable
+            //if (ddlSearchFor.SelectedValue == "Refills") {
+            //    btnAdd.Enabled = false;
+            //}
+            //else {
+            //    btnAdd.Enabled = true;
+            //}
         }
 
         protected void ddlParameter1_SelectedIndexChanged(object sender, EventArgs e) {
+            txtParameter1.Text = "";
             SetValidator(cmpParameter01, rngParameter01, rgxParameter01, ddlParameter1.SelectedValue);
             Page.Validate();
-            
-            
         }
 
         protected void ddlParameter2_SelectedIndexChanged(object sender, EventArgs e) {
+            txtParameter2.Text = "";
             SetValidator(cmpParameter02, rngParameter02, rgxParameter02, ddlParameter2.SelectedValue);
             Page.Validate();
         }
 
+        protected void CacheSearch() {
+
+        }
+
+        // functions for table buttons
+        protected void TableActions(object sender, CommandEventArgs e) {
+            CacheSearch();
+            //Response.Write("<script>alert('" + e.CommandName + " " + e.CommandArgument.ToString() + "');</script>");
+
+            string[] command = e.CommandName.Split(':');
+            string form = command[0];
+            string action = command[1];
+            string id = e.CommandArgument.ToString();
+
+            // validate and form the URL
+            StringBuilder url = new StringBuilder();
+            
+            if (validForms.Contains(form)) {
+                url.Append("frm" + form + ".aspx");
+
+                if (validCommands.Contains(action)) {
+                    url.Append("?type=" + action);
+                    url.Append("&id=" + id);
+
+                    Response.Redirect(url.ToString());
+                }
+            }
+        }
+
+
         protected void btnSearch_Click(object sender, EventArgs e) {
-            DataSet dsResult;
-
-            string tableName;
-            string param1Col;
-            string param1;
-            string andOr;
-            string param2Col;
-            string param2;
-            bool showActive;
-            bool showInactive;
-
             tableName = ddlSearchFor.SelectedValue;
             andOr = rdoAndOr.SelectedValue;
             showActive = chkActive.Checked;
@@ -208,44 +295,9 @@ namespace CNSA216_EBC_project {
             dsResult = GeneralDataTier.SearchTableGetInfo(tableName, param1Col, param1, andOr, param2Col, param2, showActive, showInactive);
 
             if (dsResult != null) {
-                // before binding the data, only enable columns which exist in the dataset
-                //foreach (BoundField col in dgvResult.Columns) {
-
-                //    if (!dsResult.Tables[0].Columns.Contains(col.DataField) ) {
-                //        col.Visible = false;
-                //    } else {
-                //        col.Visible = true;
-                //    }
-                //}
-
-                dgvPatient.Visible = false;
-                dgvPhysician.Visible = false;
-                dgvPrescription.Visible = false;
-                dgvRefill.Visible = false;
-
-                switch (ddlSearchFor.SelectedValue.ToString()) {
-                    case "Patients":
-                        dgvPatient.DataSource = dsResult;
-                        dgvPatient.DataBind();
-                        dgvPatient.Visible = true;
-                        break;
-                    case "Physicians":
-                        dgvPhysician.DataSource = dsResult;
-                        dgvPhysician.DataBind();
-                        dgvPhysician.Visible = true;
-                        break;
-                    case "Prescriptions":
-                        dgvPrescription.DataSource = dsResult;
-                        dgvPrescription.DataBind();
-                        dgvPrescription.Visible = true;
-                        break;
-                    case "Refills":
-                        dgvRefill.DataSource = dsResult;
-                        dgvRefill.DataBind();
-                        dgvRefill.Visible = true;
-                        break;
-                }
+                BindData(tableName);
             }
         }
+
     }
 }

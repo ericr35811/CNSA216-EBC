@@ -19,10 +19,12 @@ namespace _2024_CNSA212_Final_Group2
             static SqlConnection myConn = new SqlConnection(connString);
             static SqlCommand cmdString = new SqlCommand();
 
-            public static DataSet GetPhysicianByID(int physicianID)
+            public static DataSet GetPhysicianInfo(int physicianID, bool selectAll = false, bool namesOnly = false)
             {
                 try
                 {
+                    if (selectAll) physicianID = int.MaxValue;
+
                     myConn.Open();
 
                     cmdString.Parameters.Clear();
@@ -31,7 +33,8 @@ namespace _2024_CNSA212_Final_Group2
                     cmdString.CommandTimeout = 1500;
                     cmdString.CommandText = "procGetPhysicianInfo";
                     cmdString.Parameters.Add("@PhysicianID", SqlDbType.Int).Value = physicianID;
-
+                    cmdString.Parameters.Add("@NamesOnly", SqlDbType.Bit).Value = namesOnly;
+                    
                     SqlDataAdapter adapter = new SqlDataAdapter();
                     adapter.SelectCommand = cmdString;
                     DataSet dataset = new DataSet();
