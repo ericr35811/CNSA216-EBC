@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Web;
+using System.Web.DynamicData;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -20,65 +21,91 @@ namespace CNSA216_EBC_project {
 
         protected void BindData() {
             
-            DataTable prescriptionData;
+            DataTable dataTable;
 
-            int patientID;
-            int physicianID;
+            int patientID = 0;
+            int physicianID = 0;
             //int medicationID;
-            int dosageID;
-            string intakeMethod;
-            string instructions;
-            string extraInstructions;
-            DateTime startDate;
-            DateTime endDate;
-            DateTime entryDateTime;
+            int dosageID = 0;
+            string intakeMethod = "";
+            string instructions = "";
+            string extraInstructions = "";
+            DateTime startDate = DateTime.MinValue ;
+            DateTime endDate = DateTime.MinValue; ;
+            DateTime entryDateTime = DateTime.MinValue; ;
 
-            // get all data for this prescription
-            prescriptionData = PrescriptionDataTier.GetPrescriptionInfo(prescriptionID).Tables[0];
+            if (type == "EDIT") {
+                // get all data for this prescription
+                dataTable = PrescriptionDataTier.GetPrescriptionInfo(prescriptionID).Tables[0];
 
-            patientID = (int)prescriptionData.Rows[0]["PatientID"];
-            physicianID = (int)prescriptionData.Rows[0]["PhysicianID"];
-            medicationID = (int)prescriptionData.Rows[0]["MedicineID"];
-            dosageID = (int)prescriptionData.Rows[0]["DosageID"];
-            intakeMethod = (string)prescriptionData.Rows[0]["IntakeMethod"];
-            instructions = (string)prescriptionData.Rows[0]["Instructions"];
-            extraInstructions = (string)prescriptionData.Rows[0]["ExtraInstructions"];
-            startDate = (DateTime)prescriptionData.Rows[0]["StartDate"];
-            endDate = (DateTime)prescriptionData.Rows[0]["EndDate"];
-            entryDateTime = (DateTime)prescriptionData.Rows[0]["EnteredDateTime"];
+                patientID = (int)dataTable.Rows[0]["PatientID"];
+                physicianID = (int)dataTable.Rows[0]["PhysicianID"];
+                medicationID = (int)dataTable.Rows[0]["MedicineID"];
+                dosageID = (int)dataTable.Rows[0]["DosageID"];
+                intakeMethod = (string)dataTable.Rows[0]["IntakeMethod"];
+                instructions = (string)dataTable.Rows[0]["Instructions"];
+                extraInstructions = (string)dataTable.Rows[0]["ExtraInstructions"];
+                startDate = (DateTime)dataTable.Rows[0]["StartDate"];
+                endDate = (DateTime)dataTable.Rows[0]["EndDate"];
+                entryDateTime = (DateTime)dataTable.Rows[0]["EnteredDateTime"];
+            }
 
             // -- populate DDLs
             // get dataset of all patients with only names and IDs
-            ddlPatient.DataSource = PatientDataTier.GetPatientInfo(0, true, true);
+            
+            dataTable = PatientDataTier.GetPatientInfo(0, true, true).Tables[0];
+            DataRow InitialValue = dataTable.NewRow();
+            InitialValue["FullName"] = "Select one...";
+            InitialValue["PatientID"] = 0;
+            dataTable.Rows.InsertAt(InitialValue, 0);
+
+            ddlPatient.DataSource = dataTable;
             // bind to Patient ddl
             ddlPatient.DataTextField = "FullName";
             ddlPatient.DataValueField = "PatientID";
             ddlPatient.DataBind();
             
-            ddlPhysician.DataSource = PhysicianDataTier.GetPhysicianInfo(0, true, true);
+            dataTable = PhysicianDataTier.GetPhysicianInfo(0, true, true).Tables[0];
+            InitialValue = dataTable.NewRow();
+            InitialValue["FullName"] = "Select one...";
+            InitialValue["PhysicianID"] = 0;
+            dataTable.Rows.InsertAt(InitialValue, 0);
+
+            ddlPhysician.DataSource = dataTable;
             ddlPhysician.DataTextField = "FullName";
             ddlPhysician.DataValueField = "PhysicianID";
             ddlPhysician.DataBind();
-            
-            ddlMedication.DataSource = MedicineDataTier.GetMedicineList();
+
+            dataTable = MedicineDataTier.GetMedicineList().Tables[0];
+            InitialValue = dataTable.NewRow();
+            InitialValue["MedicineName"] = "Select one...";
+            InitialValue["MedicineID"] = 0;
+            dataTable.Rows.InsertAt(InitialValue, 0);
+
+            ddlMedication.DataSource = dataTable;
             ddlMedication.DataTextField = "MedicineName";
             ddlMedication.DataValueField = "MedicineID";
             ddlMedication.DataBind();
 
             UpdateDosages();
 
-            // -- populate values
-            txtPrescriptionID.Text = prescriptionID.ToString();
-            ddlPatient.SelectedValue = patientID.ToString();
-            ddlPatient.SelectedValue = physicianID.ToString();
-            ddlMedication.SelectedValue = medicationID.ToString();
-            ddlDosage.SelectedValue = dosageID.ToString();
-            txtIntakeMethod.Text = intakeMethod;
-            txtInstructions.Text = instructions;
-            txtExtraInstructions.Text = extraInstructions;
-            txtStartDate.Text = startDate.ToString("yyyy-MM-dd"); // date needs to be in this format to set the value
-            txtEndDate.Text = endDate.ToString("yyyy-MM-dd");
-            txtEnteredDateTime.Text = entryDateTime.ToString();
+            if (type == "EDIT") {
+                // -- populate values
+                txtPrescriptionID.Text = prescriptionID.ToString();
+                ddlPatient.SelectedValue = patientID.ToString();
+                ddlPatient.SelectedValue = physicianID.ToString();
+                ddlMedication.SelectedValue = medicationID.ToString();
+                ddlDosage.SelectedValue = dosageID.ToString();
+                txtIntakeMethod.Text = intakeMethod;
+                txtInstructions.Text = instructions;
+                txtExtraInstructions.Text = extraInstructions;
+                txtStartDate.Text = startDate.ToString("yyyy-MM-dd"); // date needs to be in this format to set the value
+                txtEndDate.Text = endDate.ToString("yyyy-MM-dd");
+                txtEnteredDateTime.Text = entryDateTime.ToString();
+            }
+            else if (type == "ADD") {
+
+            }
         }
 
         protected void SetValidators() {
@@ -104,8 +131,20 @@ namespace CNSA216_EBC_project {
             rngEndDate.MinimumValue = DateTime.MinValue.ToShortDateString();
             rngEndDate.MaximumValue = DateTime.MaxValue.ToShortDateString();
 
-            
+            rngRefillsAllowed.Type = ValidationDataType.Integer;
+            rngRefillsAllowed.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
+            rngRefillsAllowed.MinimumValue = Int16.MinValue.ToString();
+            rngRefillsAllowed.MaximumValue = Int16.MaxValue.ToString();
 
+            rngRefillsLeft.Type = ValidationDataType.Integer;
+            rngRefillsLeft.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
+            rngRefillsLeft.MinimumValue = Int16.MinValue.ToString();
+            rngRefillsLeft.MaximumValue = Int16.MaxValue.ToString();
+
+            //cmpRefillsLeft.Type = ValidationDataType.Integer;
+            cmpRefillsLeft.ErrorMessage = "May not be greater than Refills Allowed";
+
+            // ---------------------------------------------------------
 
             // get list of table columns and lengths
             dsColumns = GeneralDataTier.GetTableColumns("Patients");
@@ -140,6 +179,8 @@ namespace CNSA216_EBC_project {
             switch (type) {
                 case "ADD":
                     btnSave.Text = "Add";
+                    SetValidators();
+                    BindData();
                     break;
                 case "VIEW":
                     ddlPatient.Enabled = false;
@@ -188,6 +229,8 @@ namespace CNSA216_EBC_project {
                         else {
                             GoBack();
                         }
+                    } else {
+                        PreparePage();
                     }
                 }
                 else {
@@ -200,8 +243,16 @@ namespace CNSA216_EBC_project {
         }
 
         protected void UpdateDosages() {
+            DataRow InitialValue;
+            DataTable dataTable;
             // update the dosage DDL when medication is changed
-            ddlDosage.DataSource = MedicineDataTier.GetMedicine(medicationID);
+            dataTable = MedicineDataTier.GetMedicine(medicationID).Tables[0];
+            InitialValue = dataTable.NewRow();
+            InitialValue["Dosage"] = "Select one...";
+            InitialValue["DosageID"] = 0;
+            dataTable.Rows.InsertAt(InitialValue, 0);
+
+            ddlDosage.DataSource = dataTable;
             ddlDosage.DataTextField = "Dosage";
             ddlDosage.DataValueField = "DosageID";
             ddlDosage.DataBind();
@@ -213,16 +264,14 @@ namespace CNSA216_EBC_project {
         }
 
         protected void btnSave_Click(object sender, EventArgs e) {
-            int patientID;
-            int physicianID;
+            int patientID = 0;
+            int physicianID = 0;
             //int medicationID;
-            int dosageID;
-            string intakeMethod;
-            string instructions;
-            string extraInstructions;
-            DateTime startDate;
-            DateTime endDate;
-            DateTime entryDateTime;
+            int dosageID = 0;
+            string extraInstructions = "";
+            DateTime startDate = DateTime.MinValue;
+            DateTime endDate = DateTime.MinValue;
+            DateTime entryDateTime = DateTime.MinValue;
             bool fail = false;
 
             fail |= Int32.TryParse(ddlPatient.SelectedValue, out patientID);
@@ -234,12 +283,22 @@ namespace CNSA216_EBC_project {
             fail |= DateTime.TryParse(txtEndDate.Text, out endDate);
             fail |= DateTime.TryParse(txtEnteredDateTime.Text, out entryDateTime);
 
-            switch (type) {
-                case "ADD":
-                    PrescriptionDataTier.AddPrescription
-                    break;
-                case "EDIT":
-                    break;
+            if (!fail) {
+                switch (type) {
+                    case "ADD":
+                        PrescriptionDataTier.AddPrescription(
+                            patientID,
+                            dosageID,
+                            physicianID,
+                            startDate,
+                            endDate,
+                            entryDateTime,
+                            extraInstructions
+                        );
+                        break;
+                    case "EDIT":
+                        break;
+                }
             }
         }
     }

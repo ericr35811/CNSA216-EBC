@@ -2,7 +2,11 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="head" runat="server">
     <title>Prescriptions - Louis' Pharmacy</title>
-    
+    <style>
+        div {
+            border: 1px solid black;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ASPContent" runat="server">
@@ -52,28 +56,65 @@
             <div>
                 <small>Extra Instructions</small> <br />
                 <asp:TextBox ID="txtExtraInstructions" runat="server" TextMode="MultiLine" CausesValidation="True"></asp:TextBox>
-                <asp:RegularExpressionValidator ID="rgxExtraInstructions" runat="server" ErrorMessage="RegularExpressionValidator" Display="Dynamic" ControlToValidate="txtExtraInstructions"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="rgxExtraInstructions" runat="server" ErrorMessage="RegularExpressionValidator" Display="Dynamic" ControlToValidate="txtExtraInstructions" ForeColor="Red"></asp:RegularExpressionValidator>
             </div>
         
             <br />
 
             <div>
+                <small>Refills Allowed</small><br />
+                <asp:TextBox ID="txtRefillsAllowed" runat="server"></asp:TextBox>
+                <asp:RangeValidator ID="rngRefillsAllowed" runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtRefillsAllowed" Display="Dynamic" ForeColor="Red"></asp:RangeValidator>
+            </div>
+
+            <div>
+                <small>Refills Left</small><br />
+                <div class="row">
+                    <div class="col">
+                        <asp:TextBox ID="txtRefillsLeft" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col">
+                        <asp:RangeValidator ID="rngRefillsLeft" runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtRefillsLeft" Display="Dynamic" ForeColor="Red"></asp:RangeValidator>
+                        <br />
+                        <%-- cannot be greater than refills allowed --%>
+                        <asp:CompareValidator
+                            ID="cmpRefillsLeft"
+                            runat="server"
+                            ErrorMessage="CompareValidator"
+                            ControlToValidate="txtRefillsLeft"
+                            Operator="LessThan"
+                            ControlToCompare="txtRefillsAllowed"
+                            Display="Dynamic" ForeColor="Red">
+                        </asp:CompareValidator>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <small>Refill Quantity (# of capsules, mL, etc. per refill)</small><br />
+                <asp:TextBox ID="txtRefillQuantity" runat="server"></asp:TextBox>
+                <asp:RangeValidator ID="rngRefillQuantity" runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtRefillQuantity" Display="Dynamic" ForeColor="Red"></asp:RangeValidator>
+            </div>
+
+            <br />
+
+            <div>
                 <small>Start Date</small> <br />
                 <asp:TextBox ID="txtStartDate" runat="server" Width="8em" CausesValidation="True" TextMode="Date"></asp:TextBox>
-                <asp:RangeValidator ID="rngStartDate" runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtStartDate" Display="Dynamic"></asp:RangeValidator>
+                <asp:RangeValidator ID="rngStartDate" runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtStartDate" Display="Dynamic" ForeColor="Red"></asp:RangeValidator>
              </div>
 
             <div>
                 <small>End Date</small> <br />
                 <asp:TextBox ID="txtEndDate" runat="server" Width="8em" CausesValidation="True" TextMode="Date">
-                </asp:TextBox><asp:RangeValidator runat="server" ErrorMessage="RangeValidator" ID="rngEndDate" Display="Dynamic" ControlToValidate="txtEndDate"></asp:RangeValidator>
+                </asp:TextBox><asp:RangeValidator runat="server" ErrorMessage="RangeValidator" ID="rngEndDate" Display="Dynamic" ControlToValidate="txtEndDate" ForeColor="Red"></asp:RangeValidator>
             </div>
 
              <div>
                 <small>Date & Time of Entry</small> <br />
-                 <asp:TextBox ID="txtEnteredDateTime" runat="server" ReadOnly="True" disabled="true" TextMode="DateTime"></asp:TextBox>
-                 
-            </div>
+                 <asp:TextBox ID="txtEnteredDateTime" runat="server" TextMode="DateTime" ></asp:TextBox>
+
+             </div>
             
         </div>
         <div class="pt-1">
