@@ -80,10 +80,7 @@ namespace CNSA216_EBC_project {
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            if (Page.IsPostBack)
-            {
-                
-            }
+            
         }
     }
 }
