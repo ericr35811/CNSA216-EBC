@@ -24,7 +24,7 @@ namespace CNSA216_EBC_project {
         private bool showInactive;
 
         private readonly string[] validForms = { "Patient", "Physician", "Prescription", "Refill" };
-        private readonly string[] validCommands = { "ADD", "EDIT", "DELETE" };
+        private readonly string[] validCommands = { "ADD", "EDIT", "DELETE", "VIEW" };
         private DataSet dsResult;
         private static DataTable dtColumns;
 
@@ -261,7 +261,7 @@ namespace CNSA216_EBC_project {
 
                 if (validCommands.Contains(action)) {
                     url.Append("?type=" + action);
-                    url.Append("&id=" + id);
+                    url.Append("&id=" + SecureID.Encrypt(id));
 
                     Response.Redirect(url.ToString());
                 }
