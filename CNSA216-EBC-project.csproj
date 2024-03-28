@@ -89,6 +89,7 @@
       <DependentUpon>CNSA216-EBC.Master</DependentUpon>
     </Compile>
     <Compile Include="Custom.cs" />
+    <Compile Include="EncryptID.cs" />
     <Compile Include="GeneralDataTier.cs" />
     <Compile Include="MedicineDataTier.cs" />
     <Compile Include="PatientDataTier.cs" />
