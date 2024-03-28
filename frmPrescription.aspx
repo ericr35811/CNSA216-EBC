@@ -38,7 +38,7 @@
 
             <div>
                 <small>Dosage</small> <br />
-                <asp:DropDownList ID="ddlDosage" runat="server"></asp:DropDownList>
+                <asp:DropDownList ID="ddlDosage" runat="server" OnSelectedIndexChanged="ddlDosage_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
             </div>
 
              <div>
@@ -115,7 +115,7 @@
 
              <div>
                 <small>Date & Time of Entry</small> <br />
-                 <asp:TextBox ID="txtEnteredDateTime" runat="server" TextMode="DateTime" ></asp:TextBox>
+                 <asp:TextBox ID="txtEnteredDateTime" runat="server" TextMode="DateTime" onkeypress="javascript:StopUpdatingTime();"></asp:TextBox>
 
              </div>
             
@@ -180,21 +180,36 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Bottom" runat="server">
     <script>
-        txt = document.getElementById("ASPContent_txtEnteredDateTime");
-
         // Change the color of the selected link
         document.getElementById("lnkPrescription").style.color = "rgba(255,255,255,1.0)";
 
+        // size the big text boxes
         document.getElementById("ASPContent_txtInstructions").style.height = "6em";
         document.getElementById("ASPContent_txtInstructions").style.width = "15em";
 
         document.getElementById("ASPContent_txtExtraInstructions").style.height = "6em";
         document.getElementById("ASPContent_txtExtraInstructions").style.width = "15em";
 
-        function Updatetime() {
-            
+        var txtEnteredDateTime = document.getElementById("ASPContent_txtEnteredDateTime");
+        var queryString = new URLSearchParams(window.location.search);
+        var updatingTime;
 
-
+        function UpdateTime() {
+            if (updatingTime) txtEnteredDateTime.value = new Date().toLocaleString();
         }
+
+        function StartUpdatingTime() {
+            updatingTime = true;
+            UpdateTime();
+            intervalTime = window.setInterval(UpdateTime, 1000);
+        }
+
+        function StopUpdatingTime() {
+            updatingTime = false;
+        }
+
+        // update EnteredDateTime every second if form is adding
+        // continue updating unless user enters a value
+        if (queryString.get("type") == "ADD") StartUpdatingTime();
     </script>
 </asp:Content>

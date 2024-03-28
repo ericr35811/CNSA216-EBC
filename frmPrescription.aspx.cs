@@ -11,13 +11,31 @@ using System.Web.UI.WebControls;
 
 namespace CNSA216_EBC_project {
     public partial class WebForm5 : System.Web.UI.Page {
-        private static int prescriptionID;
-        private static int medicationID;
+        private static int prescriptionID = 0;
+        private static int medicationID = 0;
+        private static int patientID = 0;
         private static string type;
+        private static DataTable selectedMedicine;
+        private static bool saved = false;
 
         protected void GoBack() {
             //Response.Redirect("frmSearch.aspx?search=Prescriptions");
             Session["refresh"] = true;
+
+            // if the user saved a record, craft a search to show them the new record
+            if (saved) {
+                SearchParameters param = new SearchParameters();
+                param.tableName = "Prescriptions";
+                param.showActive = true;
+                param.showInactive = false;
+                param.param1Col = "PrescriptionID";
+                param.param1 = prescriptionID.ToString();
+                param.andOr = "O";
+                param.param2Col = "";
+                param.param2 = "";
+                Session["searchParameters"] = param;
+            }
+            
             Response.Redirect("frmSearch.aspx");
         }
 
@@ -25,7 +43,7 @@ namespace CNSA216_EBC_project {
             
             DataTable dataTable;
 
-            int patientID = 0;
+            //int patientID = 0;
             int physicianID = 0;
             //int medicationID;
             int dosageID = 0;
@@ -131,7 +149,7 @@ namespace CNSA216_EBC_project {
                 txtRefillQuantity.Text = refillQuantity.ToString();
             }
             else if (type == "ADD") {
-
+                ddlPatient.SelectedValue = patientID.ToString();
             }
         }
 
@@ -225,6 +243,7 @@ namespace CNSA216_EBC_project {
             
             switch (type) {
                 case "ADD":
+                    //RegisterStartupScript("")
                     btnSave.Text = "Add";
                     SetValidators();
                     BindData();
@@ -260,28 +279,30 @@ namespace CNSA216_EBC_project {
             
             //string type;
             bool success;
+            int id;
 
             if (!IsPostBack) {
                 // check if query string contains the type key
                 if (Request.QueryString.AllKeys.Contains("type") && !String.IsNullOrEmpty(Request.QueryString["type"])) {
                     type = Request.QueryString["type"];
 
-                    // ignore the id if type is ADD
-                    if (type != "ADD") {
-                        // check if query string contains the id key
-                        if (Request.QueryString.AllKeys.Contains("id") && !String.IsNullOrEmpty(Request.QueryString["id"])) {
-                            success = Int32.TryParse(SecureID.Decrypt(Request.QueryString["id"].Trim()), out prescriptionID);
-                            if (!success) {
-                                GoBack();
-                            } else {
-                                PreparePage();
-                            };
-                        }
-                        else {
+                    // check if query string contains the id key
+                    if (Request.QueryString.AllKeys.Contains("id") && !String.IsNullOrEmpty(Request.QueryString["id"])) {
+                        // try to parse the ID
+                        success = Int32.TryParse(SecureID.Decrypt(Request.QueryString["id"].Trim()), out id);
+                        
+                        if (!success) {
                             GoBack();
-                        }
-                    } else {
-                        PreparePage();
+                        } else {
+                            // If adding new prescription, the ID refers to the Patient ID to add the prescription for
+                            // Otherwise, ID is the prescription ID
+                            if (type == "ADD") patientID = id;
+                            else prescriptionID = id;
+                            PreparePage();
+                        };
+                    }
+                    else {
+                        GoBack();
                     }
                 }
                 else {
@@ -295,18 +316,34 @@ namespace CNSA216_EBC_project {
 
         protected void UpdateDosages() {
             DataRow InitialValue;
-            DataTable dataTable;
+            //DataTable dataTable;
             // update the dosage DDL when medication is changed
-            dataTable = MedicineDataTier.GetMedicine(medicationID).Tables[0];
-            InitialValue = dataTable.NewRow();
+            selectedMedicine = MedicineDataTier.GetMedicine(medicationID).Tables[0];
+            //Session["SelectedMedicine"] = selectedMedicine;
+
+            InitialValue = selectedMedicine.NewRow();
             InitialValue["Dosage"] = "Select one...";
             InitialValue["DosageID"] = 0;
-            dataTable.Rows.InsertAt(InitialValue, 0);
+            selectedMedicine.Rows.InsertAt(InitialValue, 0);
 
-            ddlDosage.DataSource = dataTable;
+            ddlDosage.DataSource = selectedMedicine;
             ddlDosage.DataTextField = "Dosage";
             ddlDosage.DataValueField = "DosageID";
             ddlDosage.DataBind();
+            ddlDosage.SelectedIndex = 0;
+
+            UpdateMedicineInfo();
+        }
+                   
+        protected void ddlDosage_SelectedIndexChanged(object sender, EventArgs e) {
+            UpdateMedicineInfo();
+        }
+
+        protected void UpdateMedicineInfo() {
+            if (selectedMedicine != null) {
+                txtIntakeMethod.Text = selectedMedicine.Rows[ddlDosage.SelectedIndex]["IntakeMethod"].ToString();
+                txtInstructions.Text = selectedMedicine.Rows[ddlDosage.SelectedIndex]["Instructions"].ToString();
+            }
         }
 
         protected void ddlMedication_SelectedIndexChanged(object sender, EventArgs e) {
@@ -323,44 +360,57 @@ namespace CNSA216_EBC_project {
             DateTime startDate = DateTime.MinValue;
             DateTime endDate = DateTime.MinValue;
             DateTime entryDateTime = DateTime.MinValue;
+            Int16 refillsAllowed = 0;
+            Int16 refillsLeft = 0;
+            Int16 refillQuantity = 0;
+
             bool fail = false;
 
-            fail |= Int32.TryParse(ddlPatient.SelectedValue, out patientID);
-            fail |= Int32.TryParse(ddlPhysician.SelectedValue, out physicianID);
-            fail |= Int32.TryParse(ddlMedication.SelectedValue,out medicationID);
-            fail |= Int32.TryParse(ddlDosage.SelectedValue,out dosageID);
+            patientID = Int32.Parse(ddlPatient.SelectedValue);
+            physicianID = Int32.Parse(ddlPhysician.SelectedValue);
+            medicationID = Int32.Parse(ddlMedication.SelectedValue);
+            dosageID = Int32.Parse(ddlDosage.SelectedValue);
             extraInstructions = txtExtraInstructions.Text;
-            fail |= DateTime.TryParse(txtStartDate.Text, out startDate);
-            fail |= DateTime.TryParse(txtEndDate.Text, out endDate);
-            fail |= DateTime.TryParse(txtEnteredDateTime.Text, out entryDateTime);
+            startDate = DateTime.Parse(txtStartDate.Text);
+            endDate = DateTime.Parse(txtEndDate.Text);
+            entryDateTime = DateTime.Parse(txtEnteredDateTime.Text);
+            refillsAllowed = Int16.Parse(txtRefillsAllowed.Text);
+            refillsLeft = Int16.Parse(txtRefillsLeft.Text);
+            refillQuantity = Int16.Parse(txtRefillQuantity.Text);
 
-            if (!fail) {
-                switch (type) {
-                    case "ADD":
-                        PrescriptionDataTier.AddPrescription(
-                            patientID,
-                            dosageID,
-                            physicianID,
-                            startDate,
-                            endDate,
-                            entryDateTime,
-                            extraInstructions
-                        );
-                        break;
-                    case "EDIT":
-                        PrescriptionDataTier.UpdatePrescription(
-                            prescriptionID,
-                            dosageID,
-                            patientID,
-                            physicianID,
-                            startDate,
-                            endDate,
-                            entryDateTime,
-                            extraInstructions
-                        );
-                        break;
-                }
+            switch (type) {
+                case "ADD":
+                    PrescriptionDataTier.AddPrescription(
+                        patientID,
+                        dosageID,
+                        physicianID,
+                        startDate,
+                        endDate,
+                        entryDateTime,
+                        extraInstructions,
+                        refillsAllowed,
+                        refillsLeft,
+                        refillQuantity
+                    );
+                    break;
+                case "EDIT":
+                    PrescriptionDataTier.UpdatePrescription(
+                        prescriptionID,
+                        dosageID,
+                        patientID,
+                        physicianID,
+                        startDate,
+                        endDate,
+                        entryDateTime,
+                        extraInstructions,
+                        refillsAllowed,
+                        refillsLeft,
+                        refillQuantity
+                    );
+                    break;
             }
+
+            saved = true;
         }
 
         protected void btnGoBack_Click(object sender, EventArgs e) {

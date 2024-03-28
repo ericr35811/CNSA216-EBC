@@ -182,6 +182,16 @@
                                     </HeaderTemplate>
                                     <ItemTemplate>
                                         <asp:LinkButton
+                                            runat="server" 
+                                            CssClass="no-underline"
+                                            OnCommand="TableActions"
+                                            CommandName="Prescription:ADD"
+                                            CommandArgument='<%# Eval("PatientID") %>'
+                                        >
+                                            <i class="fa-solid fa-prescription-bottle"></i>
+                                        </asp:LinkButton>
+                                        &nbsp;
+                                        <asp:LinkButton
                                             runat="server"
                                             CssClass="no-underline"
                                             OnCommand="TableActions"
@@ -359,6 +369,7 @@
                                 <asp:BoundField DataField="RefillQuantity" HeaderText="Refill Quantity"></asp:BoundField>
                                 <asp:BoundField DataField="StartDate" DataFormatString="{0:d}" HeaderText="Start Date"></asp:BoundField>
                                 <asp:BoundField DataField="EndDate" DataFormatString="{0:d}" HeaderText="End Date"></asp:BoundField>
+                                <asp:BoundField DataField="EnteredDateTime" DataFormatString="{0:G}" HeaderText="Date &amp; Time Entered"></asp:BoundField>
                             </Columns>
                         </asp:GridView>
             

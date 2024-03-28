@@ -25,7 +25,7 @@ namespace CNSA216_EBC_project {
         private string searchTable = "NONE";
         private bool parametersPopulating = false;
 
-        //private static SearchParameters currentSearch;
+        private static SearchParameters currentSearch;
 
         //private string tableName;
         //private string param1Col;
@@ -290,28 +290,33 @@ namespace CNSA216_EBC_project {
             return param;
         }
 
-        protected void CacheSearch(SearchParameters param) {
+        protected void CacheSearch() {
             Session.Remove("searchParameters");
-            Session.Add("searchParameters", param);
+            Session.Add("searchParameters", currentSearch);
         }
 
-        protected void RestoreSearch() {
-            Session["refresh"] = false;
+        protected void RestoreSearch(int stage) {
+            switch (stage) {
+                case 1:
+                    Session["refresh"] = false;
 
-            SearchParameters param;
-            param = (SearchParameters)Session["searchParameters"];
+                    currentSearch = (SearchParameters)Session["searchParameters"];
 
-            ddlSearchFor.SelectedValue = param.tableName;
-            chkActive.Checked = param.showActive;
-            chkInactive.Checked = param.showInactive;
-            ddlParameter1.SelectedValue = param.param1Col;
-            txtParameter1.Text = param.param1;
-            rdoAndOr.SelectedValue = param.andOr;
-            ddlParameter2.SelectedValue = param.param2Col;
-            txtParameter2.Text = param.param2;
+                    ddlSearchFor.SelectedValue = currentSearch.tableName;
 
-            DoSearch();
+                    break;
+                case 2:
+                    chkActive.Checked = currentSearch.showActive;
+                    chkInactive.Checked = currentSearch.showInactive;
+                    ddlParameter1.SelectedValue = currentSearch.param1Col;
+                    txtParameter1.Text = currentSearch.param1;
+                    rdoAndOr.SelectedValue = currentSearch.andOr;
+                    ddlParameter2.SelectedValue = currentSearch.param2Col;
+                    txtParameter2.Text = currentSearch.param2;
 
+                    DoSearch();
+                    break;
+            }
         }
 
         // functions for table buttons
@@ -342,15 +347,15 @@ namespace CNSA216_EBC_project {
         protected void DoSearch() {
             SearchParameters param;
 
-            param = GetSearch();
+            currentSearch = GetSearch();
 
-            dsResult = GeneralDataTier.SearchTableGetInfo(param);
+            dsResult = GeneralDataTier.SearchTableGetInfo(currentSearch);
 
             if (dsResult != null) {
-                BindData(param.tableName);
+                BindData(currentSearch.tableName);
             }
 
-            CacheSearch(param);
+            CacheSearch();
         }
 
         protected void btnSearch_Click(object sender, EventArgs e) {

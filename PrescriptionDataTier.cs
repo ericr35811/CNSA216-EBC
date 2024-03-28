@@ -53,7 +53,7 @@ namespace _2024_CNSA212_Final_Group2
             }
         }
 
-        public static void UpdatePrescription(int prescriptionID, int dosageID, int patientID, int physicianID, DateTime StartDate, DateTime EndDate, DateTime EnteredDateTime, string ExtraInstructions)
+        public static void UpdatePrescription(int prescriptionID, int dosageID, int patientID, int physicianID, DateTime StartDate, DateTime EndDate, DateTime EnteredDateTime, string ExtraInstructions, Int16 refillsAllowed, Int16 refillsLeft, Int16 refillQuantity)
         {
             try
             {
@@ -77,6 +77,9 @@ namespace _2024_CNSA212_Final_Group2
                 cmdString.Parameters.Add("@EnteredDateTime", SqlDbType.DateTime).Value = EnteredDateTime;
                 cmdString.Parameters.Add("@ExtraInstructions", SqlDbType.VarChar, 300).Value = ExtraInstructions;
 
+                cmdString.Parameters.Add("@RefillsAllowed", SqlDbType.SmallInt).Value = refillsAllowed;
+                cmdString.Parameters.Add("@RefillsLeft", SqlDbType.SmallInt).Value = refillsLeft;
+                cmdString.Parameters.Add("@RefillQuantity", SqlDbType.SmallInt).Value = refillQuantity;
 
 
                 cmdString.ExecuteNonQuery();
@@ -97,7 +100,7 @@ namespace _2024_CNSA212_Final_Group2
         }
 
 
-        public static void AddPrescription(int patientID, int dosageID, int physicianID, DateTime startDate, DateTime endDate, DateTime enteredDateTime, string extraInstructions) {
+        public static void AddPrescription(int patientID, int dosageID, int physicianID, DateTime startDate, DateTime endDate, DateTime enteredDateTime, string extraInstructions, Int16 refillsAllowed, Int16 refillsLeft, Int16 refillQuantity) {
             try {
 
                 myConn.Open();
@@ -116,6 +119,9 @@ namespace _2024_CNSA212_Final_Group2
                 cmdString.Parameters.Add("@ExtraInstructions", SqlDbType.VarChar, 300).Value = extraInstructions;
                 cmdString.Parameters.Add("@EnteredDateTime", SqlDbType.DateTime).Value = enteredDateTime;
 
+                cmdString.Parameters.Add("@RefillsAllowed", SqlDbType.SmallInt).Value = refillsAllowed;
+                cmdString.Parameters.Add("@RefillsLeft", SqlDbType.SmallInt).Value = refillsLeft;
+                cmdString.Parameters.Add("@RefillQuantity", SqlDbType.SmallInt).Value = refillQuantity;
 
                 cmdString.ExecuteNonQuery();
 
