@@ -15,6 +15,11 @@
                 caller.checked = !caller.checked
             }
         }
+
+        function ClearTextBox(textboxName) {
+            var textbox = document.getElementById(textboxName);
+            textbox.value = "";
+        }
     </script>
 </asp:Content>
 
@@ -63,6 +68,7 @@
                                     ID="ddlParameter1"
                                     runat="server" 
                                     OnSelectedIndexChanged="ddlParameter1_SelectedIndexChanged" 
+                                    onchange="javascript:ClearTextBox('ASPContent_txtParameter1');"
                                     CausesValidation="True" 
                                     AutoPostBack="True">
                                 </asp:DropDownList>
@@ -108,10 +114,11 @@
                                     runat="server" 
                                     AutoPostBack="True" 
                                     OnSelectedIndexChanged="ddlParameter2_SelectedIndexChanged" 
+                                    onchange="javascript:ClearTextBox('ASPContent_txtParameter2');"
                                     CausesValidation="True">
                                 </asp:DropDownList>
                                 &nbsp;
-                                <asp:TextBox ID="txtParameter2" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="txtParameter2" runat="server" CausesValidation="true"></asp:TextBox>
                                 &nbsp;
                                 <asp:CompareValidator 
                                     ID="cmpParameter02" 

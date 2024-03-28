@@ -25,7 +25,7 @@ namespace CNSA216_EBC_project {
         private string searchTable = "NONE";
         private bool parametersPopulating = false;
 
-        private SearchParameters currentSearch;
+        //private static SearchParameters currentSearch;
 
         //private string tableName;
         //private string param1Col;
@@ -199,10 +199,6 @@ namespace CNSA216_EBC_project {
                     ddlSearchFor.SelectedValue = Request.QueryString["search"];
                 }
 
-                if (Request.QueryString.AllKeys.Contains("refresh")) {
-
-                }
-                
                 // Populate if the page is loading for the first time (not postback)
                 PopulateParameters();
 
@@ -212,6 +208,13 @@ namespace CNSA216_EBC_project {
 
                 // Bind data so the table shows "no data" on first load
                 BindData(ddlSearchFor.SelectedValue);
+
+                // initialize session variables if not already
+                if (Session["searchParameters"] == null) Session["searchParameters"] = new SearchParameters();
+                if (Session["refresh"] == null) Session["refresh"] = false;
+                
+                // restore previous search
+                if ((bool)Session["refresh"] == true) RestoreSearch();
             }
 
             // disable the and/or if we are selecting all
@@ -226,6 +229,7 @@ namespace CNSA216_EBC_project {
             chkActive.InputAttributes.Add("onchange", "ActiveInactiveChanged(this)");
             chkInactive.InputAttributes.Add("onchange", "ActiveInactiveChanged(this)");
 
+            
         }
 
         protected void ddlSearchFor_SelectedIndexChanged(object sender, EventArgs e) {
@@ -287,8 +291,27 @@ namespace CNSA216_EBC_project {
         }
 
         protected void CacheSearch(SearchParameters param) {
-            Session.Clear();
+            Session.Remove("searchParameters");
             Session.Add("searchParameters", param);
+        }
+
+        protected void RestoreSearch() {
+            Session["refresh"] = false;
+
+            SearchParameters param;
+            param = (SearchParameters)Session["searchParameters"];
+
+            ddlSearchFor.SelectedValue = param.tableName;
+            chkActive.Checked = param.showActive;
+            chkInactive.Checked = param.showInactive;
+            ddlParameter1.SelectedValue = param.param1Col;
+            txtParameter1.Text = param.param1;
+            rdoAndOr.SelectedValue = param.andOr;
+            ddlParameter2.SelectedValue = param.param2Col;
+            txtParameter2.Text = param.param2;
+
+            DoSearch();
+
         }
 
         // functions for table buttons
@@ -316,8 +339,7 @@ namespace CNSA216_EBC_project {
             }
         }
 
-
-        protected void btnSearch_Click(object sender, EventArgs e) {
+        protected void DoSearch() {
             SearchParameters param;
 
             param = GetSearch();
@@ -329,6 +351,10 @@ namespace CNSA216_EBC_project {
             }
 
             CacheSearch(param);
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e) {
+            DoSearch();
         }
 
     }

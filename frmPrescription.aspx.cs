@@ -237,6 +237,7 @@ namespace CNSA216_EBC_project {
                     txtExtraInstructions.Enabled = false;
                     txtStartDate.Enabled = false;
                     txtEndDate.Enabled = false;
+                    txtEnteredDateTime.Enabled = false;
                     txtRefillQuantity.Enabled = false;
                     txtRefillsAllowed.Enabled = false;
                     txtRefillsLeft.Enabled = false;
