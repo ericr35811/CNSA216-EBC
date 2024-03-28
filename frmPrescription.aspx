@@ -84,7 +84,7 @@
                                 runat="server"
                                 ErrorMessage="Must not be greater than Refills Allowed"
                                 ControlToValidate="txtRefillsLeft"
-                                Operator="LessThan"
+                                Operator="LessThanEqual"
                                 ControlToCompare="txtRefillsAllowed"
                                 Display="Dynamic" ForeColor="Red">
                             </asp:CompareValidator>

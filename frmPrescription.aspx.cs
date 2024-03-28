@@ -140,69 +140,84 @@ namespace CNSA216_EBC_project {
             DataSet dsColumns;
 
             dsColumns = GeneralDataTier.GetTableColumns("Prescriptions");
-            
-
-            // set validators according to max lengths in database
-            maxLength = GeneralDataTier.GetColumnMaxLength("ExtraInstructions", dsColumns);
-            txtExtraInstructions.MaxLength = maxLength;
-            rgxExtraInstructions.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-            rgxExtraInstructions.ErrorMessage = $"Must be {maxLength} characters or less";
-
-            rngStartDate.Type = ValidationDataType.Date;
-            rngStartDate.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
-            rngStartDate.MinimumValue = DateTime.MinValue.ToShortDateString();
-            rngStartDate.MaximumValue = DateTime.MaxValue.ToShortDateString();
-
-            rngEndDate.Type = ValidationDataType.Date;
-            rngEndDate.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
-            rngEndDate.MinimumValue = DateTime.MinValue.ToShortDateString();
-            rngEndDate.MaximumValue = DateTime.MaxValue.ToShortDateString();
-
-            rngRefillsAllowed.Type = ValidationDataType.Integer;
-            rngRefillsAllowed.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
-            rngRefillsAllowed.MinimumValue = Int16.MinValue.ToString();
-            rngRefillsAllowed.MaximumValue = Int16.MaxValue.ToString();
-
-            rngRefillsLeft.Type = ValidationDataType.Integer;
-            rngRefillsLeft.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
-            rngRefillsLeft.MinimumValue = Int16.MinValue.ToString();
-            rngRefillsLeft.MaximumValue = Int16.MaxValue.ToString();
-
-            rngRefillQuantity.Type = ValidationDataType.Integer;
-            rngRefillQuantity.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
-            rngRefillQuantity.MinimumValue = Int16.MinValue.ToString();
-            rngRefillQuantity.MaximumValue = Int16.MaxValue.ToString();
-
-            //cmpRefillsLeft.Type = ValidationDataType.Integer;
-            //cmpRefillsLeft.ErrorMessage = "May not be greater than Refills Allowed";
-
-            // ---------------------------------------------------------
-
-            // get list of table columns and lengths
-            dsColumns = GeneralDataTier.GetTableColumns("Patients");
-
-            // -- string length validator
-            maxLength = GeneralDataTier.GetColumnMaxLength("FirstName", dsColumns);
-
-            txtString.MaxLength = maxLength;
-            rgxString.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-            rgxString.ErrorMessage = $"Must be {maxLength} characters or less";
 
 
-            // -- date validator
-            maxLength = GeneralDataTier.GetColumnMaxLength("StartDate", dsColumns);
-            rngDate.Type = ValidationDataType.Date;
-            rngDate.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
-            rngDate.MinimumValue = DateTime.MinValue.ToShortDateString();
-            rngDate.MaximumValue = DateTime.MaxValue.ToShortDateString();
+            if (type == "VIEW") {
+                rgxExtraInstructions.Enabled = false;
+                rngStartDate.Enabled = false;
+                rngEndDate.Enabled = false;
+                rngRefillsAllowed.Enabled = false;
+                rngRefillsLeft.Enabled = false;
+                rngRefillQuantity.Enabled = false;
+                cmpRefillsLeft.Enabled = false;
 
-            // -- number validator (SmallInt/Int16)
-            // change "Int16" to "Int32" for Int/Int32
-            maxLength = GeneralDataTier.GetColumnMaxLength("Weight", dsColumns);
-            rngSmallInt.Type = ValidationDataType.Integer;
-            rngSmallInt.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
-            rngSmallInt.MinimumValue = Int16.MinValue.ToString();
-            rngSmallInt.MaximumValue = Int16.MaxValue.ToString();
+                rgxString.Enabled = false;
+                rngDate.Enabled = false;
+                rngSmallInt.Enabled = false;
+            }
+            else { 
+                // set validators according to max lengths in database
+                maxLength = GeneralDataTier.GetColumnMaxLength("ExtraInstructions", dsColumns);
+                txtExtraInstructions.MaxLength = maxLength;
+                rgxExtraInstructions.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
+                rgxExtraInstructions.ErrorMessage = $"Must be {maxLength} characters or less";
+
+                rngStartDate.Type = ValidationDataType.Date;
+                rngStartDate.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
+                rngStartDate.MinimumValue = DateTime.MinValue.ToShortDateString();
+                rngStartDate.MaximumValue = DateTime.MaxValue.ToShortDateString();
+
+                rngEndDate.Type = ValidationDataType.Date;
+                rngEndDate.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
+                rngEndDate.MinimumValue = DateTime.MinValue.ToShortDateString();
+                rngEndDate.MaximumValue = DateTime.MaxValue.ToShortDateString();
+
+                rngRefillsAllowed.Type = ValidationDataType.Integer;
+                rngRefillsAllowed.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
+                rngRefillsAllowed.MinimumValue = Int16.MinValue.ToString();
+                rngRefillsAllowed.MaximumValue = Int16.MaxValue.ToString();
+
+                rngRefillsLeft.Type = ValidationDataType.Integer;
+                rngRefillsLeft.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
+                rngRefillsLeft.MinimumValue = Int16.MinValue.ToString();
+                rngRefillsLeft.MaximumValue = Int16.MaxValue.ToString();
+
+                rngRefillQuantity.Type = ValidationDataType.Integer;
+                rngRefillQuantity.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
+                rngRefillQuantity.MinimumValue = Int16.MinValue.ToString();
+                rngRefillQuantity.MaximumValue = Int16.MaxValue.ToString();
+
+                //cmpRefillsLeft.Type = ValidationDataType.Integer;
+                //cmpRefillsLeft.ErrorMessage = "May not be greater than Refills Allowed";
+
+                // ---------------------------------------------------------
+
+                // get list of table columns and lengths
+                dsColumns = GeneralDataTier.GetTableColumns("Patients");
+
+                // -- string length validator
+                maxLength = GeneralDataTier.GetColumnMaxLength("FirstName", dsColumns);
+
+                txtString.MaxLength = maxLength;
+                rgxString.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
+                rgxString.ErrorMessage = $"Must be {maxLength} characters or less";
+
+
+                // -- date validator
+                maxLength = GeneralDataTier.GetColumnMaxLength("StartDate", dsColumns);
+                rngDate.Type = ValidationDataType.Date;
+                rngDate.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
+                rngDate.MinimumValue = DateTime.MinValue.ToShortDateString();
+                rngDate.MaximumValue = DateTime.MaxValue.ToShortDateString();
+
+                // -- number validator (SmallInt/Int16)
+                // change "Int16" to "Int32" for Int/Int32
+                maxLength = GeneralDataTier.GetColumnMaxLength("Weight", dsColumns);
+                rngSmallInt.Type = ValidationDataType.Integer;
+                rngSmallInt.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
+                rngSmallInt.MinimumValue = Int16.MinValue.ToString();
+                rngSmallInt.MaximumValue = Int16.MaxValue.ToString();
+            }
         }
 
         protected void PreparePage() {

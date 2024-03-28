@@ -293,7 +293,7 @@ namespace CNSA216_EBC_project {
 
         // functions for table buttons
         protected void TableActions(object sender, CommandEventArgs e) {
-            CacheSearch(currentSearch);
+            //CacheSearch(currentSearch);
             //Response.Write("<script>alert('" + e.CommandName + " " + e.CommandArgument.ToString() + "');</script>");
 
             string[] command = e.CommandName.Split(':');
@@ -328,7 +328,7 @@ namespace CNSA216_EBC_project {
                 BindData(param.tableName);
             }
 
-            currentSearch = param;
+            CacheSearch(param);
         }
 
     }
