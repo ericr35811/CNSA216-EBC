@@ -26,14 +26,14 @@
         <br />
          <br />
      <asp:Label ID="lblDate" runat="server" Text="Today's Date:"></asp:Label>
-     <asp:TextBox ID="txtDateTime" ReadOnly="true" runat="server" TextMode="Date"></asp:TextBox>&nbsp&nbsp
-         <asp:RangeValidator ID="rngDateTime" runat="server" ErrorMessage="RangeValidator">*</asp:RangeValidator> &nbsp &nbsp
+         <asp:TextBox ID="txtDateTime" ReadOnly="true" runat="server" TextMode="DateTime"></asp:TextBox>&nbsp&nbsp
+         <asp:RangeValidator ID="rngDateTime" runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtDateTime">*</asp:RangeValidator> &nbsp &nbsp
      <asp:Label ID="lblClerkName"  runat="server" Text="Clerck's Name:"></asp:Label>
          <asp:DropDownList ID="ddlClerckName" runat="server"></asp:DropDownList>
 
          <br />
          <br />
-         <asp:Button ID="btnSave" runat="server" Text="Confirm Refill" />
+         <asp:Button ID="btnSave" runat="server" Text="Confirm Refill" OnClick="btnSave_Click" />
 
      </div>
  </form>

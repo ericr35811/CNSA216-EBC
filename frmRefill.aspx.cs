@@ -34,7 +34,7 @@ namespace CNSA216_EBC_project {
           RefillData= RefillDataTier.GetRefill(RefillID).Tables[0];
 
             patientID = (int)RefillData.Rows[0]["PatientID"];
-            ClerckID = (int)RefillData.Rows[0]["ClerckID"];
+            ClerckID = (int)RefillData.Rows[0]["ClerkID"];
             PrescriptionID = (int)RefillData.Rows[0]["PrescriptionID"];
             patientName = (string)RefillData.Rows[0]["PatientName"];
             prescriptionName = (string)RefillData.Rows[0]["PrescriptionName"];
@@ -59,6 +59,9 @@ namespace CNSA216_EBC_project {
                 txtPresNameDose.Text = prescriptionName.ToString();
                 ddlClerckName.SelectedValue = ClerckID.ToString();
                 txtDateTime.Text = entryDateTime.ToString();
+                txtDateTime.Enabled = true;
+                txtRefillID.Text= RefillID.ToString();
+                btnSave.Enabled = true;
             }
 
         }
@@ -175,6 +178,63 @@ namespace CNSA216_EBC_project {
             }
             else {
 
+            }
+        }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            if (btnSave.Text.Trim().ToUpper() == "UPDATE")
+            {
+                string RefillID = txtRefillID.Text;
+                string PrescriptionID = txtPrescID.Text;
+                string  ClerkID = ddlClerckName.Text;
+                string FillDateTime = txtDateTime.Text;
+
+                try
+                {
+                    RefillDataTier.UpdateRefill(
+                    RefillID,
+                    int.Parse(ClerkID),
+                    System.DateTime.Parse(FillDateTime)
+
+
+                    );
+                }
+                catch 
+                {
+
+                }
+
+                Session["GRIDREFRESH"] = true;
+            }
+
+            else if (btnSave.Text.Trim().ToUpper() == "ADD")
+            {
+                string RefillID = "";
+                string PrescriptionID = "";
+                string ClerkID = "";
+                string FillDateTime = "";
+
+                RefillID = txtRefillID.Text.Trim();
+                PrescriptionID = txtPrescID.Text.Trim();
+                ClerkID = ddlClerckName.Text.Trim();
+                FillDateTime = txtDateTime.Text.Trim();
+
+                try
+                {
+                    RefillDataTier.AddRefill(
+                    int.Parse(PrescriptionID),
+                    int.Parse(ClerkID),
+                    System.DateTime.Parse(FillDateTime)
+                 );
+                }
+                catch 
+                {
+
+                }
+
+
+                Session["GRIDREFRESH"] = true;
             }
         }
     }
