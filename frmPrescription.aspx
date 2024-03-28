@@ -123,8 +123,8 @@
         <div class="pt-1">
             <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary me-1 " OnClick="btnSave_Click" />
 
-            <%--<asp:Button ID="btnGoBack" runat="server" CssClass="btn btn-primary" Text="Back" />--%>
-            <a href="frmSearch.aspx" class="btn btn-primary">Go Back</a>
+            <asp:Button ID="btnGoBack" runat="server" CssClass="btn btn-primary" Text="Back" OnClick="btnGoBack_Click" />
+            <%--<a href="frmSearch.aspx" class="btn btn-primary">Go Back</a>--%>
             
             <br /><br /><br />
 

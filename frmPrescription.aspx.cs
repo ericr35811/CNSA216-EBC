@@ -16,7 +16,9 @@ namespace CNSA216_EBC_project {
         private static string type;
 
         protected void GoBack() {
-            Response.Redirect("frmSearch.aspx?search=Prescriptions");
+            //Response.Redirect("frmSearch.aspx?search=Prescriptions");
+            Session["refresh"] = true;
+            Response.Redirect("frmSearch.aspx");
         }
 
         protected void BindData() {
@@ -343,6 +345,10 @@ namespace CNSA216_EBC_project {
                         break;
                 }
             }
+        }
+
+        protected void btnGoBack_Click(object sender, EventArgs e) {
+            GoBack();
         }
     }
 }
