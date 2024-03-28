@@ -58,5 +58,10 @@ namespace CNSA216_EBC_project {
             rngEnd.MinimumValue = DateTime.MinValue.ToShortDateString();
             rngEnd.MaximumValue = DateTime.MaxValue.ToShortDateString();
         }
+
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("https://localhost:44302/frmSearch.aspx");
+        }
     }
 }

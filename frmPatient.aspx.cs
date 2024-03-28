@@ -80,7 +80,7 @@ namespace CNSA216_EBC_project {
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            
+            Response.Redirect("https://localhost:44302/frmSearch.aspx");
         }
     }
 }
