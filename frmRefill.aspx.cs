@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Web;
@@ -116,10 +117,29 @@ namespace CNSA216_EBC_project {
                     break;
             }
         }
-        protected void AddRecord_Database()
-        {
+        //protected void AddRecord_Database()
+        //{
+        //    string connetionString = null;
+        //    SqlConnection cnn;
+        //    SqlDataAdapter adapter = new SqlDataAdapter();
+        //    string sql = null;
+        //    connetionString = "Data Source=10.200.150.21;Initial Catalog=CNSA216-EBC; Trusted_Connection=True;";
 
-        }
+        //    cnn = new SqlConnection(connetionString);
+        //    //sql = "insert into Main (Firt Name, Last Name) values(textbox2.Text,textbox3.Text)";
+
+        //    try
+        //    {
+        //        cnn.Open();
+        //        adapter.InsertCommand = new SqlCommand(sql, cnn);
+        //        adapter.InsertCommand.ExecuteNonQuery();
+        //        //MessageBox.Show("Row inserted !! ");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //MessageBox.Show(ex.ToString());
+        //    }
+        //}
 
         protected void Page_Load(object sender, EventArgs e) {
 
