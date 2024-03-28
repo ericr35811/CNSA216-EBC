@@ -140,7 +140,6 @@
     </Compile>
     <Compile Include="frmSearch.aspx.cs">
       <DependentUpon>frmSearch.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="frmSearch.aspx.designer.cs">
       <DependentUpon>frmSearch.aspx</DependentUpon>

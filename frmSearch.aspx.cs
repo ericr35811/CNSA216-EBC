@@ -10,18 +10,31 @@ using System.Web.UI.WebControls;
 using System.Text;
 
 namespace CNSA216_EBC_project {
+    public class SearchParameters {
+        public string tableName;
+        public string andOr;
+        public bool showActive;
+        public bool showInactive;
+        public string param1Col;
+        public string param1;
+        public string param2Col;
+        public string param2;
+    }
+    
     public partial class WebForm8 : System.Web.UI.Page {
         private string searchTable = "NONE";
         private bool parametersPopulating = false;
 
-        private string tableName;
-        private string param1Col;
-        private string param1;
-        private string andOr;
-        private string param2Col;
-        private string param2;
-        private bool showActive;
-        private bool showInactive;
+        private SearchParameters currentSearch;
+
+        //private string tableName;
+        //private string param1Col;
+        //private string param1;
+        //private string andOr;
+        //private string param2Col;
+        //private string param2;
+        //private bool showActive;
+        //private bool showInactive;
 
         private readonly string[] validForms = { "Patient", "Physician", "Prescription", "Refill" };
         private readonly string[] validCommands = { "ADD", "EDIT", "DELETE", "VIEW" };
@@ -185,6 +198,10 @@ namespace CNSA216_EBC_project {
                 if (Request.QueryString.AllKeys.Contains("search")) {
                     ddlSearchFor.SelectedValue = Request.QueryString["search"];
                 }
+
+                if (Request.QueryString.AllKeys.Contains("refresh")) {
+
+                }
                 
                 // Populate if the page is loading for the first time (not postback)
                 PopulateParameters();
@@ -239,13 +256,44 @@ namespace CNSA216_EBC_project {
             Page.Validate();
         }
 
-        protected void CacheSearch() {
+        protected SearchParameters GetSearch() {
+            SearchParameters param = new SearchParameters();
 
+            param.tableName = ddlSearchFor.SelectedValue;
+            param.andOr = rdoAndOr.SelectedValue;
+            param.showActive = chkActive.Checked;
+            param.showInactive = chkInactive.Checked;
+
+            // if no column selected, send a blank string
+            if (ddlParameter1.SelectedIndex == 0) {
+                param.param1Col = "";
+                param.param1 = "";
+            }
+            else {
+                param.param1Col = ddlParameter1.SelectedValue;
+                param.param1 = txtParameter1.Text;
+            }
+
+            if (ddlParameter2.SelectedIndex == 0) {
+                param.param2Col = "";
+                param.param2 = "";
+            }
+            else {
+                param.param2Col = ddlParameter2.SelectedValue;
+                param.param2 = txtParameter2.Text;
+            }
+
+            return param;
+        }
+
+        protected void CacheSearch(SearchParameters param) {
+            Session.Clear();
+            Session.Add("searchParameters", param);
         }
 
         // functions for table buttons
         protected void TableActions(object sender, CommandEventArgs e) {
-            CacheSearch();
+            CacheSearch(currentSearch);
             //Response.Write("<script>alert('" + e.CommandName + " " + e.CommandArgument.ToString() + "');</script>");
 
             string[] command = e.CommandName.Split(':');
@@ -270,33 +318,17 @@ namespace CNSA216_EBC_project {
 
 
         protected void btnSearch_Click(object sender, EventArgs e) {
-            tableName = ddlSearchFor.SelectedValue;
-            andOr = rdoAndOr.SelectedValue;
-            showActive = chkActive.Checked;
-            showInactive = chkInactive.Checked;
+            SearchParameters param;
 
-            // if no column selected, send a blank string
-            if (ddlParameter1.SelectedIndex == 0) {
-                param1Col = "";
-                param1 = "";
-            } else {
-                param1Col = ddlParameter1.SelectedValue;
-                param1 = txtParameter1.Text;
-            }
+            param = GetSearch();
 
-            if (ddlParameter2.SelectedIndex == 0) {
-                param2Col = "";
-                param2 = "";
-            } else {
-                param2Col = ddlParameter2.SelectedValue;
-                param2 = txtParameter2.Text;
-            }
-
-            dsResult = GeneralDataTier.SearchTableGetInfo(tableName, param1Col, param1, andOr, param2Col, param2, showActive, showInactive);
+            dsResult = GeneralDataTier.SearchTableGetInfo(param);
 
             if (dsResult != null) {
-                BindData(tableName);
+                BindData(param.tableName);
             }
+
+            currentSearch = param;
         }
 
     }

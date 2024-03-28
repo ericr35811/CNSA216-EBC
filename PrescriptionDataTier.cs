@@ -53,7 +53,7 @@ namespace _2024_CNSA212_Final_Group2
             }
         }
 
-        public static void UpdatePrescription(string prescriptionID, string dosageID, string patientID, string physicianID, DateTime StartDate, DateTime EndDate, DateTime EnteredDateTime, string ExtraInstructions)
+        public static void UpdatePrescription(int prescriptionID, int dosageID, int patientID, int physicianID, DateTime StartDate, DateTime EndDate, DateTime EnteredDateTime, string ExtraInstructions)
         {
             try
             {

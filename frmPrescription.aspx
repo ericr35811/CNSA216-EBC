@@ -82,7 +82,7 @@
                             <asp:CompareValidator
                                 ID="cmpRefillsLeft"
                                 runat="server"
-                                ErrorMessage="CompareValidator"
+                                ErrorMessage="Must not be greater than Refills Allowed"
                                 ControlToValidate="txtRefillsLeft"
                                 Operator="LessThan"
                                 ControlToCompare="txtRefillsAllowed"

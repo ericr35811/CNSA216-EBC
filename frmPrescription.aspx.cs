@@ -16,7 +16,7 @@ namespace CNSA216_EBC_project {
         private static string type;
 
         protected void GoBack() {
-            Response.Redirect("frmSearch.aspx");
+            Response.Redirect("frmSearch.aspx?search=Prescriptions");
         }
 
         protected void BindData() {
@@ -31,9 +31,13 @@ namespace CNSA216_EBC_project {
             string instructions = "";
             string extraInstructions = "";
             DateTime startDate = DateTime.MinValue ;
-            DateTime endDate = DateTime.MinValue; ;
-            DateTime entryDateTime = DateTime.MinValue; ;
+            DateTime endDate = DateTime.MinValue; 
+            DateTime entryDateTime = DateTime.MinValue;
+            Int16 refillsAllowed = 0;
+            Int16 refillsLeft = 0;
+            Int16 refillQuantity = 0;
 
+            // only get existing data if editing or viewing
             if (type == "EDIT" || type == "VIEW") {
                 // get all data for this prescription
                 dataTable = PrescriptionDataTier.GetPrescriptionInfo(prescriptionID).Tables[0];
@@ -48,12 +52,16 @@ namespace CNSA216_EBC_project {
                 startDate = (DateTime)dataTable.Rows[0]["StartDate"];
                 endDate = (DateTime)dataTable.Rows[0]["EndDate"];
                 entryDateTime = (DateTime)dataTable.Rows[0]["EnteredDateTime"];
+                refillsAllowed = (Int16)dataTable.Rows[0]["RefillsAllowed"];
+                refillsLeft = (Int16)dataTable.Rows[0]["RefillsLeft"];
+                refillQuantity = (Int16)dataTable.Rows[0]["RefillQuantity"];
             }
 
             // -- populate DDLs
-            // get dataset of all patients with only names and IDs
-            // only do all this data binding if editing
-            if (type == "EDIT") {
+            // only do all this data binding if editing or adding
+            if (type == "EDIT" || type == "ADD") {
+
+                // get dataset of all patients with only names and IDs
                 dataTable = PatientDataTier.GetPatientInfo(0, true, true).Tables[0];
                 DataRow InitialValue = dataTable.NewRow();
                 InitialValue["FullName"] = "Select one...";
@@ -94,18 +102,20 @@ namespace CNSA216_EBC_project {
             if (type == "EDIT" || type == "VIEW") {
                 // if viewing, just set the text
                 if (type == "VIEW") {
-                    ddlPatient.Text = patientID.ToString();
-                    ddlPatient.Text = physicianID.ToString();
-                    ddlMedication.Text = medicationID.ToString();
-                    ddlDosage.Text = dosageID.ToString();
+                    ddlPatient.Items.Add(patientID.ToString());
+                    ddlPhysician.Items.Add(physicianID.ToString());
+                    ddlMedication.Items.Add(medicationID.ToString());
+                    ddlDosage.Items.Add(dosageID.ToString());
                 }
+                // if editing, select the value
                 else if (type == "EDIT") {
                     ddlPatient.SelectedValue = patientID.ToString();
-                    ddlPatient.SelectedValue = physicianID.ToString();
+                    ddlPhysician.SelectedValue = physicianID.ToString();
                     ddlMedication.SelectedValue = medicationID.ToString();
                     ddlDosage.SelectedValue = dosageID.ToString();
                 }
-                // -- populate values
+                
+                // -- populate other values
                 txtPrescriptionID.Text = prescriptionID.ToString();
                 
                 txtIntakeMethod.Text = intakeMethod;
@@ -114,6 +124,9 @@ namespace CNSA216_EBC_project {
                 txtStartDate.Text = startDate.ToString("yyyy-MM-dd"); // date needs to be in this format to set the value
                 txtEndDate.Text = endDate.ToString("yyyy-MM-dd");
                 txtEnteredDateTime.Text = entryDateTime.ToString();
+                txtRefillsAllowed.Text = refillsAllowed.ToString();
+                txtRefillsLeft.Text = refillsLeft.ToString();
+                txtRefillQuantity.Text = refillQuantity.ToString();
             }
             else if (type == "ADD") {
 
@@ -153,8 +166,13 @@ namespace CNSA216_EBC_project {
             rngRefillsLeft.MinimumValue = Int16.MinValue.ToString();
             rngRefillsLeft.MaximumValue = Int16.MaxValue.ToString();
 
+            rngRefillQuantity.Type = ValidationDataType.Integer;
+            rngRefillQuantity.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
+            rngRefillQuantity.MinimumValue = Int16.MinValue.ToString();
+            rngRefillQuantity.MaximumValue = Int16.MaxValue.ToString();
+
             //cmpRefillsLeft.Type = ValidationDataType.Integer;
-            cmpRefillsLeft.ErrorMessage = "May not be greater than Refills Allowed";
+            //cmpRefillsLeft.ErrorMessage = "May not be greater than Refills Allowed";
 
             // ---------------------------------------------------------
 
@@ -202,6 +220,9 @@ namespace CNSA216_EBC_project {
                     txtExtraInstructions.Enabled = false;
                     txtStartDate.Enabled = false;
                     txtEndDate.Enabled = false;
+                    txtRefillQuantity.Enabled = false;
+                    txtRefillsAllowed.Enabled = false;
+                    txtRefillsLeft.Enabled = false;
 
                     btnSave.Enabled = false;
                     btnSave.Visible = false;
@@ -309,6 +330,16 @@ namespace CNSA216_EBC_project {
                         );
                         break;
                     case "EDIT":
+                        PrescriptionDataTier.UpdatePrescription(
+                            prescriptionID,
+                            dosageID,
+                            patientID,
+                            physicianID,
+                            startDate,
+                            endDate,
+                            entryDateTime,
+                            extraInstructions
+                        );
                         break;
                 }
             }

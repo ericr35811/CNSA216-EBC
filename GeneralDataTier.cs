@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CNSA216_EBC_project;
 
 namespace _2024_CNSA212_Final_Group2 {
     static internal class GeneralDataTier {
@@ -85,7 +86,7 @@ namespace _2024_CNSA212_Final_Group2 {
             return $"^[\\s\\S]{{0,{maxLength}}}$";
         }
 
-        public static DataSet SearchTableGetInfo(string tableName, string param1Col, string param1, string andOr, string param2Col, string param2, bool showActive, bool showInactive) {
+        public static DataSet SearchTableGetInfo(SearchParameters param) {
             try {
 
                 myConn.Open();
@@ -95,14 +96,14 @@ namespace _2024_CNSA212_Final_Group2 {
                 cmdString.CommandType = CommandType.StoredProcedure;
                 cmdString.CommandTimeout = 1500;
                 cmdString.CommandText = "procSearchTableGetInfo";
-                cmdString.Parameters.Add("@TableName", SqlDbType.VarChar, 20).Value = tableName;
-                cmdString.Parameters.Add("@Param1Col", SqlDbType.VarChar, 20).Value = param1Col;
-                cmdString.Parameters.Add("@Param1", SqlDbType.VarChar, 100).Value = param1;
-                cmdString.Parameters.Add("@AndOr", SqlDbType.Char, 1).Value = andOr;
-                cmdString.Parameters.Add("@Param2Col", SqlDbType.VarChar, 20).Value = param2Col;
-                cmdString.Parameters.Add("@Param2", SqlDbType.VarChar, 100).Value = param2;
-                cmdString.Parameters.Add("@ShowActive", SqlDbType.Bit).Value = showActive;
-                cmdString.Parameters.Add("@ShowInactive", SqlDbType.Bit).Value = showInactive;
+                cmdString.Parameters.Add("@TableName", SqlDbType.VarChar, 20).Value = param.tableName;
+                cmdString.Parameters.Add("@Param1Col", SqlDbType.VarChar, 20).Value = param.param1Col;
+                cmdString.Parameters.Add("@Param1", SqlDbType.VarChar, 100).Value = param.param1;
+                cmdString.Parameters.Add("@AndOr", SqlDbType.Char, 1).Value = param.andOr;
+                cmdString.Parameters.Add("@Param2Col", SqlDbType.VarChar, 20).Value = param.param2Col;
+                cmdString.Parameters.Add("@Param2", SqlDbType.VarChar, 100).Value = param.param2;
+                cmdString.Parameters.Add("@ShowActive", SqlDbType.Bit).Value = param.showActive;
+                cmdString.Parameters.Add("@ShowInactive", SqlDbType.Bit).Value = param.showInactive;
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = cmdString;
