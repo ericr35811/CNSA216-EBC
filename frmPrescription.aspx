@@ -2,11 +2,11 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="head" runat="server">
     <title>Prescriptions - Louis' Pharmacy</title>
-    <style>
+<%--    <style>
         div {
             border: 1px solid black;
         }
-    </style>
+    </style>--%>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ASPContent" runat="server">
@@ -69,23 +69,26 @@
 
             <div>
                 <small>Refills Left</small><br />
-                <div class="row">
-                    <div class="col">
-                        <asp:TextBox ID="txtRefillsLeft" runat="server"></asp:TextBox>
+                <div class="row mx-auto">
+                    <div class="col-auto my-auto px-0">
+                        <asp:TextBox ID="txtRefillsLeft" runat="server"> </asp:TextBox>
                     </div>
-                    <div class="col">
-                        <asp:RangeValidator ID="rngRefillsLeft" runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtRefillsLeft" Display="Dynamic" ForeColor="Red"></asp:RangeValidator>
-                        <br />
-                        <%-- cannot be greater than refills allowed --%>
-                        <asp:CompareValidator
-                            ID="cmpRefillsLeft"
-                            runat="server"
-                            ErrorMessage="CompareValidator"
-                            ControlToValidate="txtRefillsLeft"
-                            Operator="LessThan"
-                            ControlToCompare="txtRefillsAllowed"
-                            Display="Dynamic" ForeColor="Red">
-                        </asp:CompareValidator>
+                    <div class="col-sm">
+                        <div>
+                            <asp:RangeValidator ID="rngRefillsLeft" runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtRefillsLeft" Display="Dynamic" ForeColor="Red"></asp:RangeValidator>
+                        </div>
+                        <div>
+                            <%-- cannot be greater than refills allowed --%>
+                            <asp:CompareValidator
+                                ID="cmpRefillsLeft"
+                                runat="server"
+                                ErrorMessage="CompareValidator"
+                                ControlToValidate="txtRefillsLeft"
+                                Operator="LessThan"
+                                ControlToCompare="txtRefillsAllowed"
+                                Display="Dynamic" ForeColor="Red">
+                            </asp:CompareValidator>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -34,7 +34,7 @@ namespace CNSA216_EBC_project {
             DateTime endDate = DateTime.MinValue; ;
             DateTime entryDateTime = DateTime.MinValue; ;
 
-            if (type == "EDIT") {
+            if (type == "EDIT" || type == "VIEW") {
                 // get all data for this prescription
                 dataTable = PrescriptionDataTier.GetPrescriptionInfo(prescriptionID).Tables[0];
 
@@ -52,50 +52,62 @@ namespace CNSA216_EBC_project {
 
             // -- populate DDLs
             // get dataset of all patients with only names and IDs
-            
-            dataTable = PatientDataTier.GetPatientInfo(0, true, true).Tables[0];
-            DataRow InitialValue = dataTable.NewRow();
-            InitialValue["FullName"] = "Select one...";
-            InitialValue["PatientID"] = 0;
-            dataTable.Rows.InsertAt(InitialValue, 0);
-
-            ddlPatient.DataSource = dataTable;
-            // bind to Patient ddl
-            ddlPatient.DataTextField = "FullName";
-            ddlPatient.DataValueField = "PatientID";
-            ddlPatient.DataBind();
-            
-            dataTable = PhysicianDataTier.GetPhysicianInfo(0, true, true).Tables[0];
-            InitialValue = dataTable.NewRow();
-            InitialValue["FullName"] = "Select one...";
-            InitialValue["PhysicianID"] = 0;
-            dataTable.Rows.InsertAt(InitialValue, 0);
-
-            ddlPhysician.DataSource = dataTable;
-            ddlPhysician.DataTextField = "FullName";
-            ddlPhysician.DataValueField = "PhysicianID";
-            ddlPhysician.DataBind();
-
-            dataTable = MedicineDataTier.GetMedicineList().Tables[0];
-            InitialValue = dataTable.NewRow();
-            InitialValue["MedicineName"] = "Select one...";
-            InitialValue["MedicineID"] = 0;
-            dataTable.Rows.InsertAt(InitialValue, 0);
-
-            ddlMedication.DataSource = dataTable;
-            ddlMedication.DataTextField = "MedicineName";
-            ddlMedication.DataValueField = "MedicineID";
-            ddlMedication.DataBind();
-
-            UpdateDosages();
-
+            // only do all this data binding if editing
             if (type == "EDIT") {
+                dataTable = PatientDataTier.GetPatientInfo(0, true, true).Tables[0];
+                DataRow InitialValue = dataTable.NewRow();
+                InitialValue["FullName"] = "Select one...";
+                InitialValue["PatientID"] = 0;
+                dataTable.Rows.InsertAt(InitialValue, 0);
+
+                ddlPatient.DataSource = dataTable;
+                // bind to Patient ddl
+                ddlPatient.DataTextField = "FullName";
+                ddlPatient.DataValueField = "PatientID";
+                ddlPatient.DataBind();
+
+                dataTable = PhysicianDataTier.GetPhysicianInfo(0, true, true).Tables[0];
+                InitialValue = dataTable.NewRow();
+                InitialValue["FullName"] = "Select one...";
+                InitialValue["PhysicianID"] = 0;
+                dataTable.Rows.InsertAt(InitialValue, 0);
+
+                ddlPhysician.DataSource = dataTable;
+                ddlPhysician.DataTextField = "FullName";
+                ddlPhysician.DataValueField = "PhysicianID";
+                ddlPhysician.DataBind();
+
+                dataTable = MedicineDataTier.GetMedicineList().Tables[0];
+                InitialValue = dataTable.NewRow();
+                InitialValue["MedicineName"] = "Select one...";
+                InitialValue["MedicineID"] = 0;
+                dataTable.Rows.InsertAt(InitialValue, 0);
+
+                ddlMedication.DataSource = dataTable;
+                ddlMedication.DataTextField = "MedicineName";
+                ddlMedication.DataValueField = "MedicineID";
+                ddlMedication.DataBind();
+
+                UpdateDosages();
+            }
+
+            if (type == "EDIT" || type == "VIEW") {
+                // if viewing, just set the text
+                if (type == "VIEW") {
+                    ddlPatient.Text = patientID.ToString();
+                    ddlPatient.Text = physicianID.ToString();
+                    ddlMedication.Text = medicationID.ToString();
+                    ddlDosage.Text = dosageID.ToString();
+                }
+                else if (type == "EDIT") {
+                    ddlPatient.SelectedValue = patientID.ToString();
+                    ddlPatient.SelectedValue = physicianID.ToString();
+                    ddlMedication.SelectedValue = medicationID.ToString();
+                    ddlDosage.SelectedValue = dosageID.ToString();
+                }
                 // -- populate values
                 txtPrescriptionID.Text = prescriptionID.ToString();
-                ddlPatient.SelectedValue = patientID.ToString();
-                ddlPatient.SelectedValue = physicianID.ToString();
-                ddlMedication.SelectedValue = medicationID.ToString();
-                ddlDosage.SelectedValue = dosageID.ToString();
+                
                 txtIntakeMethod.Text = intakeMethod;
                 txtInstructions.Text = instructions;
                 txtExtraInstructions.Text = extraInstructions;
