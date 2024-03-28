@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -12,6 +13,7 @@ namespace CNSA216_EBC_project {
         private static int prescriptionID;
         private static int medicationID;
         private static string type;
+        private static int RefillID;
 
         protected void GoBack() {
             Response.Redirect("frmSearch.aspx");
@@ -20,7 +22,6 @@ namespace CNSA216_EBC_project {
         protected void BindData() {
 
             DataTable RefillData;
-            int RefillID;
             int patientID;
             int ClerckID;
             int PrescriptionID;
@@ -48,14 +49,17 @@ namespace CNSA216_EBC_project {
             ddlClerckName.DataBind();
 
             //UpdateDosages();
+            if (type == "EDIT" || type == "VIEW")
+            {
+                // -- populate values
+                txtPatientID.Text= patientID.ToString();
+                txtPrescID.Text = PrescriptionID.ToString();
+                txtPatientFName.Text = patientName.ToString();
+                txtPresNameDose.Text = prescriptionName.ToString();
+                ddlClerckName.SelectedValue = ClerckID.ToString();
+                txtDateTime.Text = entryDateTime.ToString();
+            }
 
-            // -- populate values
-            txtPatientID.Text= patientID.ToString();
-            txtPrescID.Text = PrescriptionID.ToString();
-            txtPatientFName.Text = patientName.ToString();
-            txtPresNameDose.Text = prescriptionName.ToString();
-            ddlClerckName.SelectedValue = ClerckID.ToString();
-            txtDateTime.Text = entryDateTime.ToString();
         }
 
         protected void SetValidators() {
@@ -112,6 +116,10 @@ namespace CNSA216_EBC_project {
                     break;
             }
         }
+        protected void AddRecord_Database()
+        {
+
+        }
 
         protected void Page_Load(object sender, EventArgs e) {
 
@@ -127,7 +135,7 @@ namespace CNSA216_EBC_project {
                     if (type != "ADD") {
                         // check if query string contains the id key
                         if (Request.QueryString.AllKeys.Contains("id") && !String.IsNullOrEmpty(Request.QueryString["id"])) {
-                            success = Int32.TryParse(SecureID.Decrypt(Request.QueryString["id"].Trim()), out prescriptionID);
+                            success = Int32.TryParse(SecureID.Decrypt(Request.QueryString["id"].Trim()), out RefillID);
                             if (!success) {
                                 GoBack();
                             }
