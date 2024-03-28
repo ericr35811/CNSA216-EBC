@@ -8,12 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace _2024_CNSA212_Final_Group2 {
-    internal class ClerkDataTier {
+    internal static class ClerkDataTier {
         static string connString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
         static SqlConnection myConn = new SqlConnection(connString);
         static SqlCommand cmdString = new SqlCommand();
 
-        public DataSet GetClerks() {
+        public static DataSet GetClerks() 
+        {
             try {
                 myConn.Open();
 

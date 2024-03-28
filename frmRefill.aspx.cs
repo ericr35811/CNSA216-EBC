@@ -19,118 +19,54 @@ namespace CNSA216_EBC_project {
 
         protected void BindData() {
 
-            DataTable prescriptionData;
-
+            DataTable RefillData;
+            int RefillID;
             int patientID;
-            int physicianID;
-            //int medicationID;
-            int dosageID;
-            string intakeMethod;
-            string instructions;
-            string extraInstructions;
-            DateTime startDate;
-            DateTime endDate;
+            int ClerckID;
+            int PrescriptionID;
+            string patientName;
+            string prescriptionName;
             DateTime entryDateTime;
 
             // get all data for this prescription
-            prescriptionData = PrescriptionDataTier.GetPrescriptionInfo(prescriptionID).Tables[0];
+          RefillData= RefillDataTier.GetRefill(RefillID).Tables[0];
 
-            patientID = (int)prescriptionData.Rows[0]["PatientID"];
-            physicianID = (int)prescriptionData.Rows[0]["PhysicianID"];
-            medicationID = (int)prescriptionData.Rows[0]["MedicineID"];
-            dosageID = (int)prescriptionData.Rows[0]["DosageID"];
-            intakeMethod = (string)prescriptionData.Rows[0]["IntakeMethod"];
-            instructions = (string)prescriptionData.Rows[0]["Instructions"];
-            extraInstructions = (string)prescriptionData.Rows[0]["ExtraInstructions"];
-            startDate = (DateTime)prescriptionData.Rows[0]["StartDate"];
-            endDate = (DateTime)prescriptionData.Rows[0]["EndDate"];
-            entryDateTime = (DateTime)prescriptionData.Rows[0]["EnteredDateTime"];
+            patientID = (int)RefillData.Rows[0]["PatientID"];
+            ClerckID = (int)RefillData.Rows[0]["ClerckID"];
+            PrescriptionID = (int)RefillData.Rows[0]["PrescriptionID"];
+            patientName = (string)RefillData.Rows[0]["PatientName"];
+            prescriptionName = (string)RefillData.Rows[0]["PrescriptionName"];
+            entryDateTime = (DateTime)RefillData.Rows[0]["EnteredDateTime"];
 
             // -- populate DDLs
             // get dataset of all patients with only names and IDs
-            ddlPatient.DataSource = PatientDataTier.GetPatientInfo(0, true, true);
+            ddlClerckName.DataSource = ClerkDataTier.GetClerks();
+
             // bind to Patient ddl
-            ddlPatient.DataTextField = "FullName";
-            ddlPatient.DataValueField = "PatientID";
-            ddlPatient.DataBind();
+            ddlClerckName.DataTextField = "FullName";
+            ddlClerckName.DataValueField = "ClerkID";
+            ddlClerckName.DataBind();
 
-            ddlPhysician.DataSource = PhysicianDataTier.GetPhysicianInfo(0, true, true);
-            ddlPhysician.DataTextField = "FullName";
-            ddlPhysician.DataValueField = "PhysicianID";
-            ddlPhysician.DataBind();
-
-            ddlMedication.DataSource = MedicineDataTier.GetMedicineList();
-            ddlMedication.DataTextField = "MedicineName";
-            ddlMedication.DataValueField = "MedicineID";
-            ddlMedication.DataBind();
-
-            UpdateDosages();
+            //UpdateDosages();
 
             // -- populate values
-            txtPrescriptionID.Text = prescriptionID.ToString();
-            ddlPatient.SelectedValue = patientID.ToString();
-            ddlPatient.SelectedValue = physicianID.ToString();
-            ddlMedication.SelectedValue = medicationID.ToString();
-            ddlDosage.SelectedValue = dosageID.ToString();
-            txtIntakeMethod.Text = intakeMethod;
-            txtInstructions.Text = instructions;
-            txtExtraInstructions.Text = extraInstructions;
-            txtStartDate.Text = startDate.ToString("yyyy-MM-dd"); // date needs to be in this format to set the value
-            txtEndDate.Text = endDate.ToString("yyyy-MM-dd");
-            txtEnteredDateTime.Text = entryDateTime.ToString();
+            txtPatientID.Text= patientID.ToString();
+            txtPrescID.Text = PrescriptionID.ToString();
+            txtPatientFName.Text = patientName.ToString();
+            txtPresNameDose.Text = prescriptionName.ToString();
+            ddlClerckName.SelectedValue = ClerckID.ToString();
+            txtDateTime.Text = entryDateTime.ToString();
         }
 
         protected void SetValidators() {
             int maxLength;
             DataSet dsColumns;
 
-            dsColumns = GeneralDataTier.GetTableColumns("Prescriptions");
-
-
             // set validators according to max lengths in database
-            maxLength = GeneralDataTier.GetColumnMaxLength("ExtraInstructions", dsColumns);
-            txtExtraInstructions.MaxLength = maxLength;
-            rgxExtraInstructions.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-            rgxExtraInstructions.ErrorMessage = $"Must be {maxLength} characters or less";
-
-            rngStartDate.Type = ValidationDataType.Date;
-            rngStartDate.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
-            rngStartDate.MinimumValue = DateTime.MinValue.ToShortDateString();
-            rngStartDate.MaximumValue = DateTime.MaxValue.ToShortDateString();
-
-            rngEndDate.Type = ValidationDataType.Date;
-            rngEndDate.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
-            rngEndDate.MinimumValue = DateTime.MinValue.ToShortDateString();
-            rngEndDate.MaximumValue = DateTime.MaxValue.ToShortDateString();
-
-
-
-
-            // get list of table columns and lengths
-            dsColumns = GeneralDataTier.GetTableColumns("Patients");
-
-            // -- string length validator
-            maxLength = GeneralDataTier.GetColumnMaxLength("FirstName", dsColumns);
-
-            txtString.MaxLength = maxLength;
-            rgxString.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-            rgxString.ErrorMessage = $"Must be {maxLength} characters or less";
-
-
-            // -- date validator
-            maxLength = GeneralDataTier.GetColumnMaxLength("StartDate", dsColumns);
-            rngDate.Type = ValidationDataType.Date;
-            rngDate.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
-            rngDate.MinimumValue = DateTime.MinValue.ToShortDateString();
-            rngDate.MaximumValue = DateTime.MaxValue.ToShortDateString();
-
-            // -- number validator (SmallInt/Int16)
-            // change "Int16" to "Int32" for Int/Int32
-            maxLength = GeneralDataTier.GetColumnMaxLength("Weight", dsColumns);
-            rngSmallInt.Type = ValidationDataType.Integer;
-            rngSmallInt.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
-            rngSmallInt.MinimumValue = Int16.MinValue.ToString();
-            rngSmallInt.MaximumValue = Int16.MaxValue.ToString();
+            rngDateTime.Type = ValidationDataType.Date;
+            rngDateTime.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
+            rngDateTime.MinimumValue = DateTime.MinValue.ToShortDateString();
+            rngDateTime.MaximumValue = DateTime.MaxValue.ToShortDateString();
         }
 
         protected void PreparePage() {
@@ -140,14 +76,21 @@ namespace CNSA216_EBC_project {
                 case "ADD":
                     btnSave.Text = "Add";
                     break;
+
+                    txtPatientID.Enabled = false;
+                    txtPrescID.Enabled = false;
+                    txtPatientFName.Enabled = false;
+                    txtPresNameDose.Enabled = false;
+                    ddlClerckName.Enabled = true;
+                    txtDateTime.Enabled = true;
                 case "VIEW":
-                    ddlPatient.Enabled = false;
-                    ddlPhysician.Enabled = false;
-                    ddlMedication.Enabled = false;
-                    ddlDosage.Enabled = false;
-                    txtExtraInstructions.Enabled = false;
-                    txtStartDate.Enabled = false;
-                    txtEndDate.Enabled = false;
+
+                    txtPatientID.Enabled = false;
+                    txtPrescID.Enabled = false;
+                    txtPatientFName.Enabled = false;
+                    txtPresNameDose.Enabled = false;
+                    ddlClerckName.Enabled = false;
+                    txtDateTime.Enabled = false;
 
                     btnSave.Enabled = false;
                     btnSave.Visible = false;
@@ -156,7 +99,14 @@ namespace CNSA216_EBC_project {
                     BindData();
                     break;
                 case "EDIT":
-                    btnSave.Text = "Save";
+
+                    txtPatientID.Enabled = false;
+                    txtPrescID.Enabled = false;
+                    txtPatientFName.Enabled = false;
+                    txtPresNameDose.Enabled = false;
+                    ddlClerckName.Enabled = true;
+                    txtDateTime.Enabled = true;
+                    btnSave.Text = "ConfirmRefill";
                     SetValidators();
                     BindData();
                     break;
