@@ -282,6 +282,7 @@ namespace CNSA216_EBC_project {
             int id;
 
             if (!IsPostBack) {
+                saved = false;
                 // check if query string contains the type key
                 if (Request.QueryString.AllKeys.Contains("type") && !String.IsNullOrEmpty(Request.QueryString["type"])) {
                     type = Request.QueryString["type"];

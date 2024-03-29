@@ -194,10 +194,17 @@ namespace CNSA216_EBC_project {
             else {
                 //lblTest.Text = "not postback";
 
+                // initialize session variables if not already
+                if (Session["searchParameters"] == null) Session["searchParameters"] = new SearchParameters();
+                if (Session["refresh"] == null) Session["refresh"] = false;
+
                 // optionally set the table to search
                 if (Request.QueryString.AllKeys.Contains("search")) {
                     ddlSearchFor.SelectedValue = Request.QueryString["search"];
                 }
+
+                // set the current table to search, then populate controls
+                if ((bool)Session["refresh"] == true) RestoreSearch(1);
 
                 // Populate if the page is loading for the first time (not postback)
                 PopulateParameters();
@@ -209,12 +216,8 @@ namespace CNSA216_EBC_project {
                 // Bind data so the table shows "no data" on first load
                 BindData(ddlSearchFor.SelectedValue);
 
-                // initialize session variables if not already
-                if (Session["searchParameters"] == null) Session["searchParameters"] = new SearchParameters();
-                if (Session["refresh"] == null) Session["refresh"] = false;
-                
-                // restore previous search
-                if ((bool)Session["refresh"] == true) RestoreSearch();
+                // restore previous search parameters
+                if ((bool)Session["refresh"] == true) RestoreSearch(2);
             }
 
             // disable the and/or if we are selecting all
@@ -298,8 +301,6 @@ namespace CNSA216_EBC_project {
         protected void RestoreSearch(int stage) {
             switch (stage) {
                 case 1:
-                    Session["refresh"] = false;
-
                     currentSearch = (SearchParameters)Session["searchParameters"];
 
                     ddlSearchFor.SelectedValue = currentSearch.tableName;
@@ -313,6 +314,8 @@ namespace CNSA216_EBC_project {
                     rdoAndOr.SelectedValue = currentSearch.andOr;
                     ddlParameter2.SelectedValue = currentSearch.param2Col;
                     txtParameter2.Text = currentSearch.param2;
+
+                    Session["refresh"] = false;
 
                     DoSearch();
                     break;
