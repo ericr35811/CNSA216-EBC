@@ -407,8 +407,6 @@ namespace CNSA216_EBC_project {
 
         protected void DoSearch() {
             if (!err) try {
-                    SearchParameters param;
-
                     currentSearch = GetSearch();
 
                     dsResult = GeneralDataTier.SearchTableGetInfo(currentSearch);
