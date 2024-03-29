@@ -80,6 +80,7 @@
     <Content Include="frmRefill.aspx" />
     <Content Include="frmWelcome.aspx" />
     <Content Include="frmSearch.aspx" />
+    <Content Include="About.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CNSA216-EBC.Master.cs">
@@ -147,6 +148,13 @@
     </Compile>
     <Compile Include="RefillDataTier.cs" />
     <Compile Include="RefillHistoryDataTier.cs" />
+    <Compile Include="About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CNSA216-EBC.Master" />
