@@ -29,6 +29,7 @@
         <div class="container-fluid px-4">
             <h1>Search</h1>
             <hr />
+            <asp:Label runat="server" Text="Label" ForeColor="Red" ID="lblError" Visible="False"></asp:Label>
 
             <!--
                     Dropdown box to select what type of data to search for
@@ -189,16 +190,6 @@
                                             CommandArgument='<%# Eval("PatientID") %>'
                                         >
                                             <i class="fa-solid fa-prescription-bottle"></i>
-                                        </asp:LinkButton>
-                                        &nbsp;
-                                        <asp:LinkButton
-                                            runat="server"
-                                            CssClass="no-underline"
-                                            OnCommand="TableActions"
-                                            CommandName="Patient:VIEW"
-                                            CommandArgument='<%# Eval("PatientID") %>'
-                                        >
-                                            <i class="fa-solid fa-eye"></i>
                                         </asp:LinkButton>
                                         &nbsp;
                                         <asp:LinkButton
