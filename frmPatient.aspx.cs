@@ -1,6 +1,7 @@
 ﻿using _2024_CNSA212_Final_Group2;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Web;
@@ -9,7 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace CNSA216_EBC_project {
     public partial class WebForm3 : System.Web.UI.Page {
+        private static string type;
         protected void Page_Load(object sender, EventArgs e) {
+
             int maxLength;
             DataSet dsColumns;
 
@@ -81,6 +84,78 @@ namespace CNSA216_EBC_project {
         protected void btnBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("https://localhost:44302/frmSearch.aspx");
+        }
+        public void SetTextBoxes()
+        {
+            if (type == "VIEW")
+            {
+                txtPatientID.Enabled = false;
+                txtFname.Enabled = false;
+                txtLname.Enabled = false;
+                txtMiddle.Enabled = false;
+
+                txtCity.Enabled = false;
+                txtDob.Enabled = false;
+                txtEmail.Enabled = false;
+                txtVisit.Enabled = false;
+                txtWeight.Enabled = false;
+                txtHeight.Enabled = false;
+                txtPhone1.Enabled = false; txtPhone2.Enabled = false;
+                txtZip.Enabled = false;
+                txtStreet.Enabled = false;
+                txtStart.Enabled = false;
+                txtEnd.Enabled = false;
+
+                btnAdd.Enabled = false;
+                btnUpdate.Enabled = false;
+                btnBack.Enabled = true;
+            }
+            else if (type == "EDIT")
+            {
+                txtPatientID.Enabled = false;
+
+                btnAdd.Text = "UPDATE";
+            }
+            else if (type == "NEW")
+            {
+                btnAdd.Text = "ADD";
+            }
+            
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (btnAdd.Text.Trim().ToUpper() == "UPDATE")
+            {
+                PatientDataTier Patient = new PatientDataTier();
+
+                string PatientID = txtPatientID.Text;
+                string fname = txtFname.Text;
+                string lname = txtLname.Text;
+                string middle = txtMiddle.Text;
+                string dob = txtDob.Text;
+                string street = txtStreet.Text;
+                string start = txtStart.Text;
+                string city = txtCity.Text;
+                string zip = txtZip.Text;
+                string phone1 = txtPhone1.Text;
+                string phone2 = txtPhone2.Text;
+
+                Patient.UpdatePatientByID(
+                    , PatientID
+                    , fname
+                    , lname
+                    , middle
+                    , dob
+                    , street
+                    , start
+                    , city
+                    , zip
+                    , phone1
+                    , phone2
+
+                     );
+            }
         }
     }
 }
