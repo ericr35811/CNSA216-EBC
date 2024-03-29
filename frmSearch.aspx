@@ -29,6 +29,7 @@
         <div class="container-fluid px-4">
             <h1>Search</h1>
             <hr />
+            <asp:Label runat="server" Text="Label" ForeColor="Red" ID="lblError" Visible="False"></asp:Label>
 
             <!--
                     Dropdown box to select what type of data to search for

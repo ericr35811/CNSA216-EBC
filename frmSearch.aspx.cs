@@ -40,6 +40,13 @@ namespace CNSA216_EBC_project {
         private readonly string[] validCommands = { "ADD", "EDIT", "DELETE", "VIEW" };
         private DataSet dsResult;
         private static DataTable dtColumns;
+        private bool err = false;
+
+        private void ShowError(string msg) {
+            lblError.Text = msg;
+            lblError.Visible = true;
+            err = true;
+        }
 
         // Populate the values which the user can search for
         private void PopulateParameters() {
@@ -47,318 +54,374 @@ namespace CNSA216_EBC_project {
 
             parametersPopulating = true;
 
-            // Get the table name 
-            searchTable = ddlSearchFor.SelectedValue.ToString();
-
             // Get the list of columns that can be searched
-            dsColumnList = GeneralDataTier.GetSearchableColumns(searchTable);
-            dtColumns = dsColumnList.Tables[0];
+            if (!err) try {
+                // Get the table name 
+                searchTable = ddlSearchFor.SelectedValue.ToString();
 
-            // insert a default value
-            DataRow InitialValue = dtColumns.NewRow();
-            InitialValue["ColName"] = "Select one...";
-            InitialValue["SqlDbType"] = "DEFAULT";
-            dtColumns.Rows.InsertAt(InitialValue, 0);
+                dsColumnList = GeneralDataTier.GetSearchableColumns(searchTable);
+                dtColumns = dsColumnList.Tables[0];
 
-            // Populate
-            ddlParameter1.DataSource = dtColumns;
-            ddlParameter1.DataTextField = "ColName";
-            ddlParameter1.DataValueField = "ColName";
-            ddlParameter1.DataBind();
-            ddlParameter1.SelectedIndex = 0;
+                // insert a default value
+                DataRow InitialValue = dtColumns.NewRow();
+                InitialValue["ColName"] = "Select one...";
+                InitialValue["SqlDbType"] = "DEFAULT";
+                dtColumns.Rows.InsertAt(InitialValue, 0);
 
-            ddlParameter2.DataSource = dtColumns;
-            ddlParameter2.DataTextField = "ColName";
-            ddlParameter2.DataValueField = "ColName";
-            ddlParameter2.DataBind();
-            ddlParameter2.SelectedIndex = 0;
+                // Populate
+                ddlParameter1.DataSource = dtColumns;
+                ddlParameter1.DataTextField = "ColName";
+                ddlParameter1.DataValueField = "ColName";
+                ddlParameter1.DataBind();
+                ddlParameter1.SelectedIndex = 0;
 
-            parametersPopulating = false;
+                ddlParameter2.DataSource = dtColumns;
+                ddlParameter2.DataTextField = "ColName";
+                ddlParameter2.DataValueField = "ColName";
+                ddlParameter2.DataBind();
+                ddlParameter2.SelectedIndex = 0;
+            }
+
+            catch (Exception ex) {
+                ShowError(ex.Message);
+            }
+            finally {
+                parametersPopulating = false;
+            }
         }
 
         // Set up the validators based on the type of the selected parameter
         private void SetValidator(CompareValidator cmp, RangeValidator rng, RegularExpressionValidator rgx, string colName) {
-            // get the datatype and max length of the selected column
-            string dataType = dtColumns.Select($"ColName = '{colName}'")[0]["SqlDbType"].ToString();
-            string maxLength = dtColumns.Select($"ColName = '{colName}'")[0]["MaxLength"].ToString();
+            if (!err) try {
+                // get the datatype and max length of the selected column
+                string dataType = dtColumns.Select($"ColName = '{colName}'")[0]["SqlDbType"].ToString();
+                string maxLength = dtColumns.Select($"ColName = '{colName}'")[0]["MaxLength"].ToString();
 
-            //lblTest.Text += " " + colName;
-
-            
-            switch (dataType) {
-                case "varchar":
-                case "char":
-                    // check datatype
-                    cmp.Enabled = true;
-                    cmp.Type = ValidationDataType.String;
-                    cmp.ErrorMessage = "Must be a string";
-                    
-                    rng.Enabled = false;
-                    
-                    // check length
-                    rgx.ValidationExpression = $"^[\\s\\S]{{0,{maxLength}}}$";
-                    rgx.ErrorMessage = $"Must be {maxLength} characters or less";
-                    rgx.Enabled = true;
-                    break;
-                case "smallint":
-                    //cmp.Enabled = true;
-                    //cmp.Type = ValidationDataType.Integer;
-                    //cmp.ErrorMessage = "Must be a number";
-                    cmp.Enabled = false;
-
-                    // check range
-                    rng.Type = ValidationDataType.Integer;
-                    rng.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
-                    rng.MinimumValue = Int16.MinValue.ToString();
-                    rng.MaximumValue = Int16.MaxValue.ToString();
-                    rng.Enabled = true;
-
-                    rgx.Enabled = false;
-                    break;
-                case "int":
-                    //cmp.Enabled = true;
-                    //cmp.Type = ValidationDataType.Integer;
-                    //cmp.ErrorMessage = "Must be a number";
-                    cmp.Enabled = false;
-
-                    rng.Type = ValidationDataType.Integer;
-                    rng.ErrorMessage = $"Must be a whole number between {Int32.MinValue.ToString()} and {Int32.MaxValue.ToString()}";
-                    rng.MinimumValue = Int32.MinValue.ToString();
-                    rng.MaximumValue = Int32.MaxValue.ToString();
-                    rng.Enabled = true;
-
-                    rgx.Enabled = false;
-                    break;
-                case "date":
-                    //cmp.Enabled = true;
-                    //cmp.Type = ValidationDataType.Date;
-                    //cmp.ErrorMessage = "Must be a date";
-                    cmp.Enabled = false;
-
-                    rng.Type = ValidationDataType.Date;
-                    rng.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
-                    rng.MinimumValue = DateTime.MinValue.ToShortDateString();
-                    rng.MaximumValue = DateTime.MaxValue.ToShortDateString();
-                    rng.Enabled = true;
-
-                    rgx.Enabled = false;
-                    break;
-                case "DEFAULT":
-                    cmp.Enabled = false;
-                    rng.Enabled = false;
-                    rgx.Enabled = false;
-                    break;
+                //lblTest.Text += " " + colName;
 
 
+                switch (dataType) {
+                    case "varchar":
+                    case "char":
+                        // check datatype
+                        cmp.Enabled = true;
+                        cmp.Type = ValidationDataType.String;
+                        cmp.ErrorMessage = "Must be a string";
+
+                        rng.Enabled = false;
+
+                        // check length
+                        rgx.ValidationExpression = $"^[\\s\\S]{{0,{maxLength}}}$";
+                        rgx.ErrorMessage = $"Must be {maxLength} characters or less";
+                        rgx.Enabled = true;
+                        break;
+                    case "smallint":
+                        //cmp.Enabled = true;
+                        //cmp.Type = ValidationDataType.Integer;
+                        //cmp.ErrorMessage = "Must be a number";
+                        cmp.Enabled = false;
+
+                        // check range
+                        rng.Type = ValidationDataType.Integer;
+                        rng.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
+                        rng.MinimumValue = Int16.MinValue.ToString();
+                        rng.MaximumValue = Int16.MaxValue.ToString();
+                        rng.Enabled = true;
+
+                        rgx.Enabled = false;
+                        break;
+                    case "int":
+                        //cmp.Enabled = true;
+                        //cmp.Type = ValidationDataType.Integer;
+                        //cmp.ErrorMessage = "Must be a number";
+                        cmp.Enabled = false;
+
+                        rng.Type = ValidationDataType.Integer;
+                        rng.ErrorMessage = $"Must be a whole number between {Int32.MinValue.ToString()} and {Int32.MaxValue.ToString()}";
+                        rng.MinimumValue = Int32.MinValue.ToString();
+                        rng.MaximumValue = Int32.MaxValue.ToString();
+                        rng.Enabled = true;
+
+                        rgx.Enabled = false;
+                        break;
+                    case "date":
+                        //cmp.Enabled = true;
+                        //cmp.Type = ValidationDataType.Date;
+                        //cmp.ErrorMessage = "Must be a date";
+                        cmp.Enabled = false;
+
+                        rng.Type = ValidationDataType.Date;
+                        rng.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
+                        rng.MinimumValue = DateTime.MinValue.ToShortDateString();
+                        rng.MaximumValue = DateTime.MaxValue.ToShortDateString();
+                        rng.Enabled = true;
+
+                        rgx.Enabled = false;
+                        break;
+                    case "DEFAULT":
+                        cmp.Enabled = false;
+                        rng.Enabled = false;
+                        rgx.Enabled = false;
+                        break;
+
+                }
+            }
+            catch (Exception ex) {
+                ShowError(ex.Message);
             }
         }
 
+
         // bind the data to the appropriate gridview
         private void BindData(string tableName) {
-            dgvPatient.Visible = false;
-            dgvPhysician.Visible = false;
-            dgvPrescription.Visible = false;
-            dgvRefill.Visible = false;
+            if (!err) try {
+                dgvPatient.Visible = false;
+                dgvPhysician.Visible = false;
+                dgvPrescription.Visible = false;
+                dgvRefill.Visible = false;
 
 
-            switch (ddlSearchFor.SelectedValue.ToString()) {
-                case "Patients":
-                    dgvPatient.DataSource = dsResult;
-                    dgvPatient.DataBind();
-                    dgvPatient.Visible = true;
-                    break;
-                case "Physicians":
-                    dgvPhysician.DataSource = dsResult;
-                    dgvPhysician.DataBind();
-                    dgvPhysician.Visible = true;
-                    break;
-                case "Prescriptions":
-                    dgvPrescription.DataSource = dsResult;
-                    dgvPrescription.DataBind();
-                    dgvPrescription.Visible = true;
-                    break;
-                case "Refills":
-                    dgvRefill.DataSource = dsResult;
-                    dgvRefill.DataBind();
-                    dgvRefill.Visible = true;
-                    break;
+                switch (ddlSearchFor.SelectedValue.ToString()) {
+                    case "Patients":
+                        dgvPatient.DataSource = dsResult;
+                        dgvPatient.DataBind();
+                        dgvPatient.Visible = true;
+                        break;
+                    case "Physicians":
+                        dgvPhysician.DataSource = dsResult;
+                        dgvPhysician.DataBind();
+                        dgvPhysician.Visible = true;
+                        break;
+                    case "Prescriptions":
+                        dgvPrescription.DataSource = dsResult;
+                        dgvPrescription.DataBind();
+                        dgvPrescription.Visible = true;
+                        break;
+                    case "Refills":
+                        dgvRefill.DataSource = dsResult;
+                        dgvRefill.DataBind();
+                        dgvRefill.Visible = true;
+                        break;
+                }
+            }
+            catch (Exception ex) {
+                ShowError(ex.Message);
             }
         }
 
         protected void Page_Load(object sender, EventArgs e) {
-            if (IsPostBack) {
-                //lblTest.Text = "postback";
+            if (!err) try {
+                if (IsPostBack) {
+                    //lblTest.Text = "postback";
 
 
-            }
-            else {
-                //lblTest.Text = "not postback";
+                }
+                else {
+                    //lblTest.Text = "not postback";
 
-                // initialize session variables if not already
-                if (Session["searchParameters"] == null) Session["searchParameters"] = new SearchParameters();
-                if (Session["refresh"] == null) Session["refresh"] = false;
+                    // initialize session variables if not already
+                    if (Session["searchParameters"] == null) Session["searchParameters"] = new SearchParameters();
+                    if (Session["refresh"] == null) Session["refresh"] = false;
 
-                // optionally set the table to search
-                if (Request.QueryString.AllKeys.Contains("search")) {
-                    ddlSearchFor.SelectedValue = Request.QueryString["search"];
+                    // optionally set the table to search
+                    if (Request.QueryString.AllKeys.Contains("search")) {
+                        ddlSearchFor.SelectedValue = Request.QueryString["search"];
+                    }
+
+                    // set the current table to search, then populate controls
+                    if ((bool)Session["refresh"] == true) RestoreSearch(1);
+
+                    // Populate if the page is loading for the first time (not postback)
+                    PopulateParameters();
+
+                    // Set up validators on first load
+                    SetValidator(cmpParameter01, rngParameter01, rgxParameter01, ddlParameter1.SelectedValue);
+                    SetValidator(cmpParameter02, rngParameter02, rgxParameter02, ddlParameter2.SelectedValue);
+
+                    // Bind data so the table shows "no data" on first load
+                    BindData(ddlSearchFor.SelectedValue);
+
+                    // restore previous search parameters
+                    if ((bool)Session["refresh"] == true) RestoreSearch(2);
                 }
 
-                // set the current table to search, then populate controls
-                if ((bool)Session["refresh"] == true) RestoreSearch(1);
+                // disable the and/or if we are selecting all
+                if (ddlParameter1.SelectedIndex == 0 || ddlParameter2.SelectedIndex == 0) {
+                    rdoAndOr.Enabled = false;
+                }
+                else {
+                    rdoAndOr.Enabled = true;
+                }
 
-                // Populate if the page is loading for the first time (not postback)
-                PopulateParameters();
+                // add script to require one checkbox to be selected
+                chkActive.InputAttributes.Add("onchange", "ActiveInactiveChanged(this)");
+                chkInactive.InputAttributes.Add("onchange", "ActiveInactiveChanged(this)");
 
-                // Set up validators on first load
-                SetValidator(cmpParameter01, rngParameter01, rgxParameter01, ddlParameter1.SelectedValue);
-                SetValidator(cmpParameter02, rngParameter02, rgxParameter02, ddlParameter2.SelectedValue);
-
-                // Bind data so the table shows "no data" on first load
-                BindData(ddlSearchFor.SelectedValue);
-
-                // restore previous search parameters
-                if ((bool)Session["refresh"] == true) RestoreSearch(2);
+                lblError.Visible = false;
             }
-
-            // disable the and/or if we are selecting all
-            if (ddlParameter1.SelectedIndex == 0 || ddlParameter2.SelectedIndex == 0) {
-                rdoAndOr.Enabled = false;
+            catch (Exception ex) {
+                ShowError(ex.Message);
             }
-            else {
-                rdoAndOr.Enabled = true;
-            }
-
-            // add script to require one checkbox to be selected
-            chkActive.InputAttributes.Add("onchange", "ActiveInactiveChanged(this)");
-            chkInactive.InputAttributes.Add("onchange", "ActiveInactiveChanged(this)");
-
-            
         }
 
         protected void ddlSearchFor_SelectedIndexChanged(object sender, EventArgs e) {
             // Populate if the user has selected a new table (postback)
-            if (!parametersPopulating) PopulateParameters();
+            if (!err) try {
+                    if (!parametersPopulating) PopulateParameters();
 
-            txtParameter1.Text = "";
-            txtParameter2.Text = "";
-
-            //// disable
-            //if (ddlSearchFor.SelectedValue == "Refills") {
-            //    btnAdd.Enabled = false;
-            //}
-            //else {
-            //    btnAdd.Enabled = true;
-            //}
+                    txtParameter1.Text = "";
+                    txtParameter2.Text = "";
+                }
+                catch (Exception ex) {
+                    ShowError (ex.Message);
+                }
         }
 
         protected void ddlParameter1_SelectedIndexChanged(object sender, EventArgs e) {
-            txtParameter1.Text = "";
-            SetValidator(cmpParameter01, rngParameter01, rgxParameter01, ddlParameter1.SelectedValue);
-            Page.Validate();
+            if (!err) try {
+                    txtParameter1.Text = "";
+                    SetValidator(cmpParameter01, rngParameter01, rgxParameter01, ddlParameter1.SelectedValue);
+                    Page.Validate();
+                }
+                catch (Exception ex) {
+                    ShowError(ex.Message);
+                }
         }
 
         protected void ddlParameter2_SelectedIndexChanged(object sender, EventArgs e) {
-            txtParameter2.Text = "";
-            SetValidator(cmpParameter02, rngParameter02, rgxParameter02, ddlParameter2.SelectedValue);
-            Page.Validate();
+            if (!err) try {
+                    txtParameter2.Text = "";
+                    SetValidator(cmpParameter02, rngParameter02, rgxParameter02, ddlParameter2.SelectedValue);
+                    Page.Validate();
+                }
+                catch (Exception ex) {
+                    ShowError(ex.Message);
+                }
         }
 
         protected SearchParameters GetSearch() {
+
             SearchParameters param = new SearchParameters();
+            if (!err) try {
 
-            param.tableName = ddlSearchFor.SelectedValue;
-            param.andOr = rdoAndOr.SelectedValue;
-            param.showActive = chkActive.Checked;
-            param.showInactive = chkInactive.Checked;
+                    param.tableName = ddlSearchFor.SelectedValue;
+                    param.andOr = rdoAndOr.SelectedValue;
+                    param.showActive = chkActive.Checked;
+                    param.showInactive = chkInactive.Checked;
 
-            // if no column selected, send a blank string
-            if (ddlParameter1.SelectedIndex == 0) {
-                param.param1Col = "";
-                param.param1 = "";
-            }
-            else {
-                param.param1Col = ddlParameter1.SelectedValue;
-                param.param1 = txtParameter1.Text;
-            }
+                    // if no column selected, send a blank string
+                    if (ddlParameter1.SelectedIndex == 0) {
+                        param.param1Col = "";
+                        param.param1 = "";
+                    }
+                    else {
+                        param.param1Col = ddlParameter1.SelectedValue;
+                        param.param1 = txtParameter1.Text;
+                    }
 
-            if (ddlParameter2.SelectedIndex == 0) {
-                param.param2Col = "";
-                param.param2 = "";
-            }
-            else {
-                param.param2Col = ddlParameter2.SelectedValue;
-                param.param2 = txtParameter2.Text;
-            }
+                    if (ddlParameter2.SelectedIndex == 0) {
+                        param.param2Col = "";
+                        param.param2 = "";
+                    }
+                    else {
+                        param.param2Col = ddlParameter2.SelectedValue;
+                        param.param2 = txtParameter2.Text;
+                    }
+                }
+                catch (Exception ex) {
+                    ShowError (ex.Message);
+                }
 
             return param;
-        }
+                
+            }
 
         protected void CacheSearch() {
-            Session.Remove("searchParameters");
-            Session.Add("searchParameters", currentSearch);
+            if (!err) try {
+                    Session.Remove("searchParameters");
+                    Session.Add("searchParameters", currentSearch);
+                }
+                catch (Exception ex) {
+                    ShowError(ex.Message);
+                }
         }
 
         protected void RestoreSearch(int stage) {
-            switch (stage) {
-                case 1:
-                    currentSearch = (SearchParameters)Session["searchParameters"];
+            if (!err) try {
+                    switch (stage) {
+                        case 1:
+                            currentSearch = (SearchParameters)Session["searchParameters"];
 
-                    ddlSearchFor.SelectedValue = currentSearch.tableName;
+                            ddlSearchFor.SelectedValue = currentSearch.tableName;
 
-                    break;
-                case 2:
-                    chkActive.Checked = currentSearch.showActive;
-                    chkInactive.Checked = currentSearch.showInactive;
-                    ddlParameter1.SelectedValue = currentSearch.param1Col;
-                    txtParameter1.Text = currentSearch.param1;
-                    rdoAndOr.SelectedValue = currentSearch.andOr;
-                    ddlParameter2.SelectedValue = currentSearch.param2Col;
-                    txtParameter2.Text = currentSearch.param2;
+                            break;
+                        case 2:
+                            chkActive.Checked = currentSearch.showActive;
+                            chkInactive.Checked = currentSearch.showInactive;
+                            ddlParameter1.SelectedValue = currentSearch.param1Col;
+                            txtParameter1.Text = currentSearch.param1;
+                            rdoAndOr.SelectedValue = currentSearch.andOr;
+                            ddlParameter2.SelectedValue = currentSearch.param2Col;
+                            txtParameter2.Text = currentSearch.param2;
 
-                    Session["refresh"] = false;
+                            Session["refresh"] = false;
 
-                    DoSearch();
-                    break;
-            }
+                            DoSearch();
+                            break;
+                    }
+                }
+                catch (Exception ex) {
+                    ShowError(ex.Message);
+                }
         }
 
         // functions for table buttons
         protected void TableActions(object sender, CommandEventArgs e) {
-            //CacheSearch(currentSearch);
-            //Response.Write("<script>alert('" + e.CommandName + " " + e.CommandArgument.ToString() + "');</script>");
+            if (!err) try {
+                    //CacheSearch(currentSearch);
+                    //Response.Write("<script>alert('" + e.CommandName + " " + e.CommandArgument.ToString() + "');</script>");
 
-            string[] command = e.CommandName.Split(':');
-            string form = command[0];
-            string action = command[1];
-            string id = e.CommandArgument.ToString();
+                    string[] command = e.CommandName.Split(':');
+                    string form = command[0];
+                    string action = command[1];
+                    string id = e.CommandArgument.ToString();
 
-            // validate and form the URL
-            StringBuilder url = new StringBuilder();
-            
-            if (validForms.Contains(form)) {
-                url.Append("frm" + form + ".aspx");
+                    // validate and form the URL
+                    StringBuilder url = new StringBuilder();
 
-                if (validCommands.Contains(action)) {
-                    url.Append("?type=" + action);
-                    url.Append("&id=" + SecureID.Encrypt(id));
+                    if (validForms.Contains(form)) {
+                        url.Append("frm" + form + ".aspx");
 
-                    Response.Redirect(url.ToString());
+                        if (validCommands.Contains(action)) {
+                            url.Append("?type=" + action);
+                            url.Append("&id=" + SecureID.Encrypt(id));
+
+                            Response.Redirect(url.ToString());
+                        }
+                    }
                 }
-            }
+                catch (Exception ex) {
+                    ShowError(ex.Message);
+                }
         }
 
         protected void DoSearch() {
-            SearchParameters param;
+            if (!err) try {
+                    SearchParameters param;
 
-            currentSearch = GetSearch();
+                    currentSearch = GetSearch();
 
-            dsResult = GeneralDataTier.SearchTableGetInfo(currentSearch);
+                    dsResult = GeneralDataTier.SearchTableGetInfo(currentSearch);
 
-            if (dsResult != null) {
-                BindData(currentSearch.tableName);
-            }
+                    if (dsResult != null) {
+                        BindData(currentSearch.tableName);
+                    }
 
-            CacheSearch();
+                    CacheSearch();
+                }
+                catch (Exception ex) {
+                    ShowError(ex.Message);
+                }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e) {
