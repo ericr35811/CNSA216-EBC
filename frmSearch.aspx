@@ -205,16 +205,6 @@
                                             runat="server"
                                             CssClass="no-underline"
                                             OnCommand="TableActions"
-                                            CommandName="Patient:VIEW"
-                                            CommandArgument='<%# Eval("PatientID") %>'
-                                        >
-                                            <i class="fa-solid fa-eye"></i>
-                                        </asp:LinkButton>
-                                        &nbsp;
-                                        <asp:LinkButton
-                                            runat="server"
-                                            CssClass="no-underline"
-                                            OnCommand="TableActions"
                                             CommandName="Patient:EDIT"
                                             CommandArgument='<%# Eval("PatientID") %>'
                                         >
