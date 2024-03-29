@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.EnterpriseServices.CompensatingResourceManager;
 
 namespace _2024_CNSA212_Final_Group2
 {
@@ -49,7 +50,7 @@ namespace _2024_CNSA212_Final_Group2
         }
 
         //not working
-        public static void UpdateRefillInfo(string refillID, string prescriptionID, string quantity, string numberOfRefills, DateTime startDate, DateTime endDate)
+        public static void UpdateRefill(string refillID, int clerkID, DateTime fillDateTime) 
         {
             try
             {
@@ -61,11 +62,8 @@ namespace _2024_CNSA212_Final_Group2
                 cmdString.CommandText = "procUpdateRefill";
 
                 cmdString.Parameters.Add("@RefillID", SqlDbType.Int).Value = refillID;
-                cmdString.Parameters.Add("@PrescriptionID", SqlDbType.Int).Value = prescriptionID;
-                cmdString.Parameters.Add("@Quantity", SqlDbType.VarChar, 20).Value = quantity;
-                cmdString.Parameters.Add("@NumberOfRefills", SqlDbType.SmallInt).Value = numberOfRefills;
-                cmdString.Parameters.Add("@StartDate", SqlDbType.Date).Value = startDate;
-                cmdString.Parameters.Add("@EndDate", SqlDbType.Date).Value = endDate;
+                cmdString.Parameters.Add("@ClerkID", SqlDbType.Int).Value = clerkID;
+                cmdString.Parameters.Add("@FillDateTime", SqlDbType.DateTime).Value = fillDateTime;
 
                 cmdString.ExecuteNonQuery();
                 
@@ -81,7 +79,7 @@ namespace _2024_CNSA212_Final_Group2
 
         }
 
-        public static int AddRefill(int prescriptionID, string quantity, string numberOfRefills, DateTime startDate, DateTime endDate)
+        public static int AddRefill(int prescriptionID, int clerkID, DateTime fillDateTime)
         {
             try
             {
@@ -96,10 +94,8 @@ namespace _2024_CNSA212_Final_Group2
 
                
                 cmdString.Parameters.Add("@PrescriptionID", SqlDbType.Int).Value = prescriptionID;
-                cmdString.Parameters.Add("@Quantity", SqlDbType.SmallInt).Value = quantity;
-                cmdString.Parameters.Add("@NumberOfRefills", SqlDbType.SmallInt).Value = numberOfRefills;
-                cmdString.Parameters.Add("@StartDate", SqlDbType.Date).Value = startDate;
-                cmdString.Parameters.Add("@EndDate", SqlDbType.Date).Value = endDate;
+                cmdString.Parameters.Add("@ClerkID", SqlDbType.Int).Value = clerkID;
+                cmdString.Parameters.Add("@FillDateTime", SqlDbType.DateTime).Value = fillDateTime;
 
                 // get return value from the procedure
                 var returnParameter = cmdString.Parameters.Add("@ReturnVal", SqlDbType.Int);
@@ -163,37 +159,6 @@ namespace _2024_CNSA212_Final_Group2
                 myConn.Close();
             }
         }
-
-        public static int Fill(int refillID, int clerkID) {
-            try {
-                myConn.Open();
-
-                cmdString.Parameters.Clear();
-                cmdString.Connection = myConn;
-                cmdString.CommandType = CommandType.StoredProcedure;
-                cmdString.CommandTimeout = 1500;
-                cmdString.CommandText = "procFill";
-                
-                cmdString.Parameters.Add("@RefillID", SqlDbType.Int).Value = refillID;
-                cmdString.Parameters.Add("@ClerkID", SqlDbType.Int).Value = clerkID;
-
-                // get the return value from the procedure
-                var returnParameter = cmdString.Parameters.Add("@ReturnVal", SqlDbType.Int);
-                returnParameter.Direction = ParameterDirection.ReturnValue;
-
-                cmdString.ExecuteNonQuery();
-
-                return (int) returnParameter.Value;
-
-            }
-            catch (Exception ex) {
-                throw new Exception(ex.Message);
-            }
-            finally {
-                myConn.Close();
-            }
-        }
-
     }
 
 

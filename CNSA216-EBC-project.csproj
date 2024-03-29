@@ -70,6 +70,7 @@
     <Content Include="images\banner2.png" />
     <Content Include="js\datatables-simple-demo.js" />
     <Content Include="js\scripts.js" />
+    <Content Include="js\TimeUpdater.js" />
     <Content Include="test.txt" />
     <Content Include="Web.config" />
     <Content Include="MasterTest.aspx" />
@@ -140,7 +141,6 @@
     </Compile>
     <Compile Include="frmSearch.aspx.cs">
       <DependentUpon>frmSearch.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="frmSearch.aspx.designer.cs">
       <DependentUpon>frmSearch.aspx</DependentUpon>

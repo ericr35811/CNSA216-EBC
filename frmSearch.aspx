@@ -15,6 +15,11 @@
                 caller.checked = !caller.checked
             }
         }
+
+        function ClearTextBox(textboxName) {
+            var textbox = document.getElementById(textboxName);
+            textbox.value = "";
+        }
     </script>
 </asp:Content>
 
@@ -63,6 +68,7 @@
                                     ID="ddlParameter1"
                                     runat="server" 
                                     OnSelectedIndexChanged="ddlParameter1_SelectedIndexChanged" 
+                                    onchange="javascript:ClearTextBox('ASPContent_txtParameter1');"
                                     CausesValidation="True" 
                                     AutoPostBack="True">
                                 </asp:DropDownList>
@@ -108,10 +114,11 @@
                                     runat="server" 
                                     AutoPostBack="True" 
                                     OnSelectedIndexChanged="ddlParameter2_SelectedIndexChanged" 
+                                    onchange="javascript:ClearTextBox('ASPContent_txtParameter2');"
                                     CausesValidation="True">
                                 </asp:DropDownList>
                                 &nbsp;
-                                <asp:TextBox ID="txtParameter2" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="txtParameter2" runat="server" CausesValidation="true"></asp:TextBox>
                                 &nbsp;
                                 <asp:CompareValidator 
                                     ID="cmpParameter02" 
@@ -174,6 +181,26 @@
                                         <i class="fa-solid fa-gear"></i>
                                     </HeaderTemplate>
                                     <ItemTemplate>
+                                        <asp:LinkButton
+                                            runat="server" 
+                                            CssClass="no-underline"
+                                            OnCommand="TableActions"
+                                            CommandName="Prescription:ADD"
+                                            CommandArgument='<%# Eval("PatientID") %>'
+                                        >
+                                            <i class="fa-solid fa-prescription-bottle"></i>
+                                        </asp:LinkButton>
+                                        &nbsp;
+                                        <asp:LinkButton
+                                            runat="server"
+                                            CssClass="no-underline"
+                                            OnCommand="TableActions"
+                                            CommandName="Patient:VIEW"
+                                            CommandArgument='<%# Eval("PatientID") %>'
+                                        >
+                                            <i class="fa-solid fa-eye"></i>
+                                        </asp:LinkButton>
+                                        &nbsp;
                                         <asp:LinkButton
                                             runat="server"
                                             CssClass="no-underline"
@@ -352,6 +379,7 @@
                                 <asp:BoundField DataField="RefillQuantity" HeaderText="Refill Quantity"></asp:BoundField>
                                 <asp:BoundField DataField="StartDate" DataFormatString="{0:d}" HeaderText="Start Date"></asp:BoundField>
                                 <asp:BoundField DataField="EndDate" DataFormatString="{0:d}" HeaderText="End Date"></asp:BoundField>
+                                <asp:BoundField DataField="EnteredDateTime" DataFormatString="{0:G}" HeaderText="Date &amp; Time Entered"></asp:BoundField>
                             </Columns>
                         </asp:GridView>
             
