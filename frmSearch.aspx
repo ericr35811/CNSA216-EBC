@@ -159,8 +159,9 @@
                 <div class="col-xl mb-4">
                     <div class="card h-100">
                         <div class="card-body d-flex align-items-center justify-content-center">
-                            Use the navigation bar on the left to add new records. <br />
-                            Search for a prescription to add a refill for it.
+                            - Use the navigation bar on the left to add new records. <br />
+                            - Search for a patient to add a prescription for them. <br />
+                            - Search for a prescription to add a refill for it.
                         </div>
                     </div>
                 </div>
@@ -188,6 +189,7 @@
                                             OnCommand="TableActions"
                                             CommandName="Prescription:ADD"
                                             CommandArgument='<%# Eval("PatientID") %>'
+                                            ToolTip="Prescribe to patient"
                                         >
                                             <i class="fa-solid fa-prescription-bottle"></i>
                                         </asp:LinkButton>
@@ -198,6 +200,7 @@
                                             OnCommand="TableActions"
                                             CommandName="Patient:VIEW"
                                             CommandArgument='<%# Eval("PatientID") %>'
+                                            ToolTip="View patient"
                                         >
                                             <i class="fa-solid fa-eye"></i>
                                         </asp:LinkButton>
@@ -208,6 +211,7 @@
                                             OnCommand="TableActions"
                                             CommandName="Patient:EDIT"
                                             CommandArgument='<%# Eval("PatientID") %>'
+                                            ToolTip="Edit patient"
                                         >
                                             <i class="fa-solid fa-pencil"></i>
                                         </asp:LinkButton>
@@ -218,6 +222,7 @@
                                             OnCommand="TableActions"
                                             CommandName="Patient:DELETE"
                                             CommandArgument='<%# Eval("PatientID") %>'
+                                            ToolTip="Delete patient"
                                         >
                                             <i class="fa-solid fa-trash"></i>
                                         </asp:LinkButton>
@@ -261,6 +266,7 @@
                                             OnCommand="TableActions"
                                             CommandName="Physician:VIEW"
                                             CommandArgument='<%# Eval("PhysicianID") %>'
+                                            ToolTip="View physician"
                                         >
                                             <i class="fa-solid fa-eye"></i>
                                         </asp:LinkButton>
@@ -271,6 +277,7 @@
                                             OnCommand="TableActions"
                                             CommandName="Physician:EDIT"
                                             CommandArgument='<%# Eval("PhysicianID") %>'
+                                            ToolTip="Edit physician"
                                         >
                                             <i class="fa-solid fa-pencil"></i>
                                         </asp:LinkButton>
@@ -281,6 +288,7 @@
                                             OnCommand="TableActions"
                                             CommandName="Physician:DELETE"
                                             CommandArgument='<%# Eval("PhysicianID") %>'
+                                            ToolTip="Delete physician"
                                         >
                                             <i class="fa-solid fa-trash"></i>
                                         </asp:LinkButton>
@@ -319,6 +327,7 @@
                                             OnCommand="TableActions"
                                             CommandName="Refill:ADD"
                                             CommandArgument='<%# Eval("PrescriptionID") %>'
+                                            ToolTip="Refill prescription"
                                         >
                                             <i class="fa-solid fa-prescription-bottle"></i>
                                         </asp:LinkButton>
@@ -329,6 +338,7 @@
                                             OnCommand="TableActions"
                                             CommandName="Prescription:VIEW"
                                             CommandArgument='<%# Eval("PrescriptionID") %>'
+                                            ToolTip="View prescription"
                                         >
                                             <i class="fa-solid fa-eye"></i>
                                         </asp:LinkButton>
@@ -339,6 +349,7 @@
                                             OnCommand="TableActions"
                                             CommandName="Prescription:EDIT"
                                             CommandArgument='<%# Eval("PrescriptionID") %>'
+                                            ToolTip="Edit prescription"
                                         >
                                             <i class="fa-solid fa-pencil"></i>
                                         </asp:LinkButton>
@@ -349,6 +360,7 @@
                                             OnCommand="TableActions"
                                             CommandName="Prescription:DELETE"
                                             CommandArgument='<%# Eval("PrescriptionID") %>'
+                                            ToolTip="Delete prescription"
                                         >
                                             <i class="fa-solid fa-trash"></i>
                                         </asp:LinkButton>
@@ -390,6 +402,7 @@
                                                 OnCommand="TableActions"
                                                 CommandName="Refill:VIEW"
                                                 CommandArgument='<%# Eval("RefillID") %>'
+                                                ToolTip="View refill"
                                             >
                                                 <i class="fa-solid fa-eye"></i>
                                             </asp:LinkButton>
@@ -400,6 +413,7 @@
                                                  OnCommand="TableActions"
                                                  CommandName="Refill:EDIT"
                                                  CommandArgument='<%# Eval("RefillID") %>'
+                                                 ToolTip="Edit refill"
                                              >
                                                  <i class="fa-solid fa-pencil"></i>
                                              </asp:LinkButton>
@@ -410,6 +424,7 @@
                                                  OnCommand="TableActions"
                                                  CommandName="Refill:DELETE"
                                                  CommandArgument='<%# Eval("RefillID") %>'
+                                                 ToolTip="Delete refill"
                                              >
                                                  <i class="fa-solid fa-trash"></i>
                                              </asp:LinkButton>
