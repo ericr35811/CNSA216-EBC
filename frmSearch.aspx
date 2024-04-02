@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CNSA216-EBC.Master" AutoEventWireup="true" CodeBehind="frmSearch.aspx.cs" Inherits="CNSA216_EBC_project.WebForm8" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/CNSA216-EBC.Master" AutoEventWireup="true" CodeBehind="frmSearch.aspx.cs" Inherits="CNSA216_EBC_project.WebForm8" MaintainScrollPositionOnPostback="true" %>
 <%@ Import Namespace="CNSA216_EBC_project" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -21,6 +21,11 @@
             textbox.value = "";
         }
     </script>
+    <style>
+        .fa-solid {
+            padding-left: 2em
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ASPContent" runat="server">
@@ -193,7 +198,7 @@
                                         >
                                             <i class="fa-solid fa-prescription-bottle"></i>
                                         </asp:LinkButton>
-                                        &nbsp;
+                                        
                                         <asp:LinkButton
                                             runat="server"
                                             CssClass="no-underline"
@@ -204,7 +209,7 @@
                                         >
                                             <i class="fa-solid fa-eye"></i>
                                         </asp:LinkButton>
-                                        &nbsp;
+                                        
                                         <asp:LinkButton
                                             runat="server"
                                             CssClass="no-underline"
@@ -215,7 +220,7 @@
                                         >
                                             <i class="fa-solid fa-pencil"></i>
                                         </asp:LinkButton>
-                                        &nbsp;
+                                        
                                         <asp:LinkButton
                                             runat="server"
                                             CssClass="no-underline"
@@ -223,8 +228,24 @@
                                             CommandName="Patient:DELETE"
                                             CommandArgument='<%# Eval("PatientID") %>'
                                             ToolTip="Delete patient"
+                                            Visible='<%# (bool) Eval("Active") == true %>'
+                                            Enabled='<%# (bool) Eval("Active") == true %>'
+                                            
                                         >
                                             <i class="fa-solid fa-trash"></i>
+                                        </asp:LinkButton>
+                                        
+                                        <asp:LinkButton
+                                            runat="server"
+                                            CssClass="no-underline"
+                                            OnCommand="TableActions"
+                                            CommandName="Patient:UNDELETE"
+                                            CommandArgument='<%# Eval("PatientID") %>'
+                                            ToolTip="Undelete patient"
+                                            Visible='<%# (bool) Eval("Active") == false %>'
+                                            Enabled='<%# (bool) Eval("Active") == false %>'
+                                        >
+                                            <i class="fa-solid fa-trash-arrow-up"></i>
                                         </asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -270,7 +291,7 @@
                                         >
                                             <i class="fa-solid fa-eye"></i>
                                         </asp:LinkButton>
-                                        &nbsp;
+
                                         <asp:LinkButton
                                             runat="server"
                                             CssClass="no-underline"
@@ -281,7 +302,7 @@
                                         >
                                             <i class="fa-solid fa-pencil"></i>
                                         </asp:LinkButton>
-                                        &nbsp;
+                                        
                                         <asp:LinkButton
                                             runat="server"
                                             CssClass="no-underline"
@@ -289,8 +310,23 @@
                                             CommandName="Physician:DELETE"
                                             CommandArgument='<%# Eval("PhysicianID") %>'
                                             ToolTip="Delete physician"
+                                            Visible='<%# (bool) Eval("Active") == true %>'
+                                            Enabled='<%# (bool) Eval("Active") == true %>'
                                         >
                                             <i class="fa-solid fa-trash"></i>
+                                        </asp:LinkButton>
+
+                                        <asp:LinkButton
+                                            runat="server"
+                                            CssClass="no-underline"
+                                            OnCommand="TableActions"
+                                            CommandName="Physician:UNDELETE"
+                                            CommandArgument='<%# Eval("PhysicianID") %>'
+                                            ToolTip="Undelete physician"
+                                            Visible='<%# (bool) Eval("Active") == false %>'
+                                            Enabled='<%# (bool) Eval("Active") == false %>'
+                                        >
+                                            <i class="fa-solid fa-trash-arrow-up"></i>
                                         </asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -331,7 +367,7 @@
                                         >
                                             <i class="fa-solid fa-prescription-bottle"></i>
                                         </asp:LinkButton>
-                                        &nbsp;
+                                        
                                         <asp:LinkButton
                                             runat="server"
                                             CssClass="no-underline"
@@ -342,7 +378,7 @@
                                         >
                                             <i class="fa-solid fa-eye"></i>
                                         </asp:LinkButton>
-                                        &nbsp;
+                                        
                                         <asp:LinkButton
                                             runat="server"
                                             CssClass="no-underline"
@@ -353,7 +389,7 @@
                                         >
                                             <i class="fa-solid fa-pencil"></i>
                                         </asp:LinkButton>
-                                        &nbsp;
+                                        
                                         <asp:LinkButton
                                             runat="server"
                                             CssClass="no-underline"
@@ -361,8 +397,23 @@
                                             CommandName="Prescription:DELETE"
                                             CommandArgument='<%# Eval("PrescriptionID") %>'
                                             ToolTip="Delete prescription"
+                                            Visible='<%# (bool) Eval("Active") == true %>'
+                                            Enabled='<%# (bool) Eval("Active") == true %>'
                                         >
                                             <i class="fa-solid fa-trash"></i>
+                                        </asp:LinkButton>
+
+                                        <asp:LinkButton
+                                            runat="server"
+                                            CssClass="no-underline"
+                                            OnCommand="TableActions"
+                                            CommandName="Prescription:UNDELETE"
+                                            CommandArgument='<%# Eval("PrescriptionID") %>'
+                                            ToolTip="Undelete prescription"
+                                            Visible='<%# (bool) Eval("Active") == false %>'
+                                            Enabled='<%# (bool) Eval("Active") == false %>'
+                                        >
+                                            <i class="fa-solid fa-trash-arrow-up"></i>
                                         </asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -406,7 +457,7 @@
                                             >
                                                 <i class="fa-solid fa-eye"></i>
                                             </asp:LinkButton>
-                                            &nbsp;
+                                            
                                              <asp:LinkButton
                                                  runat="server"
                                                  CssClass="no-underline"
@@ -417,7 +468,7 @@
                                              >
                                                  <i class="fa-solid fa-pencil"></i>
                                              </asp:LinkButton>
-                                             &nbsp;
+                                             
                                              <asp:LinkButton
                                                  runat="server"
                                                  CssClass="no-underline"
@@ -425,9 +476,24 @@
                                                  CommandName="Refill:DELETE"
                                                  CommandArgument='<%# Eval("RefillID") %>'
                                                  ToolTip="Delete refill"
+                                                Visible='<%# (bool) Eval("Active") == true %>'
+                                                Enabled='<%# (bool) Eval("Active") == true %>'
                                              >
                                                  <i class="fa-solid fa-trash"></i>
                                              </asp:LinkButton>
+                                            
+                                            <asp:LinkButton
+                                                runat="server"
+                                                CssClass="no-underline"
+                                                OnCommand="TableActions"
+                                                CommandName="Refill:UNDELETE"
+                                                CommandArgument='<%# Eval("RefillID") %>'
+                                                ToolTip="Undelete physician"
+                                                Visible='<%# (bool) Eval("Active") == false %>'
+                                                Enabled='<%# (bool) Eval("Active") == false %>'
+                                            >
+                                                <i class="fa-solid fa-trash-arrow-up"></i>
+                                            </asp:LinkButton>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:CheckBoxField DataField="Active" HeaderText="Active" ItemStyle-CssClass="text-center"></asp:CheckBoxField>

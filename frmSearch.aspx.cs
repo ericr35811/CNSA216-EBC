@@ -37,7 +37,8 @@ namespace CNSA216_EBC_project {
         //private bool showInactive;
 
         private readonly string[] validForms = { "Patient", "Physician", "Prescription", "Refill" };
-        private readonly string[] validCommands = { "ADD", "EDIT", "DELETE", "VIEW" };
+        private readonly string[] validFormCommands = { "ADD", "EDIT", "VIEW" };
+        private readonly string[] validDeleteCommands = { "DELETE", "UNDELETE" };
         private DataSet dsResult;
         private static DataTable dtColumns;
         private bool err = false;
@@ -390,13 +391,56 @@ namespace CNSA216_EBC_project {
                     StringBuilder url = new StringBuilder();
 
                     if (validForms.Contains(form)) {
-                        url.Append("frm" + form + ".aspx");
-
-                        if (validCommands.Contains(action)) {
+                        // redirect to form for view, edit, add
+                        if (validFormCommands.Contains(action)) {
+                            url.Append("frm" + form + ".aspx");
                             url.Append("?type=" + action);
                             url.Append("&id=" + SecureID.Encrypt(id));
 
                             Response.Redirect(url.ToString());
+                        }
+                        // delete and undelete functions
+                        else if (action == "DELETE") {
+                            switch (form) {
+                                case "Patient":
+                                    PatientDataTier.DeletePatient(int.Parse(id));
+                                    break;
+                                case "Physician":
+                                    PhysicianDataTier.DeletePhysician(id);
+                                    break;
+                                case "Prescription":
+                                    PrescriptionDataTier.DeletePrescription(id);
+                                    break;
+                                case "Refill":
+                                    RefillDataTier.DeleteRefill(int.Parse(id));
+                                    break;
+                            }
+
+                            DoSearch();
+
+                            lblError.Visible = true;
+                            lblError.Text = "DELETE";
+                        }
+                        else if (action == "UNDELETE") {
+                            switch (form) {
+                                case "Patient":
+                                    PatientDataTier.DeletePatientUndo(int.Parse(id));
+                                    break;
+                                case "Physician":
+                                    PhysicianDataTier.ActivatePhysician(id);
+                                    break;
+                                case "Prescription":
+                                    PrescriptionDataTier.ActivatePrescription(id);
+                                    break;
+                                case "Refill":
+                                    RefillDataTier.ActivateRefill(int.Parse(id));
+                                    break;
+                            }
+
+                            DoSearch();
+
+                            lblError.Visible = true;
+                            lblError.Text = "UNDELETE";
                         }
                     }
                 }
