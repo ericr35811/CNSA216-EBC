@@ -22,8 +22,9 @@
         }
     </script>
     <style>
-        .fa-solid {
-            padding-left: 2em
+        /* padding for grid view buttons */
+        .datatable-table a + a {
+            padding-left: .3em
         }
     </style>
 </asp:Content>

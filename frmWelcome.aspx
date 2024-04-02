@@ -7,8 +7,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ASPContent" runat="server">
     <h1>Welcome to Louis' Pharmacy!</h1>
     <hr />
-    <p>Use the sidebar to navigate the site.</p>
-    <p>test</p>
+    <p>Use the navigation bar on the left to add new records.</p>
+    <p>Search for a patient to add a prescription for them. </p>
+    <p>Search for a prescription to add a refill for it.</p>
+    <img src="images/medicine.png" alt="" />
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Bottom" runat="server">
