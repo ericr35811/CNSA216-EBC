@@ -22,24 +22,25 @@ namespace CNSA216_EBC_project {
 
         protected void BindData() {
 
-            DataTable RefillData;
-            int patientID;
-            int ClerckID;
-            int PrescriptionID;
-            string patientName;
-            string prescriptionName;
-            DateTime entryDateTime;
+            DataTable RefillData = new DataTable();
+            int patientID = 0;
+            int ClerckID = 0;
+            int PrescriptionID = 0;
+            string patientName = "";
+            string prescriptionName = "";
+            DateTime entryDateTime = DateTime.Parse("1/1/0001");
 
-            // get all data for this prescription
-          RefillData= RefillDataTier.GetRefill(RefillID).Tables[0];
+            if (type == "EDIT" || type == "VIEW") {
+                // get all data for this prescription
+                RefillData = RefillDataTier.GetRefill(RefillID).Tables[0];
 
-            patientID = (int)RefillData.Rows[0]["PatientID"];
-            ClerckID = (int)RefillData.Rows[0]["ClerkID"];
-            PrescriptionID = (int)RefillData.Rows[0]["PrescriptionID"];
-            patientName = (string)RefillData.Rows[0]["PatientName"];
-            prescriptionName = (string)RefillData.Rows[0]["PrescriptionName"];
-            entryDateTime = (DateTime)RefillData.Rows[0]["EnteredDateTime"];
-
+                patientID = (int)RefillData.Rows[0]["PatientID"];
+                ClerckID = (int)RefillData.Rows[0]["ClerkID"];
+                PrescriptionID = (int)RefillData.Rows[0]["PrescriptionID"];
+                patientName = (string)RefillData.Rows[0]["PatientName"];
+                prescriptionName = (string)RefillData.Rows[0]["PrescriptionName"];
+                entryDateTime = (DateTime)RefillData.Rows[0]["EnteredDateTime"];
+            }
             // -- populate DDLs
             // get dataset of all patients with only names and IDs
             ddlClerckName.DataSource = ClerkDataTier.GetClerks();
@@ -50,20 +51,33 @@ namespace CNSA216_EBC_project {
             ddlClerckName.DataBind();
 
             //UpdateDosages();
-            if (type == "EDIT" || type == "VIEW")
-            {
+            if (type == "EDIT" || type == "VIEW") {
                 // -- populate values
-                txtPatientID.Text= patientID.ToString();
+                txtPatientID.Text = patientID.ToString();
                 txtPrescID.Text = PrescriptionID.ToString();
                 txtPatientFName.Text = patientName.ToString();
                 txtPresNameDose.Text = prescriptionName.ToString();
                 ddlClerckName.SelectedValue = ClerckID.ToString();
                 txtDateTime.Text = entryDateTime.ToString();
                 txtDateTime.Enabled = true;
-                txtRefillID.Text= RefillID.ToString();
+                txtRefillID.Text = RefillID.ToString();
                 btnSave.Enabled = true;
             }
+            else if (type == "ADD") {
+                DataTable prescriptionInfo = new DataTable();
+                prescriptionInfo = PrescriptionDataTier.GetPrescriptionInfo(prescriptionID).Tables[0];
 
+                patientID = (int)prescriptionInfo.Rows[0]["PatientID"];
+                PrescriptionID = (int)prescriptionInfo.Rows[0]["PrescriptionID"];
+                patientName = (string)prescriptionInfo.Rows[0]["PatientFirstName"];
+                prescriptionName = (string)prescriptionInfo.Rows[0]["PrescriptionLabel"];
+
+                txtPatientID.Text = patientID.ToString();
+                txtPrescID.Text = PrescriptionID.ToString();
+                txtPatientFName.Text = patientName.ToString();
+                txtPresNameDose.Text = prescriptionName.ToString();
+            
+            }
         }
 
         protected void SetValidators() {
@@ -83,6 +97,8 @@ namespace CNSA216_EBC_project {
             switch (type) {
                 case "ADD":
                     btnSave.Text = "Add";
+                    SetValidators();
+                    BindData();
                     break;
 
                     txtPatientID.Enabled = false;
@@ -114,7 +130,7 @@ namespace CNSA216_EBC_project {
                     txtPresNameDose.Enabled = false;
                     ddlClerckName.Enabled = true;
                     txtDateTime.Enabled = true;
-                    btnSave.Text = "ConfirmRefill";
+                    btnSave.Text = "Update";
                     SetValidators();
                     BindData();
                     break;
@@ -170,6 +186,15 @@ namespace CNSA216_EBC_project {
                             GoBack();
                         }
                     }
+                    else {
+                        success = Int32.TryParse(SecureID.Decrypt(Request.QueryString["id"].Trim()), out prescriptionID);
+                        if (!success) {
+                            GoBack();
+                        }
+                        else {
+                            PreparePage();
+                        };
+                    }
                 }
                 else {
                     GoBack();
@@ -183,15 +208,17 @@ namespace CNSA216_EBC_project {
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (btnSave.Text.Trim().ToUpper() == "UPDATE")
-            {
+            
+        }
+
+        protected void btnSave_Click1(object sender, EventArgs e) {
+            if (btnSave.Text.Trim().ToUpper() == "UPDATE") {
                 string RefillID = txtRefillID.Text;
                 string PrescriptionID = txtPrescID.Text;
-                string  ClerkID = ddlClerckName.Text;
+                string ClerkID = ddlClerckName.Text;
                 string FillDateTime = txtDateTime.Text;
 
-                try
-                {
+                try {
                     RefillDataTier.UpdateRefill(
                     RefillID,
                     int.Parse(ClerkID),
@@ -200,16 +227,14 @@ namespace CNSA216_EBC_project {
 
                     );
                 }
-                catch 
-                {
+                catch {
 
                 }
 
                 Session["GRIDREFRESH"] = true;
             }
 
-            else if (btnSave.Text.Trim().ToUpper() == "ADD")
-            {
+            else if (btnSave.Text.Trim().ToUpper() == "ADD") {
                 string RefillID = "";
                 string PrescriptionID = "";
                 string ClerkID = "";
@@ -220,16 +245,14 @@ namespace CNSA216_EBC_project {
                 ClerkID = ddlClerckName.Text.Trim();
                 FillDateTime = txtDateTime.Text.Trim();
 
-                try
-                {
+                try {
                     RefillDataTier.AddRefill(
                     int.Parse(PrescriptionID),
                     int.Parse(ClerkID),
                     System.DateTime.Parse(FillDateTime)
                  );
                 }
-                catch 
-                {
+                catch {
 
                 }
 
