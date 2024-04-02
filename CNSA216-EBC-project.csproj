@@ -78,7 +78,7 @@
     <Content Include="frmRefill.aspx" />
     <Content Include="frmWelcome.aspx" />
     <Content Include="frmSearch.aspx" />
-    <Content Include="About.aspx" />
+    <Content Include="frmAbout.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CNSA216-EBC.Master.cs">
@@ -146,12 +146,12 @@
     </Compile>
     <Compile Include="RefillDataTier.cs" />
     <Compile Include="RefillHistoryDataTier.cs" />
-    <Compile Include="About.aspx.cs">
-      <DependentUpon>About.aspx</DependentUpon>
+    <Compile Include="frmAbout.aspx.cs">
+      <DependentUpon>frmAbout.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="About.aspx.designer.cs">
-      <DependentUpon>About.aspx</DependentUpon>
+    <Compile Include="frmAbout.aspx.designer.cs">
+      <DependentUpon>frmAbout.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
