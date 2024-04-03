@@ -141,7 +141,7 @@ namespace CNSA216_EBC_project {
                 string phone1 = txtPhone1.Text;
                 string phone2 = txtPhone2.Text;
 
-                Patient.UpdatePatientByID(
+                Patient.UpdatePatientByID(PatientDataTier
                     , PatientID
                     , fname
                     , lname
@@ -152,9 +152,7 @@ namespace CNSA216_EBC_project {
                     , city
                     , zip
                     , phone1
-                    , phone2
-
-                     );
+                    , phone2);
             }
         }
     }
