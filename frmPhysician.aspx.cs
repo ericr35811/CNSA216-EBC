@@ -12,9 +12,66 @@ namespace CNSA216_EBC_project
     public partial class WebForm4 : System.Web.UI.Page
     {
         private static string type;
+        private static int PhysicianID = 0;
+        private static string FirstName;
+        private static string LastName;
+        private static string Email;
+        private static string Middle;
+        private static string city;
+        private static string zip;
+        private static string street;
+        private static string state;
+        private static string Phone1;
+        private static bool Saved = false;
         protected void Page_Load(object sender, EventArgs e)
         {
+            bool success;
 
+            if (!IsPostBack)
+            {
+                // check if query string contains the type key
+                if (Request.QueryString.AllKeys.Contains("type") && !String.IsNullOrEmpty(Request.QueryString["type"]))
+                {
+                    type = Request.QueryString["type"];
+
+                    // ignore the id if type is ADD
+                    if (type != "ADD")
+                    {
+                        // check if query string contains the id key
+                        if (Request.QueryString.AllKeys.Contains("id") && !String.IsNullOrEmpty(Request.QueryString["id"]))
+                        {
+                            success = Int32.TryParse(Request.QueryString["id"], out PhysicianID);
+                            if (!success)
+                            {
+                                GoBack();
+                            }
+                            else
+                            {
+
+                                PreparePage();
+                            };
+                        }
+                        else
+                        {
+                            GoBack();
+                        }
+                    }
+                }
+                else
+                {
+                    GoBack();
+                }
+
+            }
+            else
+            {
+
+            }
+
+        }
+        protected void GoBack()
+        {
+            Response.Redirect("frmSearch.aspx");
         }
         protected void SetValidators()
         {
@@ -162,7 +219,7 @@ namespace CNSA216_EBC_project
             switch (type)
             {
                 case "ADD":
-                    btnSave.Text = "Add";
+                    btnAdd.Text = "Add";
                     SetValidators();
                     BindData();
                     break;
@@ -208,7 +265,7 @@ namespace CNSA216_EBC_project
                     txtZip.Enabled = true;
                     txtEmail.Enabled = true;
                     txtPhone.Enabled = true;
-                    btnSave.Text = "Update";
+                    btnUpdate.Text = "Update";
                     SetValidators();
                     BindData();
                     break;

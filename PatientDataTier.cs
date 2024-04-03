@@ -89,7 +89,7 @@ namespace _2024_CNSA212_Final_Group2 {
 
         /*************ADD TRY CATCHES*********/
         public static void AddPatient(
-            int insuranceID,
+            int InsuranceID,
             string firstName,
             string middle,
             string lastName,
@@ -100,8 +100,8 @@ namespace _2024_CNSA212_Final_Group2 {
             string phone2,
             string zip,
             string email,
-            string gender
-        ) {
+            string gender,
+            string insuranceName) {
 
             myConn.Open();
 
