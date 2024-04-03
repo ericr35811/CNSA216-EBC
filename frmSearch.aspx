@@ -32,7 +32,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ASPContent" runat="server">
 
     <form id="formSearchFor" runat="server">
-        <div class="container-fluid px-4">
             <h1>Search</h1>
             <hr />
             <asp:Label runat="server" Text="Label" ForeColor="Red" ID="lblError" Visible="False"></asp:Label>
@@ -514,7 +513,6 @@
                     </asp:Panel>
                 </div>
             </div>
-        </div>
     </form>
 
 </asp:Content>
