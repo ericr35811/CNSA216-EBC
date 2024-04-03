@@ -70,7 +70,6 @@
     <Content Include="images\banner2.png" />
     <Content Include="js\datatables-simple-demo.js" />
     <Content Include="js\scripts.js" />
-    <Content Include="test.txt" />
     <Content Include="Web.config" />
     <Content Include="MasterTest.aspx" />
     <Content Include="frmPatient.aspx" />
@@ -79,6 +78,7 @@
     <Content Include="frmRefill.aspx" />
     <Content Include="frmWelcome.aspx" />
     <Content Include="frmSearch.aspx" />
+    <Content Include="About.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClerkDataTier.cs" />
@@ -141,13 +141,19 @@
     </Compile>
     <Compile Include="frmSearch.aspx.cs">
       <DependentUpon>frmSearch.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="frmSearch.aspx.designer.cs">
       <DependentUpon>frmSearch.aspx</DependentUpon>
     </Compile>
     <Compile Include="RefillDataTier.cs" />
     <Compile Include="RefillHistoryDataTier.cs" />
+    <Compile Include="About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CNSA216-EBC.Master" />
