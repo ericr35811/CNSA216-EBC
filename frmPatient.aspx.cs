@@ -16,24 +16,6 @@ using System.Web.UI.WebControls;
 
 namespace CNSA216_EBC_project
 {
-    public partial class Webform3 : System.Web.UI.Page
-    {
-        private static int PatientID = 0;
-        private static string FirstName;
-        private static string LastName;
-        private static string Email;
-        private static string Middle;
-        private static string city;
-        private static string zip;
-        private static string street;
-        private static string state;
-        private static string gender;
-        private static int InsuranceID = 0;
-        private static string Phone1;
-        private static string Phone2;
-        private static bool Saved = false;
-
-
         public static class QueryStringEncryption
         {
             public static string Encrypt(string input)
@@ -51,6 +33,20 @@ namespace CNSA216_EBC_project
         public partial class WebForm3 : System.Web.UI.Page
         {
             private static string type;
+            private static int PatientID = 0;
+            private static string FirstName;
+            private static string LastName;
+            private static string Email;
+            private static string Middle;
+            private static string city;
+            private static string zip;
+            private static string street;
+            private static string state;
+            private static string gender;
+            private static int InsuranceID = 0;
+            private static string Phone1;
+            private static string Phone2;
+            private static bool Saved = false;
             protected void Page_Load(object sender, EventArgs e)
             {
                 bool success;

@@ -76,7 +76,7 @@
         <div style="padding-top: 1em">
             <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="btn btn-primary" />&nbsp;&nbsp;
 
-            <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="btn btn-primary" />&nbsp;&nbsp;
+            <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="btn btn-primary" OnClick="btnUpdate_Click" />&nbsp;&nbsp;
             
             <asp:Button ID="btnDelete" runat="server" Text="Delete" CssClass="btn btn-primary" />
             
