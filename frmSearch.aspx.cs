@@ -38,7 +38,6 @@ namespace CNSA216_EBC_project {
 
         private readonly string[] validForms = { "Patient", "Physician", "Prescription", "Refill" };
         private readonly string[] validFormCommands = { "ADD", "EDIT", "VIEW" };
-        private readonly string[] validDeleteCommands = { "DELETE", "UNDELETE" };
         private DataSet dsResult;
         private static DataTable dtColumns;
         private bool err = false;
@@ -417,9 +416,6 @@ namespace CNSA216_EBC_project {
                             }
 
                             DoSearch();
-
-                            lblError.Visible = true;
-                            lblError.Text = "DELETE";
                         }
                         else if (action == "UNDELETE") {
                             switch (form) {
@@ -438,9 +434,6 @@ namespace CNSA216_EBC_project {
                             }
 
                             DoSearch();
-
-                            lblError.Visible = true;
-                            lblError.Text = "UNDELETE";
                         }
                     }
                 }
