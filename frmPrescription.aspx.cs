@@ -167,6 +167,7 @@ namespace CNSA216_EBC_project {
                             if (!success) {
                                 GoBack();
                             } else {
+
                                 PreparePage();
                             };
                         }
