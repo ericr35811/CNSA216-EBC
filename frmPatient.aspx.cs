@@ -4,12 +4,50 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace CNSA216_EBC_project {
-    public partial class WebForm3 : System.Web.UI.Page {
+    public partial class Webform4 : System.Web.UI.Page
+    {
+        private static int patientID = 0;
+        private static string FirstName;
+        private static string LastName;
+        private static string Email;
+        private static string Middle;
+        private static string city;
+        private static string zip;
+        private static string street;
+        private static string gender;
+        private static int InsuranceID = 0;
+        private static string Phone1;
+        private static string Phone2;
+
+        protected void GoBack()
+        {
+            Response.Redirect("frmSearch.aspx");
+
+        }
+    }
+    public static class QueryStringEncryption
+    {
+        public static string Encrypt(string input)
+        {
+            byte[] encryptedBytes;
+            string encryptedString;
+            encryptedBytes = Encoding.UTF8.GetBytes(input);
+            encryptedBytes = MachineKey.Protect(encryptedBytes);
+            encryptedString = Convert.ToBase64String(encryptedBytes);
+            encryptedString = HttpUtility.UrlEncode(encryptedString);
+
+            return encryptedString;
+        }
+    }
+        public partial class WebForm3 : System.Web.UI.Page {
         private static string type;
         protected void Page_Load(object sender, EventArgs e) {
 
@@ -81,9 +119,9 @@ namespace CNSA216_EBC_project {
 
         }
 
-        protected void btnBack_Click(object sender, EventArgs e)
+        protected void btnBack_Click(object sender, System.EventArgs e)
         {
-            Response.Redirect("https://localhost:44302/frmSearch.aspx");
+            GoBack();
         }
         public void SetTextBoxes()
         {
@@ -122,38 +160,78 @@ namespace CNSA216_EBC_project {
             }
             
         }
+        
 
-        protected void btnAdd_Click(object sender, EventArgs e)
+                protected void btnAdd_Click(object sender, EventArgs e)
         {
-            if (btnAdd.Text.Trim().ToUpper() == "UPDATE")
+            int insuranceID;
+            string firstName;
+            string middle;
+            string lastName;
+            string street;
+            string city;
+            string state;
+            string phone1;
+            string phone2;
+            string zip;
+            string email;
+            string gender;
+
+            switch (type)
             {
-                PatientDataTier Patient = new PatientDataTier();
+                case "ADD":
 
-                string PatientID = txtPatientID.Text;
-                string fname = txtFname.Text;
-                string lname = txtLname.Text;
-                string middle = txtMiddle.Text;
-                string dob = txtDob.Text;
-                string street = txtStreet.Text;
-                string start = txtStart.Text;
-                string city = txtCity.Text;
-                string zip = txtZip.Text;
-                string phone1 = txtPhone1.Text;
-                string phone2 = txtPhone2.Text;
+                    PatientDataTier.AddPatient(
+                        patientID,
+                        firstName,
+                        middle,
+                        lastName,
+                        street,
+                        city,
+                        state,
+                        phone1,
+                        phone2,
+                        zip,
+                        email,
+                        gender,
+                        insuranceID
+                        );
+                    break;
 
-                Patient.UpdatePatientByID(PatientDataTier
-                    , PatientID
-                    , fname
-                    , lname
-                    , middle
-                    , dob
-                    , street
-                    , start
-                    , city
-                    , zip
-                    , phone1
-                    , phone2);
+                case "UPDATE";
+            }
+        }
+
+        protected void btnUpdate_Click(object sender, CommandEventArgs e)
+        {
+            string recordToBeEdited;
+            Int64 myEditedRecord = 0;
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+            try
+            {
+                Session["vPatientID"] = txtPatientID.Text.Trim();
+                Session["vFName"] = txtFname.Text.Trim();
+                Session["vLName"] = txtLname.Text.Trim();
+
+                //get record
+                recordToBeEdited = (e.CommandArgument.ToString());
+
+                recordToBeEdited = QueryStringEncryption.Encrypt(recordToBeEdited.Trim().ToUpper());
+
+
+
+                sb.Append("<script language = 'javaScript'>");
+                sb.Append("  window.open('Display.aspx?ID=" + recordToBeEdited.ToString() + "&type=EDIT', 'DisplayEdit',");
+                sb.Append("  'width= 525, height=525, menubar=no, resizable=yes, left=50, top=50, scrollbars=yes');");
+                sb.Append("</script>");
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "PopupScript", sb.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex.InnerException);
             }
         }
     }
-}
+    }
+
