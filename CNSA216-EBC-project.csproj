@@ -68,6 +68,10 @@
     <Content Include="css\Louis.css" />
     <Content Include="css\styles.css" />
     <Content Include="images\banner2.png" />
+    <Content Include="images\carousel1.jfif" />
+    <Content Include="images\carousel2.jpeg" />
+    <Content Include="images\carousel3.jpg" />
+    <Content Include="images\carousel4.png" />
     <Content Include="js\datatables-simple-demo.js" />
     <Content Include="js\scripts.js" />
     <Content Include="Web.config" />
