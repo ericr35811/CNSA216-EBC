@@ -3,18 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
+using System.EnterpriseServices;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Web;
+using System.Web.ClientServices.Providers;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace CNSA216_EBC_project {
-    public partial class Webform4 : System.Web.UI.Page
+namespace CNSA216_EBC_project
+{
+    public partial class Webform3 : System.Web.UI.Page
     {
-        private static int patientID = 0;
+        private static int PatientID = 0;
         private static string FirstName;
         private static string LastName;
         private static string Email;
@@ -22,16 +26,13 @@ namespace CNSA216_EBC_project {
         private static string city;
         private static string zip;
         private static string street;
+        private static string state;
         private static string gender;
         private static int InsuranceID = 0;
         private static string Phone1;
         private static string Phone2;
-
-        protected void GoBack()
-        {
-            Response.Redirect("frmSearch.aspx");
-
-        }
+        private static bool Saved = false;
+        
     }
     public static class QueryStringEncryption
     {
@@ -47,10 +48,72 @@ namespace CNSA216_EBC_project {
             return encryptedString;
         }
     }
-        public partial class WebForm3 : System.Web.UI.Page {
+    public partial class WebForm3 : System.Web.UI.Page
+    {
         private static string type;
-        protected void Page_Load(object sender, EventArgs e) {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            bool success;
+            txtPatientID.Enabled = false;
 
+            if (!Page.IsPostBack)
+            {
+
+            }
+            if (!Page.IsPostBack)
+            {
+                Saved = false;
+
+                Request.QueryString.AllKeys.Contains("type") && !String.IsNullOrEmpty(Request.QueryString["type"])
+                {
+                    type = Request.QueryString["type"];
+                }
+                    
+            }
+            if(type != "ADD")
+            {
+                if(Request.QueryString.AllKeys.Contains("id") && !String.IsNullOrEmpty(Request.QueryString["id"]))
+                {
+                    success = Int32.TryParse(SecureID.Decrypt(Request.QueryString["id"].Trim()), out txtPatientID);
+                    if (!success)
+                    {
+                        GoBack();
+                    }
+                    else { 
+                        PreparePage(); 
+                    }
+                }
+                else { GoBack(); }
+            }
+            else
+            {
+
+            }
+                
+
+        }
+
+        private void GoBack()
+        {
+            Session["refresh"] = true;
+            if (saved)
+            {
+                SearchParameters param = new SearchParameters();
+                param.tableName = "Patient";
+                param.ShowActive = true;
+                param.ShowInactive = false;
+                param.param1Col = "PatientID";
+                param.param1 = PatientID.ToString();
+                param.andOr = "O";
+                param.param2Col = "";
+                param.param2 = "";
+                Session["SearchParameters"] = param;
+            }
+            Response.Redirect("frmSearch.aspx");
+        }
+
+        private void SetValidators()
+        {
             int maxLength;
             DataSet dsColumns;
 
@@ -113,15 +176,6 @@ namespace CNSA216_EBC_project {
             rngEndDate.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
             rngEndDate.MinimumValue = DateTime.MinValue.ToShortDateString();
             rngEndDate.MaximumValue = DateTime.MaxValue.ToShortDateString();
-
-
-
-
-        }
-
-        protected void btnBack_Click(object sender, System.EventArgs e)
-        {
-            GoBack();
         }
         public void SetTextBoxes()
         {
@@ -158,49 +212,10 @@ namespace CNSA216_EBC_project {
             {
                 btnAdd.Text = "ADD";
             }
-            
+
         }
-        
 
-                protected void btnAdd_Click(object sender, EventArgs e)
-        {
-            int insuranceID;
-            string firstName;
-            string middle;
-            string lastName;
-            string street;
-            string city;
-            string state;
-            string phone1;
-            string phone2;
-            string zip;
-            string email;
-            string gender;
 
-            switch (type)
-            {
-                case "ADD":
-
-                    PatientDataTier.AddPatient(
-                        patientID,
-                        firstName,
-                        middle,
-                        lastName,
-                        street,
-                        city,
-                        state,
-                        phone1,
-                        phone2,
-                        zip,
-                        email,
-                        gender,
-                        insuranceID
-                        );
-                    break;
-
-                case "UPDATE";
-            }
-        }
 
         protected void btnUpdate_Click(object sender, CommandEventArgs e)
         {
@@ -232,6 +247,200 @@ namespace CNSA216_EBC_project {
                 throw new Exception(ex.Message, ex.InnerException);
             }
         }
+
+        protected void btnGoBack_Click(object sender, EventArgs e)
+        {
+            Session["refresh"] = true;
+            if (Saved)
+            {
+                // SearchParameters param = new SearchParameters();
+                // param.tableName = "Refill";
+                // param.showActive = true;
+                // param.showInactive = false;
+                // param.param1Col = "PatientID";
+                // param.param1 = PatientID.ToString();
+                // param.andOr = "O";
+                // param.param2Col = "";
+                // param.param2 = "";
+                // Session["searchParameters"] = param;
+            }
+            Response.Redirect("frmSearch.aspx");
+        }
+        protected void PreparePage()
+        {
+
+
+            switch (type)
+            {
+                case "ADD":
+                    btnAdd.Text = "Add";
+                    SetValidators();
+                    BindData();
+                    break;
+
+                    txtPatientID.Enabled = false;
+                    ddlInsurance.Enabled = true;
+                    txtFname.Enabled = true;
+                    txtLname.Enabled = true;
+                    ddlGender.Enabled = true;
+                    txtMiddle.Enabled = true;
+                    txtDob.Enabled = true;
+                    txtCity.Enabled = true;
+                    txtStreet.Enabled = true;
+                    txtZip.Enabled = true;
+                    txtEmail.Enabled = true;
+                    txtPhone1.Enabled = true;
+                    txtPhone2.Enabled = true;
+                    txtWeight.Enabled = true;
+                    txtHeight.Enabled = true;
+                    txtVisit.Enabled = true;
+                case "VIEW":
+
+                    txtPatientID.Enabled = false;
+                    ddlInsurance.Enabled = false;
+                    txtFname.Enabled = true;
+                    txtLname.Enabled = true;
+                    ddlGender.Enabled = true;
+                    txtMiddle.Enabled = true;
+                    txtDob.Enabled = true;
+                    txtCity.Enabled = true;
+                    txtStreet.Enabled = true;
+                    txtZip.Enabled = true;
+                    txtEmail.Enabled = true;
+                    txtPhone1.Enabled = true;
+                    txtPhone2.Enabled = true;
+                    txtWeight.Enabled = true;
+                    txtHeight.Enabled = true;
+                    txtVisit.Enabled = true;
+
+
+                    btnAdd.Enabled = false;
+                    btnAdd.Visible = false;
+
+                    SetValidators();
+                    BindData();
+                    break;
+                case "EDIT":
+
+                    txtPatientID.Enabled = false;
+                    ddlInsurance.Enabled = true;
+                    txtFname.Enabled = true;
+                    txtLname.Enabled = true;
+                    ddlGender.Enabled = true;
+                    txtMiddle.Enabled = true;
+                    txtDob.Enabled = true;
+                    txtCity.Enabled = true;
+                    txtStreet.Enabled = true;
+                    txtZip.Enabled = true;
+                    txtEmail.Enabled = true;
+                    txtPhone1.Enabled = true;
+                    txtPhone2.Enabled = true;
+                    txtWeight.Enabled = true;
+                    txtHeight.Enabled = true;
+                    txtVisit.Enabled = true;
+                    btnUpdate.Text = "Update";
+                    SetValidators();
+                    BindData();
+                    break;
+
+                    saved = true;
+            }
+        }
+        protected void BindData()
+        {
+
+            DataTable PatientData = new DataTable();
+            int PatientID = 0;
+            string FirstName = "";
+            string LastName = "";
+            string Email = "";
+            string Middle = "";
+            string city = "";
+            string zip = "";
+            string street = "";
+            string gender = "";
+            int InsuranceID = 0;
+            string Phone1 = "";
+            string Phone2 = "";
+            string State = "";
+
+
+            if (type == "EDIT" || type == "VIEW")
+            {
+                // get all data for this Patient
+                PatientData = PatientDataTier.GetPatientInfo(PatientID).Tables[0];
+
+                PatientID = (int)PatientData.Rows[0]["PatientID"];
+                FirstName = (string)PatientData.Rows[0]["First Name"];
+                LastName = (string)PatientData.Rows[0]["Last Name"];
+                Middle = (string)PatientData.Rows[0]["Middle"];
+                Email = (string)PatientData.Rows[0]["Email"];
+                city = (string)PatientData.Rows[0]["City"];
+                zip = (string)PatientData.Rows[0]["Zip"];
+                State = (string)PatientData.Rows[0]["State"];
+                street = (string)PatientData.Rows[0]["Street"];
+                gender = (string)PatientData.Rows[0]["Gender"];
+                InsuranceID = (int)PatientData.Rows[0]["Insurance"];
+                Phone1 = (string)PatientData.Rows[0]["Phone1"];
+                Phone2 = (string)PatientData.Rows[0]["Phone2"];
+            }
+            ddlInsurance.DataTextField = "Insurance Name";
+            ddlInsurance.DataValueField = "InsuranceID";
+            ddlInsurance.DataBind();
+
+            //UpdateDosages();
+            if (type == "EDIT" || type == "VIEW")
+            {
+                // -- populate values
+                txtPatientID.Text = PatientID.ToString();
+                txtFname.Text = FirstName.ToString();
+                txtLname.Text = LastName.ToString();
+                txtMiddle.Text = Middle.ToString();
+                ddlInsurance.SelectedValue = InsuranceID.ToString();
+                ddlState.DataSource = State.ToString();
+                txtEmail.Text = Email.ToString();
+                txtCity.Text = city.ToString();
+                txtZip.Text = zip.ToString();
+                txtStreet.Text = street.ToString();
+                txtPhone1.Text = Phone1.ToString();
+                txtPhone2.Text = Phone2.ToString();
+            }
+            else if (type == "ADD")
+            {
+                DataTable NewPatient = new DataTable();
+                PatientData = PatientDataTier.GetPatientInfo(PatientID).Tables[0];
+
+                PatientID = (int)PatientData.Rows[0]["PatientID"];
+                FirstName = (string)PatientData.Rows[0]["First Name"];
+                LastName = (string)PatientData.Rows[0]["Last Name"];
+                Middle = (string)PatientData.Rows[0]["Middle"];
+                Email = (string)PatientData.Rows[0]["Email"];
+                city = (string)PatientData.Rows[0]["City"];
+                zip = (string)PatientData.Rows[0]["Zip"];
+                street = (string)PatientData.Rows[0]["Street"];
+                State = (string)PatientData.Rows[0]["State"];
+                gender = (string)PatientData.Rows[0]["Gender"];
+                InsuranceID = (int)PatientData.Rows[0]["Insurance"];
+                Phone1 = (string)PatientData.Rows[0]["Phone1"];
+                Phone2 = (string)PatientData.Rows[0]["Phone2"];
+
+                txtPatientID.Text = PatientID.ToString();
+                txtFname.Text = FirstName.ToString();
+                txtLname.Text = LastName.ToString();
+                txtMiddle.Text = Middle.ToString();
+                ddlInsurance.SelectedValue = InsuranceID.ToString();
+                txtEmail.Text = Email.ToString();
+                txtCity.Text = city.ToString();
+                txtZip.Text = zip.ToString();
+                txtStreet.Text = street.ToString();
+                txtPhone1.Text = Phone1.ToString();
+                txtPhone2.Text = Phone2.ToString();
+
+
+
+            }
+        }
+
     }
-    }
+}
 

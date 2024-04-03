@@ -104,7 +104,7 @@
         <div style="padding-top: 1em">
             <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="btn btn-primary" OnClick="btnAdd_Click" />&nbsp;&nbsp;
             <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="btn btn-primary" CommandEvent="btnUpdate_Click" />&nbsp;&nbsp;
-            <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="btn btn-primary" OnClick="btnBack_Click" />&nbsp;&nbsp;
+            <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="btn btn-primary" OnClick="btnGoBack_Click" />&nbsp;&nbsp;
         </div>
 
         
