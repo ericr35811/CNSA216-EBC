@@ -399,7 +399,7 @@ namespace CNSA216_EBC_project {
                             url.Append("?type=" + action);
                             url.Append("&id=" + SecureID.Encrypt(id));
 
-                            Response.Redirect(url.ToString());
+                            Response.Redirect(url.ToString(), false);
                         }
                         // delete and undelete functions
                         else if (action == "DELETE") {
