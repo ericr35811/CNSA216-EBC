@@ -52,7 +52,7 @@ namespace CNSA216_EBC_project
                         // check if query string contains the id key
                         if (Request.QueryString.AllKeys.Contains("id") && !String.IsNullOrEmpty(Request.QueryString["id"]))
                         {
-                            success = Int32.TryParse(Request.QueryString["id"], out PhysicianID);
+                            success = Int32.TryParse(SecureID.Decrypt(Request.QueryString["id"]), out PhysicianID);
                             if (!success)
                             {
                                 GoBack();
@@ -151,7 +151,7 @@ namespace CNSA216_EBC_project
         protected void BindData()
         {
             DataTable PhysicianData = new DataTable();
-            int PhysicianID = 0;
+            //int PhysicianID = 0;
             string FirstName = "";
             string LastName = "";
             string Email = "";
@@ -169,9 +169,9 @@ namespace CNSA216_EBC_project
                 // get all data for this Patient
                 PhysicianData = PhysicianDataTier.GetPhysicianInfo(PhysicianID).Tables[0];
 
-                PhysicianID = (int)PhysicianData.Rows[0]["PatientID"];
-                FirstName = (string)PhysicianData.Rows[0]["First Name"];
-                LastName = (string)PhysicianData.Rows[0]["Last Name"];
+                PhysicianID = (int)PhysicianData.Rows[0]["PhysicianID"];
+                FirstName = (string)PhysicianData.Rows[0]["FirstName"];
+                LastName = (string)PhysicianData.Rows[0]["LastName"];
                 Middle = (string)PhysicianData.Rows[0]["Middle"];
                 Email = (string)PhysicianData.Rows[0]["Email"];
                 city = (string)PhysicianData.Rows[0]["City"];
@@ -179,7 +179,7 @@ namespace CNSA216_EBC_project
                 State = (string)PhysicianData.Rows[0]["State"];
                 street = (string)PhysicianData.Rows[0]["Street"];
                 gender = (string)PhysicianData.Rows[0]["Gender"];
-                phone1 = (string)PhysicianData.Rows[0]["Phone"];
+                phone1 = (string)PhysicianData.Rows[0]["Phone1"];
             }
 
             //UpdateDosages();
@@ -202,9 +202,9 @@ namespace CNSA216_EBC_project
                 DataTable NewPatient = new DataTable();
                 PhysicianData = PhysicianDataTier.GetPhysicianInfo(PhysicianID).Tables[0];
 
-                PhysicianID = (int)PhysicianData.Rows[0]["PatientID"];
-                FirstName = (string)PhysicianData.Rows[0]["First Name"];
-                LastName = (string)PhysicianData.Rows[0]["Last Name"];
+                PhysicianID = (int)PhysicianData.Rows[0]["PhysicianID"];
+                FirstName = (string)PhysicianData.Rows[0]["FirstName"];
+                LastName = (string)PhysicianData.Rows[0]["LastName"];
                 Middle = (string)PhysicianData.Rows[0]["Middle"];
                 Email = (string)PhysicianData.Rows[0]["Email"];
                 city = (string)PhysicianData.Rows[0]["City"];
@@ -286,7 +286,7 @@ namespace CNSA216_EBC_project
         }
         protected void btnSave_Click()
         {
-            int PhysicianID = 0;
+            //int PhysicianID = 0;
             string FirstName = "";
             string LastName = "";
             string email = "";
