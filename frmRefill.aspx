@@ -35,7 +35,7 @@
          <br />
          <asp:Button ID="btnSave" runat="server" Text="Confirm Refill" OnClick="btnSave_Click1" /> &nbsp&nbsp
          <asp:Button ID="btnGoBack" runat="server" Text="Back" OnClick="btnGoBack_Click" />
-         <a class="btn btn-primary" href="frmSearch.aspx"></a>
+         <a class="btn btn-primary" href="frmSearch.aspx?refresh=true"></a>
 
      </div>
  </form>
