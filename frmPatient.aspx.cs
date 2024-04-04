@@ -207,10 +207,6 @@ namespace CNSA216_EBC_project
             switch (type)
             {
                 case "ADD":
-                    btnSave.Text = "Add";
-                    SetValidators();
-                    BindData();
-                    break;
 
                     txtPatientID.Enabled = false;
                     ddlInsurance.Enabled = true;
@@ -230,6 +226,10 @@ namespace CNSA216_EBC_project
                     txtVisit.Enabled = true;
                     txtStart.Enabled = true;
                     txtEnd.Enabled = true;
+                    btnSave.Text = "Add";
+                    SetValidators();
+                    BindData();
+                    break;
                 case "VIEW":
 
                     txtPatientID.Enabled = false;
