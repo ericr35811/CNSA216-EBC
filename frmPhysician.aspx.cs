@@ -26,6 +26,16 @@ namespace CNSA216_EBC_project
         protected void Page_Load(object sender, EventArgs e)
         {
             bool success;
+            txtPhysicianID.Enabled = false;
+            txtFName.Enabled = true;
+            txtLName.Enabled = true;
+            ddlGender.Enabled = true;
+            txtMiddle.Enabled = true;
+            txtCity.Enabled = true;
+            txtStreet.Enabled = true;
+            txtZip.Enabled = true;
+            txtEmail.Enabled = true;
+            txtPhone.Enabled = true;
 
             if (!IsPostBack)
             {
@@ -339,15 +349,6 @@ namespace CNSA216_EBC_project
             Response.Redirect("frmSearch.aspx");
         }
 
-        protected void btnAdd_Click(object sender, EventArgs e)
-        {
-            btnSave_Click();
-        }
-
-        protected void btnUpdate_Click(object sender, EventArgs e)
-        {
-            btnSave_Click();
-        }
     }
 }
     

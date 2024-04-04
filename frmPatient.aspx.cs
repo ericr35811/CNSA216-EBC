@@ -53,6 +53,26 @@ namespace CNSA216_EBC_project
         {
             bool success;
             txtPatientID.Enabled = false;
+            txtFname.Enabled = true;
+            txtLname.Enabled = true;
+            txtMiddle.Enabled = true;
+
+            txtCity.Enabled = true;
+            txtDob.Enabled = true;
+            txtEmail.Enabled = true;
+            txtVisit.Enabled = true;
+            txtWeight.Enabled = true;
+            txtHeight.Enabled = true;
+            txtPhone1.Enabled = true; txtPhone2.Enabled = true;
+            txtZip.Enabled = true;
+            txtStreet.Enabled = true;
+            txtStart.Enabled = true;
+            txtEnd.Enabled = true;
+
+            btnAdd.Enabled = true;
+            btnUpdate.Enabled = true;
+            btnBack.Enabled = true;
+
 
             if (!Page.IsPostBack)
             {
@@ -144,6 +164,26 @@ namespace CNSA216_EBC_project
             }
             else if (type == "NEW")
             {
+                txtPatientID.Enabled = false;
+                txtFname.Enabled = true;
+                txtLname.Enabled = true;
+                txtMiddle.Enabled = true;
+
+                txtCity.Enabled = true;
+                txtDob.Enabled = true;
+                txtEmail.Enabled = true;
+                txtVisit.Enabled = true;
+                txtWeight.Enabled = true;
+                txtHeight.Enabled = true;
+                txtPhone1.Enabled = true; txtPhone2.Enabled = true;
+                txtZip.Enabled = true;
+                txtStreet.Enabled = true;
+                txtStart.Enabled = true;
+                txtEnd.Enabled = true;
+
+                btnAdd.Enabled = true;
+                btnUpdate.Enabled = true;
+                btnBack.Enabled = true;
                 btnAdd.Text = "ADD";
             }
 
@@ -523,16 +563,6 @@ namespace CNSA216_EBC_project
         protected void btnBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("frmSearch.aspx");
-        }
-
-        protected void btnUpdate_Click1(object sender, EventArgs e)
-        {
-            btnSave_Click();
-        }
-
-        protected void btnAdd_Click(object sender, EventArgs e)
-        {
-            btnSave_Click();
         }
     }
 }
