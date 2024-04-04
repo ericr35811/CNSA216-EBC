@@ -42,6 +42,24 @@ namespace CNSA216_EBC_project
         protected global::System.Web.UI.WebControls.TextBox txtPatientID;
 
         /// <summary>
+        /// lblRillId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRillId;
+
+        /// <summary>
+        /// txtRefillID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRefillID;
+
+        /// <summary>
         /// lblPatientFName control.
         /// </summary>
         /// <remarks>
@@ -105,13 +123,22 @@ namespace CNSA216_EBC_project
         protected global::System.Web.UI.WebControls.Label lblDate;
 
         /// <summary>
-        /// txtDate control.
+        /// txtDateTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDate;
+        protected global::System.Web.UI.WebControls.TextBox txtDateTime;
+
+        /// <summary>
+        /// rngDateTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rngDateTime;
 
         /// <summary>
         /// lblClerkName control.
@@ -123,21 +150,30 @@ namespace CNSA216_EBC_project
         protected global::System.Web.UI.WebControls.Label lblClerkName;
 
         /// <summary>
-        /// txtClerkName control.
+        /// ddlClerckName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtClerkName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlClerckName;
 
         /// <summary>
-        /// btnConfirmRefill control.
+        /// btnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnConfirmRefill;
+        protected global::System.Web.UI.WebControls.Button btnSave;
+
+        /// <summary>
+        /// btnGoBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGoBack;
     }
 }

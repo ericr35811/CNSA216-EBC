@@ -16,8 +16,9 @@ namespace _2024_CNSA212_Final_Group2
         static SqlConnection myConn = new SqlConnection(connString);
         static SqlCommand cmdString = new SqlCommand();
 
-        public static DataSet GetRefillByID(int RefillID)
+        public static DataSet GetRefill(int RefillID, bool selectAll = false, bool namesOnly = false)
         {
+            if (selectAll) RefillID = int.MaxValue;
             try
             {
                 myConn.Open();
