@@ -314,26 +314,41 @@ namespace CNSA216_EBC_project
                         email,
                         gender,
                         state
-                        ); break; } }
+                        ); break;
+                    
+                case "UPDATE":
+                    PhysicianDataTier.UpdatePhysicianInfo(
+                    FirstName,
+                    LastName,
+                    Middle,
+                    street,
+                    city,
+                    state,
+                    zip,
+                    Phone1,
+                    gender,
+                    email
+                    ); break;
+
+            }
+
+        }
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("frmSearch.aspx");
         }
-        //case "UPDATE":
-        //PhysicianDataTier.UpdatePhysicianInfo(
-        //FirstName,
-        //LastName,
-        //Middle,
-        //street,
-        //city,
-        //state,
-        //zip,
-        //Phone1,
-        //gender,
-        //email
-        //); break;
-    }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            btnSave_Click();
         }
+
+        protected void btnUpdate_Click(object sender, EventArgs e)
+        {
+            btnSave_Click();
+        }
+    }
+}
     
 

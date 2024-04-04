@@ -527,12 +527,12 @@ namespace CNSA216_EBC_project
 
         protected void btnUpdate_Click1(object sender, EventArgs e)
         {
-
+            btnSave_Click();
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-
+            btnSave_Click();
         }
     }
 }
