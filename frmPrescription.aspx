@@ -125,55 +125,6 @@
 
             <asp:Button ID="btnGoBack" runat="server" CssClass="btn btn-primary" Text="Back" OnClick="btnGoBack_Click" />
             <%--<a href="frmSearch.aspx" class="btn btn-primary">Go Back</a>--%>
-            
-            <br /><br /><br />
-
-            Patient First Name
-            <asp:TextBox
-                runat="server"
-                ID="txtString"
-                CausesValidation="True">
-            </asp:TextBox>
-
-            <asp:RegularExpressionValidator
-                runat="server"
-                ErrorMessage="RegularExpressionValidator"
-                ID="rgxString"
-                ControlToValidate="txtString"
-                Display="Dynamic">
-            </asp:RegularExpressionValidator> <br />
-
-            Patient Start Date
-            <asp:TextBox
-                runat="server"
-                ID="txtDate"
-                CausesValidation="True"
-                TextMode="Date">
-            </asp:TextBox>
-
-            <asp:RangeValidator
-                ID="rngDate"
-                runat="server"
-                ErrorMessage="RangeValidator"
-                ControlToValidate="txtDate"
-                Display="Dynamic">
-            </asp:RangeValidator>
-
-            Patient Weight
-            <asp:TextBox
-                runat="server"
-                ID="txtSmallInt"
-                CausesValidation="True"
-            >
-            </asp:TextBox>
-
-            <asp:RangeValidator
-                ID="rngSmallInt"
-                runat="server"
-                ErrorMessage="RangeValidator"
-                ControlToValidate="txtSmallInt"
-                Display="Dynamic">
-            </asp:RangeValidator>
         </div>
     </form>
 </asp:Content>

@@ -68,6 +68,10 @@
     <Content Include="css\Louis.css" />
     <Content Include="css\styles.css" />
     <Content Include="images\banner2.png" />
+    <Content Include="images\carousel1.jfif" />
+    <Content Include="images\carousel2.jpeg" />
+    <Content Include="images\carousel3.jpg" />
+    <Content Include="images\carousel4.png" />
     <Content Include="js\datatables-simple-demo.js" />
     <Content Include="js\scripts.js" />
     <Content Include="Web.config" />
@@ -78,7 +82,7 @@
     <Content Include="frmRefill.aspx" />
     <Content Include="frmWelcome.aspx" />
     <Content Include="frmSearch.aspx" />
-    <Content Include="About.aspx" />
+    <Content Include="frmAbout.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClerkDataTier.cs" />
@@ -147,12 +151,12 @@
     </Compile>
     <Compile Include="RefillDataTier.cs" />
     <Compile Include="RefillHistoryDataTier.cs" />
-    <Compile Include="About.aspx.cs">
-      <DependentUpon>About.aspx</DependentUpon>
+    <Compile Include="frmAbout.aspx.cs">
+      <DependentUpon>frmAbout.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="About.aspx.designer.cs">
-      <DependentUpon>About.aspx</DependentUpon>
+    <Compile Include="frmAbout.aspx.designer.cs">
+      <DependentUpon>frmAbout.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
