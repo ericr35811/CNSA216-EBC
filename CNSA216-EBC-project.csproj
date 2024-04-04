@@ -68,9 +68,12 @@
     <Content Include="css\Louis.css" />
     <Content Include="css\styles.css" />
     <Content Include="images\banner2.png" />
+    <Content Include="images\carousel1.jfif" />
+    <Content Include="images\carousel2.jpeg" />
+    <Content Include="images\carousel3.jpg" />
+    <Content Include="images\carousel4.png" />
     <Content Include="js\datatables-simple-demo.js" />
     <Content Include="js\scripts.js" />
-    <Content Include="test.txt" />
     <Content Include="Web.config" />
     <Content Include="MasterTest.aspx" />
     <Content Include="frmPatient.aspx" />
@@ -79,6 +82,7 @@
     <Content Include="frmRefill.aspx" />
     <Content Include="frmWelcome.aspx" />
     <Content Include="frmSearch.aspx" />
+    <Content Include="frmAbout.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CNSA216-EBC.Master.cs">
@@ -89,6 +93,7 @@
       <DependentUpon>CNSA216-EBC.Master</DependentUpon>
     </Compile>
     <Compile Include="Custom.cs" />
+    <Compile Include="EncryptID.cs" />
     <Compile Include="GeneralDataTier.cs" />
     <Compile Include="MedicineDataTier.cs" />
     <Compile Include="PatientDataTier.cs" />
@@ -138,13 +143,19 @@
     </Compile>
     <Compile Include="frmSearch.aspx.cs">
       <DependentUpon>frmSearch.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="frmSearch.aspx.designer.cs">
       <DependentUpon>frmSearch.aspx</DependentUpon>
     </Compile>
     <Compile Include="RefillDataTier.cs" />
     <Compile Include="RefillHistoryDataTier.cs" />
+    <Compile Include="frmAbout.aspx.cs">
+      <DependentUpon>frmAbout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmAbout.aspx.designer.cs">
+      <DependentUpon>frmAbout.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CNSA216-EBC.Master" />
