@@ -95,7 +95,7 @@ namespace CNSA216_EBC_project
         private void GoBack()
         {
             Session["refresh"] = true;
-            if (saved)
+            if (Saved)
             {
                 SearchParameters param = new SearchParameters();
                 param.tableName = "Patient";
