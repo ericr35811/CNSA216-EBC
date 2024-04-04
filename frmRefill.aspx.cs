@@ -166,10 +166,10 @@ namespace CNSA216_EBC_project {
 
             //string type;
             bool success;
-            int id;
             txtDateTime.Text = DateTime.Now.ToString();
             txtPresNameDose.Enabled= false;
             txtPatientFName.Enabled= false;
+            btnGoBack.Click += new EventHandler(this.btnGoBack_Click);
 
             if (!IsPostBack)
             {
@@ -277,24 +277,24 @@ namespace CNSA216_EBC_project {
             
         }
 
-        protected void btnGoBack_Click1(object sender, EventArgs e)
+        protected void btnGoBack_Click(object sender, EventArgs e)
         {
-            Session["refresh"] = true;
-            GoBack();
+            //Session["refresh"] = true;
+            //GoBack();
 
-            if (Saved)
-            {
-                SearchParameters param = new SearchParameters();
-                param.tableName = "Refill";
-                param.showActive = true;
-                param.showInactive = false;
-                param.param1Col = "RefillID";
-                param.param1 = RefillID.ToString();
-                param.andOr = "O";
-                param.param2Col = "";
-                param.param2 = "";
-                Session["searchParameters"] = param;
-            }
+            //if (Saved)
+            //{
+            //    SearchParameters param = new SearchParameters();
+            //    param.tableName = "Refill";
+            //    param.showActive = true;
+            //    param.showInactive = false;
+            //    param.param1Col = "RefillID";
+            //    param.param1 = RefillID.ToString();
+            //    param.andOr = "O";
+            //    param.param2Col = "";
+            //    param.param2 = "";
+            //    Session["searchParameters"] = param;
+            //}
              Response.Redirect("frmSearch.aspx");
         }
     }
