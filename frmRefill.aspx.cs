@@ -295,7 +295,7 @@ namespace CNSA216_EBC_project {
                 param.param2 = "";
                 Session["searchParameters"] = param;
             }
-            Response.Redirect("frmSearch.aspx");
+             Response.Redirect("frmSearch.aspx");
         }
     }
         
