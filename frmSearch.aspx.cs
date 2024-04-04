@@ -228,9 +228,12 @@ namespace CNSA216_EBC_project {
                         ddlSearchFor.SelectedValue = Request.QueryString["search"];
                     }
 
-                    // set the current table to search, then populate controls
-                    if ((bool)Session["refresh"] == true) RestoreSearch(1);
 
+                        if (Request.QueryString.AllKeys.Contains("refresh") && Request.QueryString["refresh"] == "true")
+                            Session["refresh"] = true;
+
+                            // set the current table to search, then populate controls
+                    if ((bool)Session["refresh"] == true) RestoreSearch(1);
                     // Populate if the page is loading for the first time (not postback)
                     PopulateParameters();
 
