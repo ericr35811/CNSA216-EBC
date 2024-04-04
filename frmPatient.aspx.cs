@@ -72,7 +72,7 @@ namespace CNSA216_EBC_project
             {
                 if (Request.QueryString.AllKeys.Contains("id") && !String.IsNullOrEmpty(Request.QueryString["id"]))
                 {
-                    success = Int32.TryParse(SecureID.Decrypt(Request.QueryString["id"].Trim()), out patientID);
+                    success = Int32.TryParse(Request.QueryString["id"], out patientID);
                     if (!success)
                     {
                         GoBack();
@@ -97,16 +97,16 @@ namespace CNSA216_EBC_project
             Session["refresh"] = true;
             if (Saved)
             {
-                SearchParameters param = new SearchParameters();
-                param.tableName = "Patient";
-                param.ShowActive = true;
-                param.ShowInactive = false;
-                param.param1Col = "PatientID";
-                param.param1 = patientID.ToString();
-                param.andOr = "O";
-                param.param2Col = "";
-                param.param2 = "";
-                Session["SearchParameters"] = param;
+                //SearchParameters param = new SearchParameters();
+                //param.tableName = "Patient";
+                //param.ShowActive = true;
+                //param.ShowInactive = false;
+               // param.param1Col = "PatientID";
+                //param.param1 = patientID.ToString();
+                //param.andOr = "O";
+                //param.param2Col = "";
+                //param.param2 = "";
+                //Session["SearchParameters"] = param;
             }
             Response.Redirect("frmSearch.aspx");
         }
@@ -520,6 +520,20 @@ namespace CNSA216_EBC_project
             Saved = true;
         }
 
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("frmSearch.aspx");
+        }
+
+        protected void btnUpdate_Click1(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

@@ -76,11 +76,6 @@
 
                 <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="btn btn-primary" />&nbsp;&nbsp;
                <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="btn btn-primary" OnClick="btnBack_Click" />
-                   <script type="text/javascript">
-                       document.getElementById("btnBack").onclick = function () {
-                           location.href = "https://localhost:44302/frmSearch.aspx";
-                       };
-                   </script>
                </div>
 
 
