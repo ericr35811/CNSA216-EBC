@@ -56,7 +56,7 @@ namespace _2024_CNSA212_Final_Group2
             }
 
 
-            public static void UpdatePhysicianInfo(string physicianID, string FirstName, string Middle, string LastName, string Street, string City, string State, string Zip, string Phone1, string Gender, string Email)
+            public static void UpdatePhysicianInfo(string physicianID, string FirstName, string Middle, string LastName, string Street, string City, string State, string Zip, string Phone1, string Gender, string Email, DateTime startDate, DateTime endDate)
             {
             try
             {
@@ -82,6 +82,10 @@ namespace _2024_CNSA212_Final_Group2
                 cmdString.Parameters.Add("@Phone1", SqlDbType.Char, 12).Value = Phone1;
                 cmdString.Parameters.Add("@Gender", SqlDbType.Char, 1).Value = Gender;
                 cmdString.Parameters.Add("@Email", SqlDbType.VarChar, 40).Value = Email;
+
+
+                cmdString.Parameters.Add("@StartDate", SqlDbType.Date).Value = startDate;
+                cmdString.Parameters.Add("@EndDate", SqlDbType.Date).Value = endDate;
 
 
                 cmdString.ExecuteNonQuery();
@@ -113,7 +117,9 @@ namespace _2024_CNSA212_Final_Group2
             string phone1,          
             string zip,
             string email,
-            string gender
+            string gender,
+            DateTime startDate,
+            DateTime endDate
         )
         {
 
@@ -136,6 +142,8 @@ namespace _2024_CNSA212_Final_Group2
             cmdString.Parameters.Add("@Phone1", SqlDbType.Char, 12).Value = phone1;          
             cmdString.Parameters.Add("@Gender", SqlDbType.Char, 1).Value = gender;
             cmdString.Parameters.Add("@Email", SqlDbType.VarChar, 30).Value = email;
+            cmdString.Parameters.Add("@StartDate", SqlDbType.Date).Value = startDate;
+            cmdString.Parameters.Add("@EndDate", SqlDbType.Date).Value = endDate;
 
             cmdString.ExecuteNonQuery();
 
@@ -203,10 +211,6 @@ namespace _2024_CNSA212_Final_Group2
             }
         }
 
-        internal static void UpdatePhysicianInfo(string firstName, string lastName, string middle, string street, string city, string state, string zip, string phone1, string gender, string email)
-        {
-            throw new NotImplementedException();
-        }
     }
     }
 
