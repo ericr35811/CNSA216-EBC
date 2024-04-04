@@ -148,7 +148,7 @@ namespace CNSA216_EBC_project {
                 txtEndDate.Text = endDate.ToString("yyyy-MM-dd");
                 txtEnteredDateTime.Text = entryDateTime.ToString();
                 txtRefillsAllowed.Text = refillsAllowed.ToString();
-                txtRefillsLeft.Text = refillsLeft.ToString();
+                //txtRefillsLeft.Text = refillsLeft.ToString();
                 txtRefillQuantity.Text = refillQuantity.ToString();
             }
             else if (type == "ADD") {
@@ -168,9 +168,9 @@ namespace CNSA216_EBC_project {
                 rngStartDate.Enabled = false;
                 rngEndDate.Enabled = false;
                 rngRefillsAllowed.Enabled = false;
-                rngRefillsLeft.Enabled = false;
+                //rngRefillsLeft.Enabled = false;
                 rngRefillQuantity.Enabled = false;
-                cmpRefillsLeft.Enabled = false;
+                //cmpRefillsLeft.Enabled = false;
             }
             else { 
                 // set validators according to max lengths in database
@@ -194,10 +194,10 @@ namespace CNSA216_EBC_project {
                 rngRefillsAllowed.MinimumValue = Int16.MinValue.ToString();
                 rngRefillsAllowed.MaximumValue = Int16.MaxValue.ToString();
 
-                rngRefillsLeft.Type = ValidationDataType.Integer;
-                rngRefillsLeft.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
-                rngRefillsLeft.MinimumValue = Int16.MinValue.ToString();
-                rngRefillsLeft.MaximumValue = Int16.MaxValue.ToString();
+                //rngRefillsLeft.Type = ValidationDataType.Integer;
+                //rngRefillsLeft.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
+                //rngRefillsLeft.MinimumValue = Int16.MinValue.ToString();
+                //rngRefillsLeft.MaximumValue = Int16.MaxValue.ToString();
 
                 rngRefillQuantity.Type = ValidationDataType.Integer;
                 rngRefillQuantity.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
@@ -229,7 +229,7 @@ namespace CNSA216_EBC_project {
                     txtEnteredDateTime.Enabled = false;
                     txtRefillQuantity.Enabled = false;
                     txtRefillsAllowed.Enabled = false;
-                    txtRefillsLeft.Enabled = false;
+                   // txtRefillsLeft.Enabled = false;
 
                     btnSave.Enabled = false;
                     btnSave.Visible = false;
@@ -332,7 +332,7 @@ namespace CNSA216_EBC_project {
             DateTime endDate = DateTime.MinValue;
             DateTime entryDateTime = DateTime.MinValue;
             Int16 refillsAllowed = 0;
-            Int16 refillsLeft = 0;
+           // Int16 refillsLeft = 0;
             Int16 refillQuantity = 0;
 
             bool fail = false;
@@ -346,7 +346,7 @@ namespace CNSA216_EBC_project {
             endDate = DateTime.Parse(txtEndDate.Text);
             entryDateTime = DateTime.Parse(txtEnteredDateTime.Text);
             refillsAllowed = Int16.Parse(txtRefillsAllowed.Text);
-            refillsLeft = Int16.Parse(txtRefillsLeft.Text);
+           // refillsLeft = Int16.Parse(txtRefillsLeft.Text);
             refillQuantity = Int16.Parse(txtRefillQuantity.Text);
 
             switch (type) {
@@ -360,7 +360,7 @@ namespace CNSA216_EBC_project {
                         entryDateTime,
                         extraInstructions,
                         refillsAllowed,
-                        refillsLeft,
+                        //refillsLeft,
                         refillQuantity
                     );
                     break;
@@ -375,7 +375,7 @@ namespace CNSA216_EBC_project {
                         entryDateTime,
                         extraInstructions,
                         refillsAllowed,
-                        refillsLeft,
+                        //refillsLeft,
                         refillQuantity
                     );
                     break;

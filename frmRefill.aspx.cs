@@ -169,6 +169,7 @@ namespace CNSA216_EBC_project {
             
             txtPresNameDose.Enabled= false;
             txtPatientFName.Enabled= false;
+            lblError.Text = "";
             //btnGoBack.Click += new EventHandler(this.btnGoBack_Click);
 
             if (!IsPostBack)
@@ -252,6 +253,7 @@ namespace CNSA216_EBC_project {
                 string PrescriptionID = "";
                 string ClerkID = "";
                 string FillDateTime = "";
+                int returnCode = 0;
 
                 RefillID = txtRefillID.Text.Trim();
                 PrescriptionID = txtPrescID.Text.Trim();
@@ -260,11 +262,15 @@ namespace CNSA216_EBC_project {
 
 
                 try {
-                    RefillDataTier.AddRefill(
+                    returnCode = RefillDataTier.AddRefill(
                     int.Parse(PrescriptionID),
                     int.Parse(ClerkID),
                     System.DateTime.Parse(FillDateTime)
                  );
+
+                    if (returnCode == 1) {
+                        lblError.Text = "Cannot add refill, the refill limit has been reached.";
+                    }
                 }
                 catch {
 

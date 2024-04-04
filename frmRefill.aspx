@@ -34,7 +34,7 @@
          <br />
          <br />
          <asp:Button ID="btnSave" runat="server" Text="Confirm Refill" OnClick="btnSave_Click1" /> &nbsp&nbsp
-         <a class="btn btn-primary" href="frmSearch.aspx?refresh=true">Go Back</a>
+         <a class="btn btn-primary" href="frmSearch.aspx?refresh=true">Go Back</a><asp:Label runat="server" ID="lblError" ForeColor="Red"></asp:Label>
 
      </div>
  </form>

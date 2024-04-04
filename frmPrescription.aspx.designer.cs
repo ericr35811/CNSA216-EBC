@@ -121,33 +121,6 @@ namespace CNSA216_EBC_project {
         protected global::System.Web.UI.WebControls.RangeValidator rngRefillsAllowed;
 
         /// <summary>
-        /// txtRefillsLeft control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRefillsLeft;
-
-        /// <summary>
-        /// rngRefillsLeft control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator rngRefillsLeft;
-
-        /// <summary>
-        /// cmpRefillsLeft control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cmpRefillsLeft;
-
-        /// <summary>
         /// txtRefillQuantity control.
         /// </summary>
         /// <remarks>
