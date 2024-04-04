@@ -59,7 +59,6 @@ namespace CNSA216_EBC_project
                             }
                             else
                             {
-
                                 PreparePage();
                             };
                         }
@@ -68,6 +67,9 @@ namespace CNSA216_EBC_project
                             GoBack();
                         }
                     }
+                    else {
+                        PreparePage();
+                    }
                 }
                 else
                 {
@@ -75,69 +77,24 @@ namespace CNSA216_EBC_project
                 }
 
             }
-            else
-            {
-
-            }
 
         }
-        protected void GoBack()
-        {
-            Response.Redirect("frmSearch.aspx");
-        }
+
         protected void SetValidators()
         {
-            int maxLength;
             DataSet dsColumns;
 
             dsColumns = GeneralDataTier.GetTableColumns("Patients");
-            maxLength = GeneralDataTier.GetColumnMaxLength("FirstName", dsColumns);
 
-            if (type == "VIEW")
-            {
-                rgxFName.Enabled = false;
-                rgxLName.Enabled = false;
-                rgxMiddle.Enabled = false;
-                rgxStreet.Enabled = false;
-                rgxZip.Enabled = false;
-                rgxPhone.Enabled = false;
-                rgxEmail.Enabled = false;
-
-
-            }
-
-            txtFName.MaxLength = maxLength;
-            rgxFName.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-            rgxFName.ErrorMessage = $"Must be {maxLength} characters or less";
-
-            txtLName.MaxLength = maxLength;
-            rgxLName.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-            rgxLName.ErrorMessage = $"Must be {maxLength} characters or less";
-
-            txtMiddle.MaxLength = maxLength;
-            rgxMiddle.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-            rgxMiddle.ErrorMessage = $"Must be {maxLength} characters or less";
-
-            txtPhone.MaxLength = maxLength;
-            rgxPhone.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-            rgxPhone.ErrorMessage = $"Must be {maxLength} characters or less";
-
-            txtEmail.MaxLength = maxLength;
-            rgxEmail.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-            rgxEmail.ErrorMessage = $"Must be {maxLength} characters or less";
-
-            txtStreet.MaxLength = maxLength;
-            rgxStreet.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-            rgxStreet.ErrorMessage = $"Must be {maxLength} characters or less";
-
-            txtCity.MaxLength = maxLength;
-            rgxCity.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-            rgxCity.ErrorMessage = $"Must be {maxLength} characters or less";
-
-            txtZip.MaxLength = maxLength;
-            rgxZip.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-            rgxZip.ErrorMessage = $"Must be {maxLength} characters or less";
-
+            txtFName.MaxLength = GeneralDataTier.GetColumnMaxLength("FirstName", dsColumns);                        
+            txtLName.MaxLength = GeneralDataTier.GetColumnMaxLength("LastName", dsColumns);                        
+            txtMiddle.MaxLength = GeneralDataTier.GetColumnMaxLength("Middle", dsColumns);                        
+            txtPhone.MaxLength = GeneralDataTier.GetColumnMaxLength("Phone1", dsColumns);                        
+            txtEmail.MaxLength = GeneralDataTier.GetColumnMaxLength("Email", dsColumns);                        
+            txtStreet.MaxLength = GeneralDataTier.GetColumnMaxLength("Street", dsColumns);                        
+            txtCity.MaxLength = GeneralDataTier.GetColumnMaxLength("City", dsColumns);                        
+            txtZip.MaxLength = GeneralDataTier.GetColumnMaxLength("Zip", dsColumns);
+                        
             rngStart.Type = ValidationDataType.Date;
             rngStart.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
             rngStart.MinimumValue = DateTime.MinValue.ToShortDateString();
@@ -162,7 +119,18 @@ namespace CNSA216_EBC_project
             string gender = "";
             string State = "";
             string phone1 = "";
+            DateTime startDate = new DateTime();
+            DateTime endDate = new DateTime();  
 
+            ddlState.DataSource = GeneralDataTier.GetStates().Tables[0];
+            ddlState.DataTextField = "StateName";
+            ddlState.DataValueField = "State";
+            ddlState.DataBind();
+
+            ddlGender.DataSource = GeneralDataTier.GetGenders().Tables[0];
+            ddlGender.DataTextField = "GenderName";
+            ddlGender.DataValueField = "Gender";
+            ddlGender.DataBind();
 
             if (type == "EDIT" || type == "VIEW")
             {
@@ -180,6 +148,8 @@ namespace CNSA216_EBC_project
                 street = (string)PhysicianData.Rows[0]["Street"];
                 gender = (string)PhysicianData.Rows[0]["Gender"];
                 phone1 = (string)PhysicianData.Rows[0]["Phone1"];
+                startDate = (DateTime)PhysicianData.Rows[0]["StartDate"];
+                endDate = (DateTime)PhysicianData.Rows[0]["EndDate"];
             }
 
             //UpdateDosages();
@@ -196,33 +166,10 @@ namespace CNSA216_EBC_project
                 txtZip.Text = zip.ToString();
                 txtStreet.Text = street.ToString();
                 txtPhone.Text = phone1.ToString();
+                txtStartDate.Text = startDate.ToString("yyyy-MM-dd");
+                txtEndDate.Text = endDate.ToString("yyyy-MM-dd");
             }
-            else if (type == "ADD")
-            {
-                DataTable NewPatient = new DataTable();
-                PhysicianData = PhysicianDataTier.GetPhysicianInfo(PhysicianID).Tables[0];
-
-                PhysicianID = (int)PhysicianData.Rows[0]["PhysicianID"];
-                FirstName = (string)PhysicianData.Rows[0]["FirstName"];
-                LastName = (string)PhysicianData.Rows[0]["LastName"];
-                Middle = (string)PhysicianData.Rows[0]["Middle"];
-                Email = (string)PhysicianData.Rows[0]["Email"];
-                city = (string)PhysicianData.Rows[0]["City"];
-                zip = (string)PhysicianData.Rows[0]["Zip"];
-                street = (string)PhysicianData.Rows[0]["Street"];
-                State = (string)PhysicianData.Rows[0]["State"];
-                gender = (string)PhysicianData.Rows[0]["Gender"];
-                phone1 = (string)PhysicianData.Rows[0]["Phone1"];
-
-                txtPhysicianID.Text = PhysicianID.ToString();
-                txtFName.Text = FirstName.ToString();
-                txtLName.Text = LastName.ToString();
-                txtMiddle.Text = Middle.ToString();
-                txtEmail.Text = Email.ToString();
-                txtCity.Text = city.ToString();
-                txtZip.Text = zip.ToString();
-                txtStreet.Text = street.ToString();
-            }
+            
 
 
         }
@@ -257,11 +204,11 @@ namespace CNSA216_EBC_project
                     txtZip.Enabled = false;
                     txtEmail.Enabled = false;
                     txtPhone.Enabled = false;
+                    ddlState.Enabled = false; 
+                    ddlGender.Enabled = false;
 
                     btnAdd.Enabled = false;
                     btnAdd.Visible = false;
-                    btnUpdate.Enabled = false;
-                    btnUpdate.Visible = false;
 
                     SetValidators();
                     BindData();
@@ -278,14 +225,43 @@ namespace CNSA216_EBC_project
                     txtZip.Enabled = true;
                     txtEmail.Enabled = true;
                     txtPhone.Enabled = true;
-                    btnUpdate.Text = "Update";
+                    btnAdd.Text = "Update";
                     SetValidators();
                     BindData();
                     break;
             }
         }
-        protected void btnSave_Click()
+
+        protected void GoBack() {
+            //Response.Redirect("frmSearch.aspx?search=Prescriptions");
+            Session["refresh"] = true;
+
+            // if the user saved a record, craft a search to show them the new record
+            // otherwise the cached search will be used
+
+            if (Saved && type != "ADD") {
+
+                SearchParameters param = new SearchParameters();
+                param.tableName = "Prescriptions";
+                param.showActive = true;
+                param.showInactive = false;
+                param.param1Col = "PrescriptionID";
+                param.param1 = PhysicianID.ToString();
+                param.andOr = "O";
+                param.param2Col = "";
+                param.param2 = "";
+                Session["searchParameters"] = param;
+            }
+
+            Response.Redirect("frmSearch.aspx");
+        }
+
+        protected void btnBack_Click(object sender, EventArgs e)
         {
+            GoBack();
+        }
+        
+        protected void btnAdd_Click(object sender, EventArgs e) {
             //int PhysicianID = 0;
             string FirstName = "";
             string LastName = "";
@@ -297,10 +273,10 @@ namespace CNSA216_EBC_project
             string gender = "";
             string Phone1 = "";
             string state = "";
+            DateTime startDate = new DateTime();
+            DateTime endDate = new DateTime();
 
-            bool fail = false;
-
-            PhysicianID = Int32.Parse(txtPhysicianID.Text);
+            //PhysicianID = Int32.Parse(txtPhysicianID.Text);
             FirstName = txtFName.Text;
             LastName = txtLName.Text;
             email = txtEmail.Text;
@@ -311,26 +287,30 @@ namespace CNSA216_EBC_project
             gender = ddlGender.SelectedValue;
             Phone1 = txtPhone.Text;
             state = ddlState.SelectedValue;
+            startDate = DateTime.Parse(txtStartDate.Text);
+            endDate = DateTime.Parse(txtEndDate.Text);
 
-            switch (type)
-            {
+            switch (type) {
                 case "ADD":
                     PhysicianDataTier.AddPhysician(
-                        firstName,
-                        middle,
-                        lastName,
+                        FirstName,
+                        Middle,
+                        LastName,
                         street,
                         city,
-                        phone1,
+                        state,
+                        Phone1,
                         zip,
                         email,
                         gender,
-                        state
+                        startDate,
+                        endDate
                         ); break;
-                    
-                case "UPDATE":
+
+                case "EDIT":
                     PhysicianDataTier.UpdatePhysicianInfo(
-                    FirstName,
+                    PhysicianID.ToString(),
+                        FirstName,
                     LastName,
                     Middle,
                     street,
@@ -339,48 +319,13 @@ namespace CNSA216_EBC_project
                     zip,
                     Phone1,
                     gender,
-                    email
+                    email,
+                    startDate,
+                    endDate
                     ); break;
 
             }
-
         }
-
-        protected void btnBack_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("frmSearch.aspx");
-        }
-        protected void btnUpdate_Click(object sender, CommandEventArgs e)
-        {
-            string recordToBeEdited;
-            Int64 myEditedRecord = 0;
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-            try
-            {
-                Session["vPatientID"] = txtPhysicianID.Text.Trim();
-                Session["vFName"] = txtFName.Text.Trim();
-                Session["vLName"] = txtLName.Text.Trim();
-
-                //get record
-                recordToBeEdited = (e.CommandArgument.ToString());
-
-                recordToBeEdited = QueryStringEncryption.Encrypt(recordToBeEdited.Trim().ToUpper());
-
-
-
-                sb.Append("<script language = 'javaScript'>");
-                sb.Append("  window.open('Display.aspx?ID=" + recordToBeEdited.ToString() + "&type=EDIT', 'DisplayEdit',");
-                sb.Append("  'width= 525, height=525, menubar=no, resizable=yes, left=50, top=50, scrollbars=yes');");
-                sb.Append("</script>");
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "PopupScript", sb.ToString());
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message, ex.InnerException);
-            }
-        }
-
     }
 }
     
