@@ -45,7 +45,7 @@ namespace CNSA216_EBC_project
         private static string street = "";
         private static string state = "";
         private static string gender = "";
-        private static string insuranceName = "";
+        private static int insuranceID = 0;
         private static string phone1 = "";
         private static string phone2 = "";
         private static bool Saved = false;
@@ -72,7 +72,7 @@ namespace CNSA216_EBC_project
             {
                 if (Request.QueryString.AllKeys.Contains("id") && !String.IsNullOrEmpty(Request.QueryString["id"]))
                 {
-                    success = Int32.TryParse(SecureID.Decrypt(Request.QueryString["id"].Trim()), out PatientID);
+                    success = Int32.TryParse(SecureID.Decrypt(Request.QueryString["id"].Trim()), out patientID);
                     if (!success)
                     {
                         GoBack();
@@ -228,24 +228,28 @@ namespace CNSA216_EBC_project
                     txtWeight.Enabled = true;
                     txtHeight.Enabled = true;
                     txtVisit.Enabled = true;
+                    txtStart.Enabled = true;
+                    txtEnd.Enabled = true;
                 case "VIEW":
 
                     txtPatientID.Enabled = false;
                     ddlInsurance.Enabled = false;
-                    txtFname.Enabled = true;
-                    txtLname.Enabled = true;
-                    ddlGender.Enabled = true;
-                    txtMiddle.Enabled = true;
-                    txtDob.Enabled = true;
-                    txtCity.Enabled = true;
-                    txtStreet.Enabled = true;
-                    txtZip.Enabled = true;
-                    txtEmail.Enabled = true;
-                    txtPhone1.Enabled = true;
-                    txtPhone2.Enabled = true;
-                    txtWeight.Enabled = true;
-                    txtHeight.Enabled = true;
-                    txtVisit.Enabled = true;
+                    txtFname.Enabled = false;
+                    txtLname.Enabled = false;
+                    ddlGender.Enabled = false;
+                    txtMiddle.Enabled = false;
+                    txtDob.Enabled = false;
+                    txtCity.Enabled = false;
+                    txtStreet.Enabled = false;
+                    txtZip.Enabled = false;
+                    txtEmail.Enabled = false;
+                    txtPhone1.Enabled = false;
+                    txtPhone2.Enabled = false;
+                    txtWeight.Enabled = false;
+                    txtHeight.Enabled = false;
+                    txtVisit.Enabled = false;
+                    txtStart.Enabled = false;
+                    txtEnd.Enabled = false;
 
 
                     btnAdd.Enabled = false;
@@ -293,7 +297,7 @@ namespace CNSA216_EBC_project
             string zip = "";
             string street = "";
             string gender = "";
-            string InsuranceID = "";
+            int insuranceID = 0;
             string Phone1 = "";
             string Phone2 = "";
             string State = "";
@@ -314,7 +318,7 @@ namespace CNSA216_EBC_project
                 State = (string)PatientData.Rows[0]["State"];
                 street = (string)PatientData.Rows[0]["Street"];
                 gender = (string)PatientData.Rows[0]["Gender"];
-                insuranceName = (string)PatientData.Rows[0]["Insurance"];
+                insuranceID = (int)PatientData.Rows[0]["InsuranceID"];
                 Phone1 = (string)PatientData.Rows[0]["Phone1"];
                 Phone2 = (string)PatientData.Rows[0]["Phone2"];
             }
@@ -330,7 +334,7 @@ namespace CNSA216_EBC_project
                 txtFname.Text = FirstName.ToString();
                 txtLname.Text = LastName.ToString();
                 txtMiddle.Text = Middle.ToString();
-                ddlInsurance.SelectedValue = insuranceName.ToString();
+                ddlInsurance.SelectedValue = insuranceID.ToString();
                 ddlState.DataSource = State.ToString();
                 txtEmail.Text = Email.ToString();
                 txtCity.Text = city.ToString();
@@ -338,6 +342,7 @@ namespace CNSA216_EBC_project
                 txtStreet.Text = street.ToString();
                 txtPhone1.Text = Phone1.ToString();
                 txtPhone2.Text = Phone2.ToString();
+                ddlGender.SelectedValue = gender.ToString();
             }
             else if (type == "ADD")
             {
@@ -354,7 +359,7 @@ namespace CNSA216_EBC_project
                 street = (string)PatientData.Rows[0]["Street"];
                 State = (string)PatientData.Rows[0]["State"];
                 gender = (string)PatientData.Rows[0]["Gender"];
-                insuranceName = (string)PatientData.Rows[0]["Insurance"];
+                insuranceID = (int)PatientData.Rows[0]["Insurance"];
                 Phone1 = (string)PatientData.Rows[0]["Phone1"];
                 Phone2 = (string)PatientData.Rows[0]["Phone2"];
 
@@ -362,7 +367,7 @@ namespace CNSA216_EBC_project
                 txtFname.Text = FirstName.ToString();
                 txtLname.Text = LastName.ToString();
                 txtMiddle.Text = Middle.ToString();
-                ddlInsurance.SelectedValue = InsuranceID.ToString();
+                ddlInsurance.SelectedValue = insuranceID.ToString();
                 txtEmail.Text = Email.ToString();
                 txtCity.Text = city.ToString();
                 txtZip.Text = zip.ToString();
@@ -471,7 +476,7 @@ namespace CNSA216_EBC_project
             string zip = "";
             string street = "";
             string gender = "";
-            string InsuranceName = "";
+            int insuranceID = 0;
             string Phone1 = "";
             string Phone2 = "";
             string State = "";
@@ -487,7 +492,7 @@ namespace CNSA216_EBC_project
             zip = txtZip.Text;
             street = txtStreet.Text;
             gender = ddlGender.SelectedValue;
-            InsuranceName = ddlInsurance.SelectedValue;
+            insuranceID = Int32.Parse(ddlInsurance.SelectedValue);
             Phone1 = txtPhone1.Text;
             Phone2 = txtPhone2.Text;
             State = ddlState.SelectedValue;
@@ -496,13 +501,13 @@ namespace CNSA216_EBC_project
             {
                 case "ADD":
                     PatientDataTier.AddPatient(
-                        firstName, middle,lastName,street,city,state,phone1,phone2,zip,email,gender,insuranceName
+                        firstName, middle,lastName,street,city,state,phone1,phone2,zip,email,gender,insuranceID
                        );
                     break;
                 case "UPDATE":
                     PatientDataTier.UpdatePatientByID(
                         patientID,
-                        insuranceName,
+                        insuranceID,
                         firstName,
                         middle,
                         lastName,

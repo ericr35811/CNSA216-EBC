@@ -237,15 +237,15 @@ namespace CNSA216_EBC_project
                 case "VIEW":
 
                     txtPhysicianID.Enabled = false;
-                    txtFName.Enabled = true;
-                    txtLName.Enabled = true;
-                    ddlGender.Enabled = true;
-                    txtMiddle.Enabled = true;
-                    txtCity.Enabled = true;
-                    txtStreet.Enabled = true;
-                    txtZip.Enabled = true;
-                    txtEmail.Enabled = true;
-                    txtPhone.Enabled = true;
+                    txtFName.Enabled = false;
+                    txtLName.Enabled = false;
+                    ddlGender.Enabled = false;
+                    txtMiddle.Enabled = false;
+                    txtCity.Enabled = false;
+                    txtStreet.Enabled = false;
+                    txtZip.Enabled = false;
+                    txtEmail.Enabled = false;
+                    txtPhone.Enabled = false;
 
                     btnAdd.Enabled = false;
                     btnAdd.Visible = false;
@@ -276,7 +276,7 @@ namespace CNSA216_EBC_project
             int PhysicianID = 0;
             string FirstName = "";
             string LastName = "";
-            string Email = "";
+            string email = "";
             string Middle = "";
             string city = "";
             string zip = "";
@@ -290,7 +290,7 @@ namespace CNSA216_EBC_project
             PhysicianID = Int32.Parse(txtPhysicianID.Text);
             FirstName = txtFName.Text;
             LastName = txtLName.Text;
-            Email = txtEmail.Text;
+            email = txtEmail.Text;
             Middle = txtMiddle.Text;
             city = txtCity.Text;
             zip = txtZip.Text;
@@ -325,7 +325,7 @@ namespace CNSA216_EBC_project
                         zip,
                         Phone1,
                         gender,
-                        Email
+                        email
                         ); break;
             }
         }
