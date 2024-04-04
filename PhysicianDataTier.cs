@@ -203,8 +203,10 @@ namespace _2024_CNSA212_Final_Group2
             }
         }
 
-
-
+        internal static void UpdatePhysicianInfo(string firstName, string lastName, string middle, string street, string city, string state, string zip, string phone1, string gender, string email)
+        {
+            throw new NotImplementedException();
+        }
     }
     }
 
