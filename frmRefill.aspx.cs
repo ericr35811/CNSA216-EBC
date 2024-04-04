@@ -166,18 +166,14 @@ namespace CNSA216_EBC_project {
 
             //string type;
             bool success;
+            int id;
             txtDateTime.Text = DateTime.Now.ToString();
             txtPresNameDose.Enabled= false;
             txtPatientFName.Enabled= false;
 
-            if (!Page.IsPostBack)
-            {
-                
-            }
-
             if (!IsPostBack)
             {
-                Saved = false;
+                Saved = true;
                 // check if query string contains the type key
                 if (Request.QueryString.AllKeys.Contains("type") && !String.IsNullOrEmpty(Request.QueryString["type"])) {
                     type = Request.QueryString["type"];
@@ -191,6 +187,8 @@ namespace CNSA216_EBC_project {
                                 GoBack();
                             }
                             else {
+                                //if (type == "ADD") RefillID = id;
+                                //else prescriptionID = id;
                                 PreparePage();
                             };
                         }
@@ -273,30 +271,31 @@ namespace CNSA216_EBC_project {
                 Session["GRIDREFRESH"] = true;
             }
         }
-
-        protected void btnGoBack_Click(object sender, EventArgs e)
-        {
-            Session["refresh"] = true;
-
-            //if (Saved)
-            //{
-            //    SearchParameters param = new SearchParameters();
-            //    param.tableName = "Refill";
-            //    param.showActive = true;
-            //    param.showInactive = false;
-            //    param.param1Col = "RefillID";
-            //    param.param1 = RefillID.ToString();
-            //    param.andOr = "O";
-            //    param.param2Col = "";
-            //    param.param2 = "";
-            //    Session["searchParameters"] = param;
-            //}
-            //Response.Redirect("frmSearch.aspx");
-        }
-
+     
         protected void txtDateTime_TextChanged(object sender, EventArgs e)
         {
             
+        }
+
+        protected void btnGoBack_Click1(object sender, EventArgs e)
+        {
+            Session["refresh"] = true;
+            GoBack();
+
+            if (Saved)
+            {
+                SearchParameters param = new SearchParameters();
+                param.tableName = "Refill";
+                param.showActive = true;
+                param.showInactive = false;
+                param.param1Col = "RefillID";
+                param.param1 = RefillID.ToString();
+                param.andOr = "O";
+                param.param2Col = "";
+                param.param2 = "";
+                Session["searchParameters"] = param;
+            }
+            Response.Redirect("frmSearch.aspx");
         }
     }
         
