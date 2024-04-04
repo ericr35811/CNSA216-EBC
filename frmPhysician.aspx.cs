@@ -219,11 +219,6 @@ namespace CNSA216_EBC_project
             switch (type)
             {
                 case "ADD":
-                    btnAdd.Text = "Add";
-                    SetValidators();
-                    BindData();
-                    break;
-
                     txtPhysicianID.Enabled = false;
                     txtFName.Enabled = true;
                     txtLName.Enabled = true;
@@ -234,6 +229,10 @@ namespace CNSA216_EBC_project
                     txtZip.Enabled = true;
                     txtEmail.Enabled = true;
                     txtPhone.Enabled = true;
+                    btnAdd.Text = "Add";
+                    SetValidators();
+                    BindData();
+                    break;
                 case "VIEW":
 
                     txtPhysicianID.Enabled = false;
@@ -249,6 +248,8 @@ namespace CNSA216_EBC_project
 
                     btnAdd.Enabled = false;
                     btnAdd.Visible = false;
+                    btnUpdate.Enabled = false;
+                    btnUpdate.Visible = false;
 
                     SetValidators();
                     BindData();

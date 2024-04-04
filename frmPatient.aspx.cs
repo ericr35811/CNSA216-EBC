@@ -182,24 +182,7 @@ namespace CNSA216_EBC_project
             }
         }
 
-        protected void btnGoBack_Click(object sender, EventArgs e)
-        {
-            Session["refresh"] = true;
-            if (Saved)
-            {
-                // SearchParameters param = new SearchParameters();
-                // param.tableName = "Refill";
-                // param.showActive = true;
-                // param.showInactive = false;
-                // param.param1Col = "PatientID";
-                // param.param1 = PatientID.ToString();
-                // param.andOr = "O";
-                // param.param2Col = "";
-                // param.param2 = "";
-                // Session["searchParameters"] = param;
-            }
-            Response.Redirect("frmSearch.aspx");
-        }
+        
         protected void PreparePage()
         {
 
@@ -226,7 +209,11 @@ namespace CNSA216_EBC_project
                     txtVisit.Enabled = true;
                     txtStart.Enabled = true;
                     txtEnd.Enabled = true;
-                    btnSave.Text = "Add";
+
+                    btnAdd.Text = "Add";
+                    btnBack.Text = "Back";
+                    btnAdd.Enabled = true;
+
                     SetValidators();
                     BindData();
                     break;
@@ -254,6 +241,8 @@ namespace CNSA216_EBC_project
 
                     btnAdd.Enabled = false;
                     btnAdd.Visible = false;
+                    btnUpdate.Visible = false;
+                    btnUpdate.Enabled = false;
 
                     SetValidators();
                     BindData();
@@ -276,7 +265,13 @@ namespace CNSA216_EBC_project
                     txtWeight.Enabled = true;
                     txtHeight.Enabled = true;
                     txtVisit.Enabled = true;
-                    btnSave.Text = "Update";
+                    txtStart.Enabled = true;
+                    txtEnd.Enabled = true;
+
+                    btnUpdate.Enabled=true;
+                    btnUpdate.Text = "Update";
+                    btnAdd.Enabled = false;
+                    btnAdd.Visible=false;
                     SetValidators();
                     BindData();
                     break;
