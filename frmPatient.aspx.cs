@@ -35,7 +35,7 @@ namespace CNSA216_EBC_project
     public partial class WebForm3 : System.Web.UI.Page
     {
         private static string type;
-        private static int patientID = 0;
+        private static int PatientID = 0;
         private static string firstName = "";
         private static string lastName = "";
         private static string email = "";
@@ -95,7 +95,7 @@ namespace CNSA216_EBC_project
             {
                 if (Request.QueryString.AllKeys.Contains("id") && !String.IsNullOrEmpty(Request.QueryString["id"]))
                 {
-                    success = Int32.TryParse(Request.QueryString["id"], out patientID);
+                    success = Int32.TryParse(SecureID.Decrypt(Request.QueryString["id"]), out PatientID);
                     if (!success)
                     {
                         GoBack();
@@ -356,7 +356,7 @@ namespace CNSA216_EBC_project
         {
 
             DataTable PatientData = new DataTable();
-            int PatientID = 0;
+            //int PatientID = 0;
             string FirstName = "";
             string LastName = "";
             string Email = "";
@@ -377,8 +377,8 @@ namespace CNSA216_EBC_project
                 PatientData = PatientDataTier.GetPatientInfo(PatientID).Tables[0];
 
                 PatientID = (int)PatientData.Rows[0]["PatientID"];
-                FirstName = (string)PatientData.Rows[0]["First Name"];
-                LastName = (string)PatientData.Rows[0]["Last Name"];
+                FirstName = (string)PatientData.Rows[0]["FirstName"];
+                LastName = (string)PatientData.Rows[0]["LastName"];
                 Middle = (string)PatientData.Rows[0]["Middle"];
                 Email = (string)PatientData.Rows[0]["Email"];
                 city = (string)PatientData.Rows[0]["City"];
@@ -386,11 +386,11 @@ namespace CNSA216_EBC_project
                 State = (string)PatientData.Rows[0]["State"];
                 street = (string)PatientData.Rows[0]["Street"];
                 gender = (string)PatientData.Rows[0]["Gender"];
-                insuranceID = (int)PatientData.Rows[0]["InsuranceID"];
+                insuranceID = Int32.Parse(PatientData.Rows[0]["InsuranceID"].ToString());
                 Phone1 = (string)PatientData.Rows[0]["Phone1"];
                 Phone2 = (string)PatientData.Rows[0]["Phone2"];
             }
-            ddlInsurance.DataTextField = "Insurance Name";
+            ddlInsurance.DataTextField = "InsuranceName";
             ddlInsurance.DataValueField = "InsuranceID";
             ddlInsurance.DataBind();
 
@@ -418,8 +418,8 @@ namespace CNSA216_EBC_project
                 PatientData = PatientDataTier.GetPatientInfo(PatientID).Tables[0];
 
                 PatientID = (int)PatientData.Rows[0]["PatientID"];
-                FirstName = (string)PatientData.Rows[0]["First Name"];
-                LastName = (string)PatientData.Rows[0]["Last Name"];
+                FirstName = (string)PatientData.Rows[0]["FirstName"];
+                LastName = (string)PatientData.Rows[0]["LastName"];
                 Middle = (string)PatientData.Rows[0]["Middle"];
                 Email = (string)PatientData.Rows[0]["Email"];
                 city = (string)PatientData.Rows[0]["City"];
@@ -427,7 +427,7 @@ namespace CNSA216_EBC_project
                 street = (string)PatientData.Rows[0]["Street"];
                 State = (string)PatientData.Rows[0]["State"];
                 gender = (string)PatientData.Rows[0]["Gender"];
-                insuranceID = (int)PatientData.Rows[0]["Insurance"];
+                insuranceID = (int)PatientData.Rows[0]["InsuranceID"];
                 Phone1 = (string)PatientData.Rows[0]["Phone1"];
                 Phone2 = (string)PatientData.Rows[0]["Phone2"];
 
@@ -535,7 +535,7 @@ namespace CNSA216_EBC_project
         }
         protected void btnSave_Click()
         {
-            int PatientID = 0;
+            //int PatientID = 0;
             string FirstName = "";
             string LastName = "";
             string Email = "";
@@ -574,7 +574,7 @@ namespace CNSA216_EBC_project
                     break;
                 case "UPDATE":
                     PatientDataTier.UpdatePatientByID(
-                        patientID,
+                        PatientID,
                         insuranceID,
                         firstName,
                         middle,
