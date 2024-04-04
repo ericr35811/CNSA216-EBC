@@ -67,7 +67,7 @@
                 <asp:RangeValidator ID="rngRefillsAllowed" runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtRefillsAllowed" Display="Dynamic" ForeColor="Red"></asp:RangeValidator>
             </div>
 
-            <div>
+           <%-- <div>
                 <small>Refills Left</small><br />
                 <div class="row mx-auto">
                     <div class="col-auto my-auto px-0">
@@ -78,7 +78,7 @@
                             <asp:RangeValidator ID="rngRefillsLeft" runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtRefillsLeft" Display="Dynamic" ForeColor="Red"></asp:RangeValidator>
                         </div>
                         <div>
-                            <%-- cannot be greater than refills allowed --%>
+                            <%-- cannot be greater than refills allowed -%>
                             <asp:CompareValidator
                                 ID="cmpRefillsLeft"
                                 runat="server"
@@ -92,7 +92,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>--%>
 
             <div>
                 <small>Refill Quantity (# of capsules, mL, etc. per refill)</small><br />

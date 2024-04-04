@@ -429,7 +429,7 @@
                             <asp:BoundField DataField="Instructions" HeaderText="Instructions"></asp:BoundField>
                             <asp:BoundField DataField="ExtraInstructions" HeaderText="Extra Instructions" ></asp:BoundField>
                             <asp:BoundField DataField="RefillsAllowed" HeaderText="Refills Allowed"></asp:BoundField>
-                            <asp:BoundField DataField="RefillsLeft" HeaderText="Refills Left"></asp:BoundField>
+                            <%--<asp:BoundField DataField="RefillsLeft" HeaderText="Refills Left"></asp:BoundField>--%>
                             <asp:BoundField DataField="RefillQuantity" HeaderText="Refill Quantity"></asp:BoundField>
                             <asp:BoundField DataField="StartDate" DataFormatString="{0:d}" HeaderText="Start Date"></asp:BoundField>
                             <asp:BoundField DataField="EndDate" DataFormatString="{0:d}" HeaderText="End Date"></asp:BoundField>
@@ -506,7 +506,7 @@
                                 <asp:BoundField DataField="MedicineName" HeaderText="Medicine"></asp:BoundField>
                                 <asp:BoundField DataField="Dosage" HeaderText="Dosage"></asp:BoundField>
                                 <asp:BoundField DataField="RefillsAllowed" HeaderText="Refills Allowed"></asp:BoundField>
-                                <asp:BoundField DataField="RefillsLeft" HeaderText="Refills Left"></asp:BoundField>
+                                <%--<asp:BoundField DataField="RefillsLeft" HeaderText="Refills Left"></asp:BoundField>--%>
                                 <asp:BoundField DataField="RefillQuantity" HeaderText="Refill Quantity"></asp:BoundField>
                             </Columns>
                     </asp:GridView>
