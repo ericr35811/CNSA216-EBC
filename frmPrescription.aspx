@@ -86,6 +86,7 @@
                                 ControlToValidate="txtRefillsLeft"
                                 Operator="LessThanEqual"
                                 ControlToCompare="txtRefillsAllowed"
+                                Type="Integer"
                                 Display="Dynamic" ForeColor="Red">
                             </asp:CompareValidator>
                         </div>

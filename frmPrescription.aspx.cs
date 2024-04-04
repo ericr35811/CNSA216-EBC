@@ -24,7 +24,9 @@ namespace CNSA216_EBC_project {
 
             // if the user saved a record, craft a search to show them the new record
             // otherwise the cached search will be used
-            if (saved) {
+
+            if (saved && type != "ADD") {
+
                 SearchParameters param = new SearchParameters();
                 param.tableName = "Prescriptions";
                 param.showActive = true;
