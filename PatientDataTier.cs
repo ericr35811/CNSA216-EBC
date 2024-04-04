@@ -47,7 +47,7 @@ namespace _2024_CNSA212_Final_Group2 {
         /*************ADD TRY CATCHES*********/
         public static void UpdatePatientByID(
             int patientID,
-            int insuranceID,
+            string insuranceName,
             string firstName,
             string middle,
             string lastName,
@@ -69,7 +69,7 @@ namespace _2024_CNSA212_Final_Group2 {
             cmdString.CommandText = "procUpdatePatientInfo";
 
             cmdString.Parameters.Add("@PatientID", SqlDbType.Int).Value = patientID;
-            cmdString.Parameters.Add("@InsuranceID", SqlDbType.Int).Value = insuranceID;
+            cmdString.Parameters.Add("@InsuranceID", SqlDbType.VarChar,40).Value = insuranceName;
             cmdString.Parameters.Add("@FirstName", SqlDbType.VarChar, 20).Value = firstName;
             cmdString.Parameters.Add("@Middle", SqlDbType.VarChar, 3).Value = middle;
             cmdString.Parameters.Add("@LastName", SqlDbType.VarChar, 30).Value = lastName;
@@ -89,7 +89,6 @@ namespace _2024_CNSA212_Final_Group2 {
 
         /*************ADD TRY CATCHES*********/
         public static void AddPatient(
-            int InsuranceID,
             string firstName,
             string middle,
             string lastName,
@@ -111,7 +110,7 @@ namespace _2024_CNSA212_Final_Group2 {
             cmdString.CommandTimeout = 1500;
             cmdString.CommandText = "procAddPatient";
 
-            cmdString.Parameters.Add("@InsuranceID", SqlDbType.Int).Value = insuranceID;
+            cmdString.Parameters.Add("@InsuranceID", SqlDbType.VarChar,40).Value = insuranceName;
             cmdString.Parameters.Add("@FirstName", SqlDbType.VarChar, 20).Value = firstName;
             cmdString.Parameters.Add("@Middle", SqlDbType.VarChar, 3).Value = middle;
             cmdString.Parameters.Add("@LastName", SqlDbType.VarChar, 30).Value = lastName;

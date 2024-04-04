@@ -35,19 +35,19 @@ namespace CNSA216_EBC_project
     public partial class WebForm3 : System.Web.UI.Page
     {
         private static string type;
-        private static int PatientID = 0;
-        private static string FirstName = "";
-        private static string LastName = "";
-        private static string Email = "";
-        private static string Middle = "";
+        private static int patientID = 0;
+        private static string firstName = "";
+        private static string lastName = "";
+        private static string email = "";
+        private static string middle = "";
         private static string city = "";
         private static string zip = "";
         private static string street = "";
         private static string state = "";
         private static string gender = "";
-        private static string InsuranceName = "";
-        private static string Phone1 = "";
-        private static string Phone2 = "";
+        private static string insuranceName = "";
+        private static string phone1 = "";
+        private static string phone2 = "";
         private static bool Saved = false;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -102,7 +102,7 @@ namespace CNSA216_EBC_project
                 param.ShowActive = true;
                 param.ShowInactive = false;
                 param.param1Col = "PatientID";
-                param.param1 = PatientID.ToString();
+                param.param1 = patientID.ToString();
                 param.andOr = "O";
                 param.param2Col = "";
                 param.param2 = "";
@@ -314,7 +314,7 @@ namespace CNSA216_EBC_project
                 State = (string)PatientData.Rows[0]["State"];
                 street = (string)PatientData.Rows[0]["Street"];
                 gender = (string)PatientData.Rows[0]["Gender"];
-                InsuranceName = (string)PatientData.Rows[0]["Insurance"];
+                insuranceName = (string)PatientData.Rows[0]["Insurance"];
                 Phone1 = (string)PatientData.Rows[0]["Phone1"];
                 Phone2 = (string)PatientData.Rows[0]["Phone2"];
             }
@@ -330,7 +330,7 @@ namespace CNSA216_EBC_project
                 txtFname.Text = FirstName.ToString();
                 txtLname.Text = LastName.ToString();
                 txtMiddle.Text = Middle.ToString();
-                ddlInsurance.SelectedValue = InsuranceName.ToString();
+                ddlInsurance.SelectedValue = insuranceName.ToString();
                 ddlState.DataSource = State.ToString();
                 txtEmail.Text = Email.ToString();
                 txtCity.Text = city.ToString();
@@ -354,7 +354,7 @@ namespace CNSA216_EBC_project
                 street = (string)PatientData.Rows[0]["Street"];
                 State = (string)PatientData.Rows[0]["State"];
                 gender = (string)PatientData.Rows[0]["Gender"];
-                InsuranceName = (string)PatientData.Rows[0]["Insurance"];
+                insuranceName = (string)PatientData.Rows[0]["Insurance"];
                 Phone1 = (string)PatientData.Rows[0]["Phone1"];
                 Phone2 = (string)PatientData.Rows[0]["Phone2"];
 
@@ -478,7 +478,7 @@ namespace CNSA216_EBC_project
 
             bool fail = false;
 
-            PatientID = Int32.Parse(ddlPatient.SelectedValue);
+            PatientID = Int32.Parse(txtPatientID.Text);
             FirstName = txtFname.Text;
             LastName = txtLname.Text;
             Email = txtEmail.Text;
@@ -496,36 +496,25 @@ namespace CNSA216_EBC_project
             {
                 case "ADD":
                     PatientDataTier.AddPatient(
-                        PatientID,
-                        FirstName,
-                        LastName,
-                        Email,
-                        Middle,
-                        city,
-                        zip,
-                        street,
-                        gender,
-                        Phone1,
-                        Phone2,
-                        state,
-                        InsuranceName
-                        );
+                        firstName, middle,lastName,street,city,state,phone1,phone2,zip,email,gender,insuranceName
+                       );
                     break;
-                case "EDIT":
+                case "UPDATE":
                     PatientDataTier.UpdatePatientByID(
-                        PatientID,
-                        FirstName,
-                        LastName,
-                        Email,
-                        Middle,
-                        city,
-                        zip,
+                        patientID,
+                        insuranceName,
+                        firstName,
+                        middle,
+                        lastName,
                         street,
-                        gender,
-                        Phone1,
-                        Phone2,
-                        state
-                  );
+                        city,
+                        state,
+                        phone1,
+                        phone2,
+                        zip,
+                        email,
+                        gender);
+
                     break;
             }
             Saved = true;

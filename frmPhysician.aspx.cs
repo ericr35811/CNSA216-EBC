@@ -13,15 +13,15 @@ namespace CNSA216_EBC_project
     {
         private static string type;
         private static int PhysicianID = 0;
-        private static string FirstName;
-        private static string LastName;
-        private static string Email;
-        private static string Middle;
+        private static string firstName;
+        private static string lastName;
+        private static string email;
+        private static string middle;
         private static string city;
         private static string zip;
         private static string street;
         private static string state;
-        private static string Phone1;
+        private static string phone1;
         private static bool Saved = false;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -269,6 +269,64 @@ namespace CNSA216_EBC_project
                     SetValidators();
                     BindData();
                     break;
+            }
+        }
+        protected void btnSave_Click()
+        {
+            int PhysicianID = 0;
+            string FirstName = "";
+            string LastName = "";
+            string Email = "";
+            string Middle = "";
+            string city = "";
+            string zip = "";
+            string street = "";
+            string gender = "";
+            string Phone1 = "";
+            string state = "";
+
+            bool fail = false;
+
+            PhysicianID = Int32.Parse(txtPhysicianID.Text);
+            FirstName = txtFName.Text;
+            LastName = txtLName.Text;
+            Email = txtEmail.Text;
+            Middle = txtMiddle.Text;
+            city = txtCity.Text;
+            zip = txtZip.Text;
+            street = txtStreet.Text;
+            gender = ddlGender.SelectedValue;
+            Phone1 = txtPhone.Text;
+            state = ddlState.SelectedValue;
+
+            switch (type)
+            {
+                case "ADD":
+                    PhysicianDataTier.AddPhysician(
+                        firstName,
+                        middle,
+                        lastName,
+                        street,
+                        city,
+                        phone1,
+                        zip,
+                        email,
+                        gender,
+                        state
+                        ); break;
+                case "UPDATE":
+                    PhysicianDataTier.UpdatePhysicianInfo(
+                        FirstName,
+                        LastName,
+                        Middle,
+                        street,
+                        city,
+                        state,
+                        zip,
+                        Phone1,
+                        gender,
+                        Email
+                        ); break;
             }
         }
     }
