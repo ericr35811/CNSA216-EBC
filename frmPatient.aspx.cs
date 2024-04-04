@@ -68,6 +68,9 @@ namespace CNSA216_EBC_project
             txtStreet.Enabled = true;
             txtStart.Enabled = true;
             txtEnd.Enabled = true;
+            ddlGender.Enabled = true;
+            ddlInsurance.Enabled = true;
+            ddlState.Enabled = true;
 
             btnAdd.Enabled = true;
             btnUpdate.Enabled = true;
@@ -212,6 +215,36 @@ namespace CNSA216_EBC_project
 
                 sb.Append("<script language = 'javaScript'>");
                 sb.Append("  window.open('Display.aspx?ID=" + recordToBeEdited.ToString() + "&type=EDIT', 'DisplayEdit',");
+                sb.Append("  'width= 525, height=525, menubar=no, resizable=yes, left=50, top=50, scrollbars=yes');");
+                sb.Append("</script>");
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "PopupScript", sb.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex.InnerException);
+            }
+        }
+        protected void btnAdd_Click(object sender, CommandEventArgs e)
+        {
+            string recordToBeEdited;
+            Int64 myEditedRecord = 0;
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+            try
+            {
+                Session["vPatientID"] = txtPatientID.Text.Trim();
+                Session["vFName"] = txtFname.Text.Trim();
+                Session["vLName"] = txtLname.Text.Trim();
+
+                //get record
+                recordToBeEdited = (e.CommandArgument.ToString());
+
+                recordToBeEdited = QueryStringEncryption.Encrypt(recordToBeEdited.Trim().ToUpper());
+
+
+
+                sb.Append("<script language = 'javaScript'>");
+                sb.Append("  window.open('Display.aspx?ID=" + recordToBeEdited.ToString() + "&type=ADD', 'DisplayEdit',");
                 sb.Append("  'width= 525, height=525, menubar=no, resizable=yes, left=50, top=50, scrollbars=yes');");
                 sb.Append("</script>");
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "PopupScript", sb.ToString());

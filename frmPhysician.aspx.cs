@@ -36,6 +36,8 @@ namespace CNSA216_EBC_project
             txtZip.Enabled = true;
             txtEmail.Enabled = true;
             txtPhone.Enabled = true;
+            txtStartDate.Enabled = true;
+            txtEndDate.Enabled = true;
 
             if (!IsPostBack)
             {
@@ -347,6 +349,36 @@ namespace CNSA216_EBC_project
         protected void btnBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("frmSearch.aspx");
+        }
+        protected void btnUpdate_Click(object sender, CommandEventArgs e)
+        {
+            string recordToBeEdited;
+            Int64 myEditedRecord = 0;
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+            try
+            {
+                Session["vPatientID"] = txtPhysicianID.Text.Trim();
+                Session["vFName"] = txtFName.Text.Trim();
+                Session["vLName"] = txtLName.Text.Trim();
+
+                //get record
+                recordToBeEdited = (e.CommandArgument.ToString());
+
+                recordToBeEdited = QueryStringEncryption.Encrypt(recordToBeEdited.Trim().ToUpper());
+
+
+
+                sb.Append("<script language = 'javaScript'>");
+                sb.Append("  window.open('Display.aspx?ID=" + recordToBeEdited.ToString() + "&type=EDIT', 'DisplayEdit',");
+                sb.Append("  'width= 525, height=525, menubar=no, resizable=yes, left=50, top=50, scrollbars=yes');");
+                sb.Append("</script>");
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "PopupScript", sb.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex.InnerException);
+            }
         }
 
     }
