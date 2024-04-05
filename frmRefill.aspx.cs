@@ -59,7 +59,7 @@ namespace CNSA216_EBC_project {
                 txtPatientFName.Text = patientName.ToString();
                 txtPresNameDose.Text = prescriptionName.ToString();
                 ddlClerckName.SelectedValue = ClerckID.ToString();
-                txtDateTime.Text = entryDateTime.ToString();
+                txtDateTime.Text = entryDateTime.ToShortDateString();
                 txtDateTime.Enabled = true;
                 txtRefillID.Text = RefillID.ToString();
                 btnSave.Enabled = true;
@@ -99,7 +99,7 @@ namespace CNSA216_EBC_project {
                 case "ADD":
                     btnSave.Text = "Add";
                     SetValidators();
-                    txtDateTime.Text = DateTime.Now.ToString();
+                    txtDateTime.Text = DateTime.Now.ToShortDateString();
                     BindData();
                     break;
 

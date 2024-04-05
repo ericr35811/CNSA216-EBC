@@ -317,8 +317,10 @@ namespace CNSA216_EBC_project
 
                 txtStreet.MaxLength = GeneralDataTier.GetColumnMaxLength("Street", dsColumns);
                 txtZip.MaxLength = GeneralDataTier.GetColumnMaxLength("Zip", dsColumns);
-                txtPhone1.MaxLength = GeneralDataTier.GetColumnMaxLength("Phone1", dsColumns);
-                txtPhone2.MaxLength = GeneralDataTier.GetColumnMaxLength("Phone2", dsColumns);
+                //txtPhone1.MaxLength = GeneralDataTier.GetColumnMaxLength("Phone1", dsColumns);
+                //txtPhone2.MaxLength = GeneralDataTier.GetColumnMaxLength("Phone2", dsColumns);
+                txtPhone1.MaxLength = 12;
+                txtPhone2.MaxLength = 12;
                 txtEmail.MaxLength = GeneralDataTier.GetColumnMaxLength("Email", dsColumns);
                                 
                 rngStartDate.Type = ValidationDataType.Date;
