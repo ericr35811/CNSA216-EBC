@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using System.Configuration;
 using System.Xml.Linq;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace _2024_CNSA212_Final_Group2 {
     internal static class PatientDataTier {
@@ -58,7 +59,11 @@ namespace _2024_CNSA212_Final_Group2 {
             string phone2,
             string zip,
             string email,
-            string gender
+            string gender,
+            Int16 height,
+            Int16 weight,
+            DateTime startDate,
+            DateTime endDate
         ) {
             myConn.Open();
 
@@ -81,6 +86,10 @@ namespace _2024_CNSA212_Final_Group2 {
             cmdString.Parameters.Add("@Phone2", SqlDbType.Char, 12).Value = phone2;
             cmdString.Parameters.Add("@Gender", SqlDbType.Char, 1).Value = gender;
             cmdString.Parameters.Add("@Email", SqlDbType.VarChar, 30).Value = email;
+            cmdString.Parameters.Add("@Height", SqlDbType.SmallInt).Value = height;
+            cmdString.Parameters.Add("@Weight", SqlDbType.SmallInt).Value = weight;
+            cmdString.Parameters.Add("@StartDate", SqlDbType.Date).Value = startDate;
+            cmdString.Parameters.Add("@EndDate", SqlDbType.Date).Value = endDate;
 
             cmdString.ExecuteNonQuery();
 
@@ -100,7 +109,11 @@ namespace _2024_CNSA212_Final_Group2 {
             string zip,
             string email,
             string gender,
-            int insuranceID) {
+            int insuranceID,
+            Int16 height,
+            Int16 weight,
+            DateTime startDate,
+            DateTime endDate) {
 
             myConn.Open();
 
@@ -122,6 +135,10 @@ namespace _2024_CNSA212_Final_Group2 {
             cmdString.Parameters.Add("@Phone2", SqlDbType.Char, 12).Value = phone2;
             cmdString.Parameters.Add("@Gender", SqlDbType.Char, 1).Value = gender;
             cmdString.Parameters.Add("@Email", SqlDbType.VarChar, 30).Value = email;
+            cmdString.Parameters.Add("@Height", SqlDbType.SmallInt).Value = height;
+            cmdString.Parameters.Add("@Weight", SqlDbType.SmallInt).Value = weight;
+            cmdString.Parameters.Add("@StartDate", SqlDbType.Date).Value = startDate;
+            cmdString.Parameters.Add("@EndDate", SqlDbType.Date).Value =endDate;
 
             cmdString.ExecuteNonQuery();
 

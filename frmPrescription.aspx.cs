@@ -25,19 +25,19 @@ namespace CNSA216_EBC_project {
             // if the user saved a record, craft a search to show them the new record
             // otherwise the cached search will be used
 
-            if (saved && type != "ADD") {
+            //if (saved && type != "ADD") {
 
-                SearchParameters param = new SearchParameters();
-                param.tableName = "Prescriptions";
-                param.showActive = true;
-                param.showInactive = false;
-                param.param1Col = "PrescriptionID";
-                param.param1 = prescriptionID.ToString();
-                param.andOr = "O";
-                param.param2Col = "";
-                param.param2 = "";
-                Session["searchParameters"] = param;
-            }
+            //    SearchParameters param = new SearchParameters();
+            //    param.tableName = "Prescriptions";
+            //    param.showActive = true;
+            //    param.showInactive = false;
+            //    param.param1Col = "PrescriptionID";
+            //    param.param1 = prescriptionID.ToString();
+            //    param.andOr = "O";
+            //    param.param2Col = "";
+            //    param.param2 = "";
+            //    Session["searchParameters"] = param;
+            //}
             
             Response.Redirect("frmSearch.aspx");
         }
