@@ -18,20 +18,6 @@ using System.Web.UI.WebControls;
 
 namespace CNSA216_EBC_project
 {
-    public static class QueryStringEncryption
-    {
-        public static string Encrypt(string input)
-        {
-            byte[] encryptedBytes;
-            string encryptedString;
-            encryptedBytes = Encoding.UTF8.GetBytes(input);
-            encryptedBytes = MachineKey.Protect(encryptedBytes);
-            encryptedString = Convert.ToBase64String(encryptedBytes);
-            encryptedString = HttpUtility.UrlEncode(encryptedString);
-
-            return encryptedString;
-        }
-    }
     public partial class WebForm3 : System.Web.UI.Page
     {
         private static string type;
@@ -52,15 +38,16 @@ namespace CNSA216_EBC_project
         protected void Page_Load(object sender, EventArgs e)
         {
             bool success;
+
+           // btnSave.Click += new EventHandler(btnSave_Click);
+
             txtPatientID.Enabled = false;
             txtFname.Enabled = true;
             txtLname.Enabled = true;
             txtMiddle.Enabled = true;
 
             txtCity.Enabled = true;
-            txtDob.Enabled = true;
             txtEmail.Enabled = true;
-            txtVisit.Enabled = true;
             txtWeight.Enabled = true;
             txtHeight.Enabled = true;
             txtPhone1.Enabled = true; txtPhone2.Enabled = true;
@@ -72,15 +59,9 @@ namespace CNSA216_EBC_project
             ddlInsurance.Enabled = true;
             ddlState.Enabled = true;
 
-            btnAdd.Enabled = true;
-            btnUpdate.Enabled = true;
+            btnSave.Enabled = true;
             btnBack.Enabled = true;
 
-
-            if (!Page.IsPostBack)
-            {
-
-            }
             if (!Page.IsPostBack)
             {
                 Saved = false;
@@ -88,27 +69,28 @@ namespace CNSA216_EBC_project
                 if (Request.QueryString.AllKeys.Contains("type") && !String.IsNullOrEmpty(Request.QueryString["type"]))
                 {
                     type = Request.QueryString["type"];
-                }
 
-            }
-            if (type != "ADD")
-            {
-                if (Request.QueryString.AllKeys.Contains("id") && !String.IsNullOrEmpty(Request.QueryString["id"]))
-                {
-                    success = Int32.TryParse(SecureID.Decrypt(Request.QueryString["id"]), out PatientID);
-                    if (!success)
-                    {
-                        GoBack();
+                    if (type != "ADD") {
+                        if (Request.QueryString.AllKeys.Contains("id") && !String.IsNullOrEmpty(Request.QueryString["id"])) {
+                            success = Int32.TryParse(SecureID.Decrypt(Request.QueryString["id"]), out PatientID);
+                            if (!success) {
+                                GoBack();
+                            }
+                            else {
+                                PreparePage();
+                            }
+                        }
+                        else {
+                            GoBack();
+                        }
                     }
-                    else
-                    {
+                    else {
                         PreparePage();
                     }
                 }
-                else { GoBack(); }
-            }
-            else
-            {
+                else {
+                    GoBack() ;
+                }
 
             }
 
@@ -118,144 +100,22 @@ namespace CNSA216_EBC_project
         private void GoBack()
         {
             Session["refresh"] = true;
-            if (Saved)
-            {
-                //SearchParameters param = new SearchParameters();
-                //param.tableName = "Patient";
-                //param.ShowActive = true;
-                //param.ShowInactive = false;
-               // param.param1Col = "PatientID";
-                //param.param1 = patientID.ToString();
-                //param.andOr = "O";
-                //param.param2Col = "";
-                //param.param2 = "";
-                //Session["SearchParameters"] = param;
-            }
+            //if (Saved)
+            //{
+            //    SearchParameters param = new SearchParameters();
+            //    param.tableName = "Patient";
+            //    param.showActive = true;
+            //    param.showInactive = false;
+            //    param.param1Col = "PatientID";
+            //    param.param1 = PatientID.ToString();
+            //    param.andOr = "O";
+            //    param.param2Col = "";
+            //    param.param2 = "";
+            //    Session["SearchParameters"] = param;
+            //}
             Response.Redirect("frmSearch.aspx");
         }
 
-        public void SetTextBoxes()
-        {
-            if (type == "VIEW")
-            {
-                txtPatientID.Enabled = false;
-                txtFname.Enabled = false;
-                txtLname.Enabled = false;
-                txtMiddle.Enabled = false;
-
-                txtCity.Enabled = false;
-                txtDob.Enabled = false;
-                txtEmail.Enabled = false;
-                txtVisit.Enabled = false;
-                txtWeight.Enabled = false;
-                txtHeight.Enabled = false;
-                txtPhone1.Enabled = false; txtPhone2.Enabled = false;
-                txtZip.Enabled = false;
-                txtStreet.Enabled = false;
-                txtStart.Enabled = false;
-                txtEnd.Enabled = false;
-
-                btnAdd.Enabled = false;
-                btnUpdate.Enabled = false;
-                btnBack.Enabled = true;
-            }
-            else if (type == "EDIT")
-            {
-                txtPatientID.Enabled = false;
-
-                btnAdd.Text = "UPDATE";
-            }
-            else if (type == "NEW")
-            {
-                txtPatientID.Enabled = false;
-                txtFname.Enabled = true;
-                txtLname.Enabled = true;
-                txtMiddle.Enabled = true;
-
-                txtCity.Enabled = true;
-                txtDob.Enabled = true;
-                txtEmail.Enabled = true;
-                txtVisit.Enabled = true;
-                txtWeight.Enabled = true;
-                txtHeight.Enabled = true;
-                txtPhone1.Enabled = true; txtPhone2.Enabled = true;
-                txtZip.Enabled = true;
-                txtStreet.Enabled = true;
-                txtStart.Enabled = true;
-                txtEnd.Enabled = true;
-
-                btnAdd.Enabled = true;
-                btnUpdate.Enabled = true;
-                btnBack.Enabled = true;
-                btnAdd.Text = "ADD";
-            }
-
-        }
-
-
-
-        protected void btnUpdate_Click(object sender, CommandEventArgs e)
-        {
-            string recordToBeEdited;
-            Int64 myEditedRecord = 0;
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-            try
-            {
-                Session["vPatientID"] = txtPatientID.Text.Trim();
-                Session["vFName"] = txtFname.Text.Trim();
-                Session["vLName"] = txtLname.Text.Trim();
-
-                //get record
-                recordToBeEdited = (e.CommandArgument.ToString());
-
-                recordToBeEdited = QueryStringEncryption.Encrypt(recordToBeEdited.Trim().ToUpper());
-
-
-
-                sb.Append("<script language = 'javaScript'>");
-                sb.Append("  window.open('Display.aspx?ID=" + recordToBeEdited.ToString() + "&type=EDIT', 'DisplayEdit',");
-                sb.Append("  'width= 525, height=525, menubar=no, resizable=yes, left=50, top=50, scrollbars=yes');");
-                sb.Append("</script>");
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "PopupScript", sb.ToString());
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message, ex.InnerException);
-            }
-        }
-        protected void btnAdd_Click(object sender, CommandEventArgs e)
-        {
-            string recordToBeEdited;
-            Int64 myEditedRecord = 0;
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-            try
-            {
-                Session["vPatientID"] = txtPatientID.Text.Trim();
-                Session["vFName"] = txtFname.Text.Trim();
-                Session["vLName"] = txtLname.Text.Trim();
-
-                //get record
-                recordToBeEdited = (e.CommandArgument.ToString());
-
-                recordToBeEdited = QueryStringEncryption.Encrypt(recordToBeEdited.Trim().ToUpper());
-
-
-
-                sb.Append("<script language = 'javaScript'>");
-                sb.Append("  window.open('Display.aspx?ID=" + recordToBeEdited.ToString() + "&type=ADD', 'DisplayEdit',");
-                sb.Append("  'width= 525, height=525, menubar=no, resizable=yes, left=50, top=50, scrollbars=yes');");
-                sb.Append("</script>");
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "PopupScript", sb.ToString());
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message, ex.InnerException);
-            }
-        }
-
-        
         protected void PreparePage()
         {
 
@@ -270,7 +130,6 @@ namespace CNSA216_EBC_project
                     txtLname.Enabled = true;
                     ddlGender.Enabled = true;
                     txtMiddle.Enabled = true;
-                    txtDob.Enabled = true;
                     txtCity.Enabled = true;
                     txtStreet.Enabled = true;
                     txtZip.Enabled = true;
@@ -279,13 +138,14 @@ namespace CNSA216_EBC_project
                     txtPhone2.Enabled = true;
                     txtWeight.Enabled = true;
                     txtHeight.Enabled = true;
-                    txtVisit.Enabled = true;
                     txtStart.Enabled = true;
                     txtEnd.Enabled = true;
+                    ddlState.Enabled = true;
 
-                    btnAdd.Text = "Add";
+                    btnSave.Text = "Add";
                     btnBack.Text = "Back";
-                    btnAdd.Enabled = true;
+                    btnSave.Enabled = true;
+                    btnSave.Visible = true;
 
                     SetValidators();
                     BindData();
@@ -298,7 +158,6 @@ namespace CNSA216_EBC_project
                     txtLname.Enabled = false;
                     ddlGender.Enabled = false;
                     txtMiddle.Enabled = false;
-                    txtDob.Enabled = false;
                     txtCity.Enabled = false;
                     txtStreet.Enabled = false;
                     txtZip.Enabled = false;
@@ -307,15 +166,12 @@ namespace CNSA216_EBC_project
                     txtPhone2.Enabled = false;
                     txtWeight.Enabled = false;
                     txtHeight.Enabled = false;
-                    txtVisit.Enabled = false;
                     txtStart.Enabled = false;
                     txtEnd.Enabled = false;
+                    ddlState.Enabled = false;
 
-
-                    btnAdd.Enabled = false;
-                    btnAdd.Visible = false;
-                    btnUpdate.Visible = false;
-                    btnUpdate.Enabled = false;
+                    btnSave.Enabled = false;
+                    btnSave.Visible = false;
 
                     SetValidators();
                     BindData();
@@ -328,7 +184,6 @@ namespace CNSA216_EBC_project
                     txtLname.Enabled = true;
                     ddlGender.Enabled = true;
                     txtMiddle.Enabled = true;
-                    txtDob.Enabled = true;
                     txtCity.Enabled = true;
                     txtStreet.Enabled = true;
                     txtZip.Enabled = true;
@@ -337,14 +192,12 @@ namespace CNSA216_EBC_project
                     txtPhone2.Enabled = true;
                     txtWeight.Enabled = true;
                     txtHeight.Enabled = true;
-                    txtVisit.Enabled = true;
                     txtStart.Enabled = true;
                     txtEnd.Enabled = true;
+                    ddlState.Enabled = true;
 
-                    btnUpdate.Enabled=true;
-                    btnUpdate.Text = "Update";
-                    btnAdd.Enabled = false;
-                    btnAdd.Visible=false;
+                    btnSave.Enabled=true;
+                    btnSave.Text = "Update";
                     SetValidators();
                     BindData();
                     break;
@@ -369,7 +222,25 @@ namespace CNSA216_EBC_project
             string Phone1 = "";
             string Phone2 = "";
             string State = "";
+            Int16 height = 0;
+            Int16 weight = 0;
+            DateTime startDate = DateTime.Parse("1/1/3000");
+            DateTime endDate = DateTime.Parse("1/1/3000");
 
+            ddlState.DataSource = GeneralDataTier.GetStates().Tables[0];
+            ddlState.DataTextField = "StateName";
+            ddlState.DataValueField = "State";
+            ddlState.DataBind();
+
+            ddlGender.DataSource = GeneralDataTier.GetGenders().Tables[0];
+            ddlGender.DataTextField = "GenderName";
+            ddlGender.DataValueField = "Gender";
+            ddlGender.DataBind();
+
+            ddlInsurance.DataSource = GeneralDataTier.GetInsurances();
+            ddlInsurance.DataTextField = "Name";
+            ddlInsurance.DataValueField = "InsuranceID";
+            ddlInsurance.DataBind();
 
             if (type == "EDIT" || type == "VIEW")
             {
@@ -389,21 +260,18 @@ namespace CNSA216_EBC_project
                 insuranceID = Int32.Parse(PatientData.Rows[0]["InsuranceID"].ToString());
                 Phone1 = (string)PatientData.Rows[0]["Phone1"];
                 Phone2 = (string)PatientData.Rows[0]["Phone2"];
-            }
-            ddlInsurance.DataTextField = "InsuranceName";
-            ddlInsurance.DataValueField = "InsuranceID";
-            ddlInsurance.DataBind();
+                height = (Int16)PatientData.Rows[0]["Height"];
+                weight = (Int16)PatientData.Rows[0]["Weight"];
+                startDate = (DateTime)PatientData.Rows[0]["StartDate"];
+                endDate = (DateTime)PatientData.Rows[0]["EndDate"];
 
-            //UpdateDosages();
-            if (type == "EDIT" || type == "VIEW")
-            {
                 // -- populate values
                 txtPatientID.Text = PatientID.ToString();
                 txtFname.Text = FirstName.ToString();
                 txtLname.Text = LastName.ToString();
                 txtMiddle.Text = Middle.ToString();
                 ddlInsurance.SelectedValue = insuranceID.ToString();
-                ddlState.DataSource = State.ToString();
+                ddlState.SelectedValue = State.ToString();
                 txtEmail.Text = Email.ToString();
                 txtCity.Text = city.ToString();
                 txtZip.Text = zip.ToString();
@@ -411,80 +279,31 @@ namespace CNSA216_EBC_project
                 txtPhone1.Text = Phone1.ToString();
                 txtPhone2.Text = Phone2.ToString();
                 ddlGender.SelectedValue = gender.ToString();
-            }
-            else if (type == "ADD")
-            {
-                DataTable NewPatient = new DataTable();
-                PatientData = PatientDataTier.GetPatientInfo(PatientID).Tables[0];
-
-                PatientID = (int)PatientData.Rows[0]["PatientID"];
-                FirstName = (string)PatientData.Rows[0]["FirstName"];
-                LastName = (string)PatientData.Rows[0]["LastName"];
-                Middle = (string)PatientData.Rows[0]["Middle"];
-                Email = (string)PatientData.Rows[0]["Email"];
-                city = (string)PatientData.Rows[0]["City"];
-                zip = (string)PatientData.Rows[0]["Zip"];
-                street = (string)PatientData.Rows[0]["Street"];
-                State = (string)PatientData.Rows[0]["State"];
-                gender = (string)PatientData.Rows[0]["Gender"];
-                insuranceID = (int)PatientData.Rows[0]["InsuranceID"];
-                Phone1 = (string)PatientData.Rows[0]["Phone1"];
-                Phone2 = (string)PatientData.Rows[0]["Phone2"];
-
-                txtPatientID.Text = PatientID.ToString();
-                txtFname.Text = FirstName.ToString();
-                txtLname.Text = LastName.ToString();
-                txtMiddle.Text = Middle.ToString();
-                ddlInsurance.SelectedValue = insuranceID.ToString();
-                txtEmail.Text = Email.ToString();
-                txtCity.Text = city.ToString();
-                txtZip.Text = zip.ToString();
-                txtStreet.Text = street.ToString();
-                txtPhone1.Text = Phone1.ToString();
-                txtPhone2.Text = Phone2.ToString();
-
-
-
+                txtHeight.Text = height.ToString();
+                txtWeight.Text = weight.ToString();
+                txtStart.Text = startDate.ToString("yyyy-MM-dd");
+                txtEnd.Text = endDate.ToString("yyyy-MM-dd");
             }
         }
         protected void SetValidators()
         {
-            int maxLength;
             DataSet dsColumns;
-
-            dsColumns = GeneralDataTier.GetTableColumns("Patients");
-            maxLength = GeneralDataTier.GetColumnMaxLength("FirstName", dsColumns);
 
             if (type == "VIEW")
             {
-                rgxFname.Enabled = false;
-                rgxLname.Enabled = false;
-                rgxMiddle.Enabled = false;
-                rngHeight.Enabled = false;
-                rngWeight.Enabled = false;
-                rgxStreet.Enabled = false;
-                rgxZip.Enabled = false;
-                rgxPhone1.Enabled = false;
-                rgxPhone2.Enabled = false;
-                rgxEmail.Enabled = false;
-                rgxVisit.Enabled = false;
                 rngStartDate.Enabled = false;
                 rngEndDate.Enabled = false;
+                rngHeight.Enabled = false;
+                rngWeight.Enabled = false;
             }
             else
             {
+                dsColumns = GeneralDataTier.GetTableColumns("Patients");
+
                 // check length
-                txtFname.MaxLength = maxLength;
-                rgxFname.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-                rgxFname.ErrorMessage = $"Must be {maxLength} characters or less";
-
-                txtLname.MaxLength = maxLength;
-                rgxLname.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-                rgxLname.ErrorMessage = $"Must be {maxLength} characters or less";
-
-                txtMiddle.MaxLength = maxLength;
-                rgxMiddle.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-                rgxMiddle.ErrorMessage = $"Must be {maxLength} characters or less";
+                txtFname.MaxLength = GeneralDataTier.GetColumnMaxLength("FirstName", dsColumns);
+                txtLname.MaxLength = GeneralDataTier.GetColumnMaxLength("LastName", dsColumns);
+                txtMiddle.MaxLength = GeneralDataTier.GetColumnMaxLength("Middle", dsColumns);
 
                 rngHeight.Type = ValidationDataType.Integer;
                 rngHeight.ErrorMessage = $"Must be a whole number between {Int16.MinValue.ToString()} and {Int16.MaxValue.ToString()}";
@@ -496,30 +315,12 @@ namespace CNSA216_EBC_project
                 rngWeight.MinimumValue = Int16.MinValue.ToString();
                 rngWeight.MaximumValue = Int16.MaxValue.ToString();
 
-                txtStreet.MaxLength = maxLength;
-                rgxStreet.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-                rgxStreet.ErrorMessage = $"Must be {maxLength} characters or less";
-
-                txtZip.MaxLength = maxLength;
-                rgxZip.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-                rgxZip.ErrorMessage = $"Must be {maxLength} characters or less";
-
-                txtPhone1.MaxLength = maxLength;
-                rgxPhone1.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-                rgxPhone1.ErrorMessage = $"Must be {maxLength} characters or less";
-
-                txtPhone2.MaxLength = maxLength;
-                rgxPhone2.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-                rgxPhone2.ErrorMessage = $"Must be {maxLength} characters or less";
-
-                txtEmail.MaxLength = maxLength;
-                rgxEmail.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-                rgxEmail.ErrorMessage = $"Must be {maxLength} characters or less";
-
-                txtVisit.MaxLength = maxLength;
-                rgxVisit.ValidationExpression = GeneralDataTier.LengthExpression(maxLength);
-                rgxVisit.ErrorMessage = $"Must be {maxLength} characters or less";
-
+                txtStreet.MaxLength = GeneralDataTier.GetColumnMaxLength("Street", dsColumns);
+                txtZip.MaxLength = GeneralDataTier.GetColumnMaxLength("Zip", dsColumns);
+                txtPhone1.MaxLength = GeneralDataTier.GetColumnMaxLength("Phone1", dsColumns);
+                txtPhone2.MaxLength = GeneralDataTier.GetColumnMaxLength("Phone2", dsColumns);
+                txtEmail.MaxLength = GeneralDataTier.GetColumnMaxLength("Email", dsColumns);
+                                
                 rngStartDate.Type = ValidationDataType.Date;
                 rngStartDate.ErrorMessage = $"Must be a date between {DateTime.MinValue.ToShortDateString()} and {DateTime.MaxValue.ToShortDateString()}";
                 rngStartDate.MinimumValue = DateTime.MinValue.ToShortDateString();
@@ -533,7 +334,7 @@ namespace CNSA216_EBC_project
 
 
         }
-        protected void btnSave_Click()
+        protected void btnSave_Click(object sender, EventArgs e)
         {
             //int PatientID = 0;
             string FirstName = "";
@@ -548,10 +349,12 @@ namespace CNSA216_EBC_project
             string Phone1 = "";
             string Phone2 = "";
             string State = "";
+            Int16 height = 0;
+            Int16 weight = 0;
+            DateTime startDate = DateTime.Parse("1/1/3000");
+            DateTime endDate = DateTime.Parse("1/1/3000");
 
-            bool fail = false;
-
-            PatientID = Int32.Parse(txtPatientID.Text);
+            //PatientID = Int32.Parse(txtPatientID.Text);
             FirstName = txtFname.Text;
             LastName = txtLname.Text;
             Email = txtEmail.Text;
@@ -564,29 +367,37 @@ namespace CNSA216_EBC_project
             Phone1 = txtPhone1.Text;
             Phone2 = txtPhone2.Text;
             State = ddlState.SelectedValue;
+            height = Int16.Parse(txtHeight.Text);
+            weight = Int16.Parse(txtWeight.Text);
+            startDate = DateTime.Parse(txtStart.Text);
+            endDate = DateTime.Parse(txtEnd.Text);
 
-            switch(type)
+            switch (type)
             {
                 case "ADD":
                     PatientDataTier.AddPatient(
-                        firstName, middle,lastName,street,city,state,phone1,phone2,zip,email,gender,insuranceID
+                        FirstName, Middle, LastName, street,city, State,Phone1,Phone2,zip,Email,gender,insuranceID,height,weight, startDate, endDate
                        );
                     break;
-                case "UPDATE":
+                case "EDIT":
                     PatientDataTier.UpdatePatientByID(
                         PatientID,
                         insuranceID,
-                        firstName,
-                        middle,
-                        lastName,
+                        FirstName,
+                        Middle,
+                        LastName,
                         street,
                         city,
-                        state,
-                        phone1,
-                        phone2,
+                        State,
+                        Phone1,
+                        Phone2,
                         zip,
-                        email,
-                        gender);
+                        Email,
+                        gender,
+                        height,
+                        weight,
+                        startDate,
+                        endDate);
 
                     break;
             }
@@ -595,10 +406,11 @@ namespace CNSA216_EBC_project
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            Response.Redirect("frmSearch.aspx");
+            GoBack();
         }
     }
 }
+
 
 
 

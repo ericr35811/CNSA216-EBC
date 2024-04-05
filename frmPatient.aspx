@@ -16,79 +16,79 @@
 <div>
     <small>First name</small> <br />
     <asp:Textbox ID="txtFname" runat="server" CausesValidation="true" Enabled="false"></asp:Textbox>
-    <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxFname" ControltoValidate="txtFname" Display="Dynamic"> </asp:RegularExpressionValidator>
+    
 
 </div>
 
  <div>
     <small>Last name</small> <br />
     <asp:Textbox ID="txtLname" runat="server" CausesValidation="true" Enabled="false"></asp:Textbox>
-     <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxLname" ControltoValidate="txtLname" Display="Dynamic"> </asp:RegularExpressionValidator>
+     
 </div>
             <div>
                 <small>Middle Initial</small> <br />
                 <asp:TextBox ID="txtMiddle" width="3em" runat="server" CausesValidation="true" Enabled="false"></asp:TextBox>
-                <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxMiddle" ControltoValidate="txtMiddle" Display="Dynamic"> </asp:RegularExpressionValidator>
+                
             </div>
             <div>
                 <small>Gender</small> <br />
-                <asp:DropDownList ID="ddlGender" runat="server" ReadOnly="True" Width="6em" disabled="false"></asp:DropDownList>
+                <asp:DropDownList ID="ddlGender" runat="server"  Width="6em" Enabled="false"></asp:DropDownList>
             </div><br />
             <div>
-                <small>Date of Birth</small>
-                <asp:TextBox ID="txtDob" runat="server" TextMode="Date" CausesValidation="true" Enabled="false"></asp:TextBox>
-                <asp:RangeValidator runat="server" ID="rngDob" ErrorMessage="RangeValidator" ControlToValidate="txtDob" Display="Dynamic"></asp:RangeValidator>
+                <small></small>
+                
+                
             </div><br />
             <div>
                 <small>Height</small><br />
-                <asp:TextBox ID="txtHeight" runat="server" CausesValidation="true" Enabled="false"></asp:TextBox><br />
-                <asp:RangeValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rngHeight" ControltoValidate="txtHeight" Display="Dynamic"> </asp:RangeValidator>
+                <asp:TextBox ID="txtHeight" runat="server" CausesValidation="true" Enabled="false"></asp:TextBox><asp:RangeValidator runat="server" ErrorMessage="RangeValidator" ID="rngHeight" ControlToValidate="txtHeight"></asp:RangeValidator><br />
+                
                 <small>Weight</small><br />
-                <asp:TextBox ID="txtWeight" runat="server" CausesValidation="true" Enabled="false"></asp:TextBox>
-                <asp:RangeValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rngWeight" ControltoValidate="txtWeight" Display="Dynamic"> </asp:RangeValidator>
+                <asp:TextBox ID="txtWeight" runat="server" CausesValidation="true" Enabled="false"></asp:TextBox><asp:RangeValidator runat="server" ErrorMessage="RangeValidator" ID="rngWeight" ControlToValidate="txtWeight"></asp:RangeValidator>
+                
             </div>
             <div>
                 <small>Street</small> <br />
                 <asp:TextBox ID="txtStreet" runat="server" CausesValidation="true" Enabled="false"></asp:TextBox>
-                <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxStreet" ControltoValidate="txtStreet" Display="Dynamic"> </asp:RegularExpressionValidator>
+                
             </div>
             <div>
             <small>City</small> <br />
             <asp:TextBox ID="txtCity" runat="server" CausesValidation="true" Enabled="false"></asp:TextBox>
-                <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxCity" ControltoValidate="txtCity" Display="Dynamic"> </asp:RegularExpressionValidator>
+                
             </div>
             <div>
                 <small>Zip Code</small> <br />
                 <asp:TextBox ID="txtZip" runat="server" Width="7em" CausesValidation="true" Enabled="false"></asp:TextBox>
-                <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxZip" ControltoValidate="txtZip" Display="Dynamic"> </asp:RegularExpressionValidator>
+                
             </div>
             <div>
                 <small>State</small> <br />
-                <asp:DropDownList ID="ddlState" runat="server" ReadOnly="True" Width="6em" disabled="false" CausesValidation="true"></asp:DropDownList>
-                <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxState" ControltoValidate="ddlState" Display="Dynamic"> </asp:RegularExpressionValidator>
+                <asp:DropDownList ID="ddlState" runat="server" Enabled="false" Width="6em" CausesValidation="true"></asp:DropDownList>
+                
             </div>
              <div>
                 <small>Phone 1</small> <br />
                 <asp:TextBox ID="txtPhone1" runat="server" CausesValidation="true" Enabled="false"></asp:TextBox><br />
-                 <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxPhone1" ControltoValidate="txtPhone1" Display="Dynamic"> </asp:RegularExpressionValidator>
+                 
                  <small>Phone 2</small> <br />
                  <asp:TextBox ID="txtPhone2" runat="server" CausesValidation="true" Enabled="false"></asp:TextBox>
-                 <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxPhone2" ControltoValidate="txtPhone2" Display="Dynamic"> </asp:RegularExpressionValidator>
+                 
             </div>
              <div>
                 <small>Email</small> <br />
                 <asp:TextBox ID="txtEmail" runat="server" CausesValidation="true" Enabled="false"></asp:TextBox>
-                 <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxEmail" ControltoValidate="txtEmail" Display="Dynamic"> </asp:RegularExpressionValidator>
+                 
              </div>
             <div>
                 <small>Insurance Name</small> <br />
                 <asp:DropDownList ID="ddlInsurance" runat="server" Enabled="true" CausesValidation="true"></asp:DropDownList>
-                <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxInsurance" ControltoValidate="ddlInsurance" Display="Dynamic"> </asp:RegularExpressionValidator>
+                
             </div>
             <div>
-                <small>Reason for Visit</small> <br />
-                <asp:TextBox ID="txtVisit" runat="server" TextMode="MultiLine" CausesValidation="true" Enabled="false"></asp:TextBox>
-                <asp:RegularExpressionValidator runat="server" ErrorMessage="RegularExpressionValidator" ID="rgxVisit" ControltoValidate="txtVisit" Display="Dynamic"> </asp:RegularExpressionValidator>
+                <small></small> <br />
+                
+                
             </div>
             <div>
                 <small>Start Date</small><br />
@@ -102,8 +102,8 @@
             </div>
 </div>
         <div style="padding-top: 1em">
-            <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="btn btn-primary" CommandName="btnAdd_Click" />&nbsp;&nbsp;
-            <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="btn btn-primary" CommandName="btnUpdate_Click"/>&nbsp;&nbsp;
+            <asp:Button ID="btnSave" runat="server" Text="Add" CssClass="btn btn-primary" OnClick="btnSave_Click" />&nbsp;&nbsp;
+            &nbsp;&nbsp;
             <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="btn btn-primary" OnClick="btnBack_Click" />&nbsp;&nbsp;
         </div>
 
