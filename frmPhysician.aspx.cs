@@ -89,8 +89,9 @@ namespace CNSA216_EBC_project
 
             txtFName.MaxLength = GeneralDataTier.GetColumnMaxLength("FirstName", dsColumns);                        
             txtLName.MaxLength = GeneralDataTier.GetColumnMaxLength("LastName", dsColumns);                        
-            txtMiddle.MaxLength = GeneralDataTier.GetColumnMaxLength("Middle", dsColumns);                        
-            txtPhone.MaxLength = GeneralDataTier.GetColumnMaxLength("Phone1", dsColumns);                        
+            txtMiddle.MaxLength = GeneralDataTier.GetColumnMaxLength("Middle", dsColumns);
+            //txtPhone.MaxLength = GeneralDataTier.GetColumnMaxLength("Phone1", dsColumns);                        
+            txtPhone.MaxLength = 12;
             txtEmail.MaxLength = GeneralDataTier.GetColumnMaxLength("Email", dsColumns);                        
             txtStreet.MaxLength = GeneralDataTier.GetColumnMaxLength("Street", dsColumns);                        
             txtCity.MaxLength = GeneralDataTier.GetColumnMaxLength("City", dsColumns);                        
